@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		"target": "es2017",
+		"lib": [ "es2017" ],
+		"outDir": "lib",
+		"sourceMap": true,
+		"inlineSources": true,
+		"moduleResolution": "node",
+		"strictNullChecks": true,
+		"noImplicitReturns": true,
+		"alwaysStrict": true,
+		"noImplicitAny": false
+	},
+	"include": [
+		"src/**/*.ts"
+	],
+	"files": [
+		"src/global.d.ts"
+	]
+}

@@ -1,0 +1,9 @@
+node_modules/*
+test/**/*.processed.*
+coverage/*
+bin/*
+npm-debug.log
+.idea
+.vscode
+.nyc*
+/extract
