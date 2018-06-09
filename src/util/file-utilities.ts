@@ -1,24 +1,24 @@
-const _ = require('lodash');
-const path = require('path');
-const fs = require('fs');
-const eu = global.SixCRM.routes.include('lib', 'error-utilities.js');
-const util = require('util');
+import * as lodash from 'lodash';
+import * as path from 'path';
+import * as fs from 'fs';
+import * as util from 'util';
+import eu from './error-utilities';
 
 module.exports = class FileUtilities {
 
-	static writeFile(path, contents) {
+	static writeFile(path: string, contents: any) {
 
 		fs.writeFileSync(path, contents)
 
 	}
 
-	static getFilenameFromPath(filepath) {
+	static getFilenameFromPath(filepath: string) {
 
 		return path.basename(filepath);
 
 	}
 
-	static async getDirectories(directory_path) {
+	static async getDirectories(directory_path: string) {
 
 		const readdir = util.promisify(fs.readdir);
 		const all = await readdir(directory_path);
@@ -31,7 +31,7 @@ module.exports = class FileUtilities {
 
 	}
 
-	static async getDirectoryFiles(directory_path) {
+	static async getDirectoryFiles(directory_path: string) {
 
 		const readdir = util.promisify(fs.readdir);
 		const all = await readdir(directory_path);
@@ -44,7 +44,7 @@ module.exports = class FileUtilities {
 
 	}
 
-	static getFileContents(filepath, encoding) {
+	static getFileContents(filepath: string, encoding: string): Promise<string> {
 
 		return new Promise((resolve) => {
 
@@ -66,29 +66,25 @@ module.exports = class FileUtilities {
 
 	}
 
-	static getFileContentsSync(filepath, encoding) {
-
-		if (_.isUndefined(encoding)) {
-			encoding = 'utf-8';
-		}
+	static getFileContentsSync(filepath: string, encoding: string = 'utf-8') {
 
 		return fs.readFileSync(filepath, encoding);
 
 	}
 
-	static getDirectoryFilesSync(directory_path) {
+	static getDirectoryFilesSync(directory_path: string) {
 
 		return fs.readdirSync(directory_path);
 
 	}
 
-	static getDirectoryList(directory_path) {
+	static getDirectoryList(directory_path: string) {
 
 		return fs.readdirSync(directory_path).filter(f => fs.statSync(directory_path + "/" + f).isDirectory());
 
 	}
 
-	static fileExists(filepath) {
+	static fileExists(filepath: string) {
 
 		return fs.existsSync(filepath);
 

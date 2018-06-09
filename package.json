@@ -19,12 +19,19 @@
   "license": "UNLICENSED",
   "homepage": "https://bitbucket.org/sixcrm/sixcrmcore#readme",
   "dependencies": {
+    "@adexchange/aeg-redshift": "0.0.84",
+    "@types/base-64": "^0.1.2",
+    "@types/uuid": "^3.4.3",
+    "base-64": "^0.1.0",
     "chalk": "^2.4.1",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
+    "moment-timezone": "^0.5.17",
+    "pg": "^7.4.3",
     "require-yaml": "0.0.1"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.0",
     "@types/node": "^8.10.0",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",

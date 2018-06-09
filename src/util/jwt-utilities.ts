@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
-const du = global.SixCRM.routes.include('lib', 'debug-utilities.js');
-const eu = global.SixCRM.routes.include('lib', 'error-utilities.js');
+import du from './debug-utilities';
+import eu from './error-utilities';
 const numberutilities = global.SixCRM.routes.include('lib', 'number-utilities.js');
 const timestamp = global.SixCRM.routes.include('lib', 'timestamp.js');
 

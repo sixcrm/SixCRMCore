@@ -1,24 +1,21 @@
-
-const _ = require('lodash');
-const du = global.SixCRM.routes.include('lib', 'debug-utilities.js');
+import * as lodash from 'lodash';
+import du from './debug-utilities';
 const numberutilities = global.SixCRM.routes.include('lib', 'number-utilities.js');
 const stringutilities = global.SixCRM.routes.include('lib', 'string-utilities.js');
 
-class CurrencyUtilities {
+export default class CurrencyUtilities {
 
-	static toCurrency(value, fatal){
+	static toCurrency(value: string | number, fatal: boolean = false){
 
 		du.debug('To Currency');
 
-		fatal = (_.isUndefined(fatal))?false:fatal;
-
 		if(numberutilities.isNumber(value, fatal)){
-			return value.toFixed(2);
+			return (value as number).toFixed(2);
 		}
 
 		if(stringutilities.isNumeric(value, fatal)){
 
-			let number = parseFloat(value);
+			let number = parseFloat(value as string);
 
 			return number.toFixed(2);
 		}
@@ -27,16 +24,12 @@ class CurrencyUtilities {
 
 	}
 
-	static toCurrencyString(value, fatal){
+	static toCurrencyString(value: string | number, fatal: boolean = false){
 
 		du.debug('To Currency String');
-
-		fatal = (_.isUndefined(fatal))?false:fatal;
 
 		return '$'+this.toCurrency(value, fatal);
 
 	}
 
 }
-
-module.exports = CurrencyUtilities;

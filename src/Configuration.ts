@@ -11,7 +11,7 @@ export default class Configuration {
 	site_config: any;
 	serverless_config: any;
 
-	constructor(routes, stage) {
+	constructor(routes: Routes, stage?: string) {
 
 		this.routes = routes;
 

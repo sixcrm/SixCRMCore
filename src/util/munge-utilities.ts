@@ -1,7 +1,7 @@
 
 let crypto = require('crypto');
 
-const du = global.SixCRM.routes.include('lib', 'debug-utilities.js');
+import du from './debug-utilities';
 const random = global.SixCRM.routes.include('lib', 'random.js');
 
 class MungeUtilities {

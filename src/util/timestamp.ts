@@ -1,8 +1,8 @@
 
-const _ = require('lodash');
+import * as lodash from 'lodash';
 const oneDayInSeconds = 86400;
 const moment = require('moment');
-const eu = global.SixCRM.routes.include('lib', 'error-utilities.js');
+import eu from './error-utilities';
 const numberutilities = global.SixCRM.routes.include('lib', 'number-utilities.js');
 
 //Technical Debt:  Need to consider that toISOString() returns a timestamp in UTC...

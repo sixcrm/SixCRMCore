@@ -1,7 +1,7 @@
 
 const _ =  require('lodash');
 
-const du = global.SixCRM.routes.include('lib', 'debug-utilities.js');
+import du from './debug-utilities';
 const objectutilities = global.SixCRM.routes.include('lib', 'object-utilities.js');
 const arrayutilities = global.SixCRM.routes.include('lib', 'array-utilities.js');
 //const stringutilities = global.SixCRM.routes.include('lib', 'string-utilities.js');

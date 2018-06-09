@@ -1,8 +1,8 @@
 
-const _ = require('lodash');
+import * as lodash from 'lodash';
 const xml2js = require('xml2js');
-const du = global.SixCRM.routes.include('lib', 'debug-utilities.js');
-const eu = global.SixCRM.routes.include('lib', 'error-utilities.js');
+import du from './debug-utilities';
+import eu from './error-utilities';
 
 module.exports = class XMLUtilities {
 

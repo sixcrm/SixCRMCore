@@ -1,8 +1,9 @@
-const pg = require('pg');
-const du = global.SixCRM.routes.include('lib', 'debug-utilities.js');
-const eu = global.SixCRM.routes.include('lib', 'error-utilities.js');
-const RedshiftConnection = require('@adexchange/aeg-redshift').RedshiftConnection;
-const moment = require('moment-timezone');
+import * as pg from 'pg';
+import du from '../debug-utilities';
+import eu from '../error-utilities';
+import { RedshiftConnection } from '@adexchange/aeg-redshift';
+import moment from 'moment-timezone';
+import { IRedshiftConnectionOptions } from '@adexchange/aeg-redshift/lib/redshift-connection';
 
 // timestamp
 pg.types.setTypeParser(1114, (stringValue) => {
@@ -18,9 +19,12 @@ pg.types.setTypeParser(1082, (stringValue) => {
 
 });
 
-class PostgresContext {
+export default class PostgresContext {
 
-	constructor(configRoot) {
+	_connection: RedshiftConnection | null;
+	_configRoot: string;
+
+	constructor(configRoot: string) {
 
 		this._connection = null;
 		this._configRoot = configRoot;
@@ -71,7 +75,7 @@ class PostgresContext {
 
 	}
 
-	withConnection(delegate) {
+	withConnection(delegate: (connection: RedshiftConnection) => Promise<any>) {
 
 		return this._resolveConfiguration()
 			.then((config) => {
@@ -108,7 +112,7 @@ class PostgresContext {
 
 	}
 
-	_resolveConfiguration() {
+	_resolveConfiguration(): Promise<IRedshiftConnectionOptions> {
 
 		return new Promise((resolve, reject) => {
 
@@ -145,5 +149,3 @@ class PostgresContext {
 	}
 
 }
-
-module.exports = PostgresContext;

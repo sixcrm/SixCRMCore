@@ -1,6 +1,6 @@
-const PostgresContext = require('./postgres-context');
+import PostgresContext from './postgres-context';
 
-class AuroraContext extends PostgresContext {
+export class AuroraContext extends PostgresContext {
 
 	constructor() {
 
@@ -10,4 +10,4 @@ class AuroraContext extends PostgresContext {
 
 }
 
-module.exports = new AuroraContext();
+export default new AuroraContext();

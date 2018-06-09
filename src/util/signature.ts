@@ -1,5 +1,5 @@
 
-const du = global.SixCRM.routes.include('lib', 'debug-utilities.js');
+import du from './debug-utilities';
 const hu = global.SixCRM.routes.include('lib', 'hash-utilities.js');
 
 class Signature {

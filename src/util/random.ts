@@ -1,7 +1,7 @@
 
 const rs = require('randomstring');
-const _ = require('lodash');
-const eu = global.SixCRM.routes.include('lib', 'error-utilities.js');
+import * as lodash from 'lodash';
+import eu from './error-utilities';
 
 class Random {
 

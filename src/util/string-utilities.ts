@@ -1,20 +1,14 @@
-const uuidV4 = require('uuid/v4');
-const _ = require('lodash');
-const eu = global.SixCRM.routes.include('lib', 'error-utilities.js');
+import * as uuidV4 from 'uuid/v4';
+import * as lodash from 'lodash';
+import eu from './error-utilities';
 
-module.exports = class StringUtilities {
+export default class StringUtilities {
 
-	static toNumeric(thing) {
-
-		return (1 * thing);
-
-	}
-
-	static clone(thing){
+	static clone(thing: string){
 
 		if(_.isString(thing)){
 
-			return thing.slice(0)
+			return thing.slice(0);
 
 		}
 
@@ -22,7 +16,7 @@ module.exports = class StringUtilities {
 
 	}
 
-	static extractJSON(message) {
+	static extractJSON(message: string) {
 
 		let json_start = message.indexOf('{');
 
@@ -40,7 +34,7 @@ module.exports = class StringUtilities {
 
 	}
 
-	static isValidJSON(string, fatal = false) {
+	static isValidJSON(string: string, fatal: boolean = false) {
 
 		let error = null;
 
@@ -64,9 +58,7 @@ module.exports = class StringUtilities {
 
 	}
 
-	static pluralize(thing, fatal) {
-
-		fatal = _.isUndefined(fatal) ? true : fatal;
+	static pluralize(thing: string, fatal: boolean = true) {
 
 		this.isString(thing, fatal)
 
@@ -80,7 +72,7 @@ module.exports = class StringUtilities {
 
 	}
 
-	static parseJSONString(thing, fatal = false) {
+	static parseJSONString(thing: string, fatal: boolean = false) {
 
 		let error = null;
 		let data = null;
@@ -109,7 +101,7 @@ module.exports = class StringUtilities {
 
 	}
 
-	static isNumeric(thing, fatal = false) {
+	static isNumeric(thing: any, fatal: boolean = false) {
 
 		if (this.isString(thing, fatal)) {
 
@@ -131,9 +123,7 @@ module.exports = class StringUtilities {
 
 	}
 
-	static nonEmpty(thing, fatal) {
-
-		fatal = (_.isUndefined(fatal)) ? false : fatal;
+	static nonEmpty(thing: string, fatal: boolean = false) {
 
 		if (this.isString(thing, fatal)) {
 
@@ -171,17 +161,13 @@ module.exports = class StringUtilities {
 
 	}
 
-	static isUUID(a_string, version) {
+	static isUUID(a_string: string, version: number = 4) {
 
 		if (this.isString(a_string)) {
 
-			if (_.isUndefined(version)) {
-				version = 4;
-			}
-
 			try {
 				return global.SixCRM.validate(a_string, global.SixCRM.routes.path('model', 'definitions/uuidv' + version), null, false)
-			} catch (e) {
+			} catch {
 				return false;
 			}
 		}
@@ -190,13 +176,13 @@ module.exports = class StringUtilities {
 
 	}
 
-	static isURL(a_string) {
+	static isURL(a_string: string) {
 
 		if (this.isString(a_string)) {
 
 			try {
 				return global.SixCRM.validate(a_string, global.SixCRM.routes.path('model', 'definitions/url.json'))
-			} catch (e) {
+			} catch {
 				return false;
 			}
 
@@ -206,13 +192,13 @@ module.exports = class StringUtilities {
 
 	}
 
-	static isPhone(a_string) {
+	static isPhone(a_string: string) {
 
 		if (this.isString(a_string)) {
 
 			try {
 				return global.SixCRM.validate(a_string, global.SixCRM.routes.path('model', 'definitions/phone.json'))
-			} catch (e) {
+			} catch {
 				return false;
 			}
 
@@ -222,13 +208,13 @@ module.exports = class StringUtilities {
 
 	}
 
-	static isEmail(a_string) {
+	static isEmail(a_string: string) {
 
 		if (this.isString(a_string)) {
 
 			try {
 				return global.SixCRM.validate(a_string, global.SixCRM.routes.path('model', 'definitions/email'), false)
-			} catch (e) {
+			} catch {
 				return false;
 			}
 
@@ -238,7 +224,7 @@ module.exports = class StringUtilities {
 
 	}
 
-	static uppercaseFirst(a_string) {
+	static uppercaseFirst(a_string: string) {
 
 		this.isString(a_string, true);
 
@@ -246,7 +232,7 @@ module.exports = class StringUtilities {
 
 	}
 
-	static isMatch(a_string, regex) {
+	static isMatch(a_string: string, regex: RegExp) {
 
 		this.isString(a_string, true);
 
@@ -254,7 +240,7 @@ module.exports = class StringUtilities {
 
 		let matches = a_string.match(regex);
 
-		if (_.isArray(matches) && matches.length > 0) {
+		if (matches && matches.length > 0) {
 			return true;
 		}
 
@@ -262,11 +248,7 @@ module.exports = class StringUtilities {
 
 	}
 
-	static isRegex(regex, fatal) {
-
-		if (_.isUndefined(fatal)) {
-			fatal = false;
-		}
+	static isRegex(regex: any, fatal: boolean = false) {
 
 		if (_.isRegExp(regex)) {
 			return true;
@@ -289,7 +271,7 @@ module.exports = class StringUtilities {
 
 	}
 
-	static escapeCharacter(content, character) {
+	static escapeCharacter(content: string, character: string) {
 
 		var re = new RegExp(character, "g");
 
@@ -297,19 +279,19 @@ module.exports = class StringUtilities {
 
 	}
 
-	static removeWhitespace(string) {
+	static removeWhitespace(string: string) {
 
 		return string.replace(/[\s\t\r\n]/g, '');
 
 	}
 
-	static removeNonAlphaNumeric(string) {
+	static removeNonAlphaNumeric(string: string) {
 
 		return string.replace(/[^0-9a-z]/gi, '');
 
 	}
 
-	static abbreviate(input, length) {
+	static abbreviate(input: string, length: number) {
 
 		if (input.trim().length <= length) {
 			return input;
@@ -319,13 +301,13 @@ module.exports = class StringUtilities {
 
 	}
 
-	static capitalize(input) {
+	static capitalize(input: string) {
 
 		return input.charAt(0).toUpperCase() + input.slice(1);
 
 	}
 
-	static toPascalCase(input) {
+	static toPascalCase(input: string) {
 
 		let result = this.capitalize(input);
 
@@ -341,9 +323,7 @@ module.exports = class StringUtilities {
 
 	}
 
-	static isString(thing, fatal) {
-
-		fatal = (_.isUndefined(fatal)) ? false : fatal;
+	static isString(thing: any, fatal: boolean = false) {
 
 		if (!_.isString(thing)) {
 
@@ -361,7 +341,7 @@ module.exports = class StringUtilities {
 
 	}
 
-	static matchAll(a_string, regex) {
+	static matchAll(a_string: string, regex: RegExp) {
 
 		this.isString(a_string, true);
 
@@ -381,7 +361,7 @@ module.exports = class StringUtilities {
 
 		let matches = a_string.match(regex);
 
-		if (_.isArray(matches) && matches.length > 0) {
+		if (matches && matches.length > 0) {
 			return matches;
 		}
 
@@ -389,15 +369,14 @@ module.exports = class StringUtilities {
 
 	}
 
-	static matchGroup(a_string, regex, group_no) {
+	static matchGroup(a_string: string, regex: RegExp, group_no: number = 0) {
 
 		this.isString(a_string, true);
 
 		this.isRegex(regex, true);
 
-		group_no || (group_no = 0);
-		let matches = [];
-		let match;
+		let matches: string[] = [];
+		let match: RegExpExecArray | null;
 
 		do {
 			match = regex.exec(a_string);
@@ -410,7 +389,7 @@ module.exports = class StringUtilities {
 
 	}
 
-	static replaceAll(string, target_string, replace_string) {
+	static replaceAll(string: string, target_string: string, replace_string: string) {
 
 		this.isString(string, true);
 

@@ -1,6 +1,6 @@
-const PostgresContext = require('./postgres-context');
+import PostgresContext from './postgres-context';
 
-class RedshiftContext extends PostgresContext {
+export class RedshiftContext extends PostgresContext {
 
 	constructor() {
 
@@ -10,4 +10,4 @@ class RedshiftContext extends PostgresContext {
 
 }
 
-module.exports = new RedshiftContext();
+export default new RedshiftContext();

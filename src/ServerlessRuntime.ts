@@ -1,18 +1,20 @@
-let _context;
+import LambdaContext from './lambda-context';
 
-module.exports = class ServerlessRuntime {
+export default class ServerlessRuntime {
 
+	static _context: LambdaContext | null;
+	
 	static getContext() {
-		return _context;
+		return this._context;
 	}
-	static setContext(context) {
-		_context = context;
+	static setContext(context: LambdaContext) {
+		this._context = context;
 	}
 	static async clearContext() {
-		if (_context) {
-			await _context.dispose();
+		if (this._context) {
+			await this._context.dispose();
 		}
-		_context = null;
+		this._context = null;
 	}
 
 }

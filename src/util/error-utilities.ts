@@ -126,7 +126,7 @@ export default class ErrorUtilities {
 
 	static getErrorType(type){
 
-		const errorType = this.error_types[type] || this.error_types['server'];
+		const errorType: typeof SixError = this.error_types[type] || this.error_types['server'];
 
 		return new errorType();
 

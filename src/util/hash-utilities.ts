@@ -1,8 +1,8 @@
 let crypto = require('crypto');
 let _ = require('lodash');
 
-const du = global.SixCRM.routes.include('lib', 'debug-utilities.js');
-const eu = global.SixCRM.routes.include('lib', 'error-utilities.js');
+import du from './debug-utilities';
+import eu from './error-utilities';
 const stringutilities = global.SixCRM.routes.include('lib', 'string-utilities.js');
 
 class HashUtilities {

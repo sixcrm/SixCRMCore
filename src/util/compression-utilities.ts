@@ -1,10 +1,10 @@
-const _ = require('lodash');
-const zlib = require('zlib');
-const du = global.SixCRM.routes.include('lib', 'debug-utilities.js');
+import * as _ from 'lodash';
+import * as zlib from 'zlib';
+import du from './debug-utilities';
 
-class CompressionUtilities {
+export default class CompressionUtilities {
 
-	static gunzip(compressed_data) {
+	static gunzip(compressed_data: Buffer): Promise<string> {
 
 		du.debug('G Unzip');
 
@@ -27,6 +27,3 @@ class CompressionUtilities {
 	}
 
 }
-
-
-module.exports = CompressionUtilities;

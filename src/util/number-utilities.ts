@@ -1,12 +1,9 @@
+import * as lodash from 'lodash';
+import eu from './error-utilities';
 
-const _ = require('lodash');
-const eu = global.SixCRM.routes.include('lib', 'error-utilities.js');
+export default class NumberUtilities {
 
-class NumberUtilities {
-
-	static isNumber(value, fatal){
-
-		fatal = (_.isUndefined(fatal))?false:fatal;
+	static isNumber(value: any, fatal: boolean = false){
 
 		if(_.isNumber(value)){
 			return true;
@@ -20,28 +17,21 @@ class NumberUtilities {
 
 	}
 
-	static isNatural(number, fatal){
-
-		if(_.isUndefined(fatal)){
-			fatal = false;
-		}
+	static isNatural(number: any, fatal: boolean = false){
 
 		if(this.isInteger(number) && number > 0){
 			return true;
 		}
 
-		if(fatal !== true){
-			return false;
-		}{
+		if(fatal){
 			throw eu.getError('server', 'Not a natural: '+number);
 		}
 
+		return false;
 
 	}
 
-	static isInteger(number, fatal){
-
-		fatal = (_.isUndefined(fatal))?false:fatal;
+	static isInteger(number: any, fatal: boolean = false){
 
 		if(this.isNumber(number, fatal) && (number % 1 === 0)){
 
@@ -57,51 +47,45 @@ class NumberUtilities {
 
 	}
 
-	static isFloat(number){
+	static isFloat(number: any){
 
 		return Number(number) === number && ! this.isInteger(number);
 
 	}
 
-	static formatFloat(number, precision){
-
-		precision = (_.isUndefined(precision) || _.isNull(precision))?2:precision;
+	static formatFloat(number: number, precision: number = 2){
 
 		if(!this.isNumber(number)){
-			return eu.getError('validation','Not an number: '+number);
+			throw eu.getError('validation','Not a number: '+number);
 		}
 
 		if(!this.isNumber(precision)){
-			return eu.getError('validation','Not an number: '+precision);
-		}
-
-		if(!this.isFloat(number)){
-			number = parseFloat(number);
+			throw eu.getError('validation','Not a number: '+precision);
 		}
 
 		if(!this.isInteger(precision)){
-			precision = parseInt(precision);
+			precision = Math.floor(precision);
 		}
 
 		return parseFloat(number.toFixed(precision));
 
 	}
 
-	static toNumber(thing){
+	static toNumber(thing: any){
 
 		if(this.isNumber(thing)){
-			return thing;
+			return thing as number;
 		}
 
 		return Number(thing);
 
 	}
 
-	static appendOrdinalSuffix(n){
+	static appendOrdinalSuffix(n: number){
 
 		this.isNatural(n, true);
 
-		function ordinalSuffixOf(n) {
+		function ordinalSuffixOf(n: number) {
 			var j = n % 10,
 				k = n % 100;
 
@@ -122,5 +106,3 @@ class NumberUtilities {
 	}
 
 }
-
-module.exports = NumberUtilities;

@@ -1,12 +1,12 @@
-const _ = require('lodash');
+import * as lodash from 'lodash';
 const chai = require('chai');
 const assert = require('chai').assert;
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 
 const timestamp = global.SixCRM.routes.include('lib', 'timestamp.js');
-const du = global.SixCRM.routes.include('lib', 'debug-utilities.js');
-const eu = global.SixCRM.routes.include('lib', 'error-utilities.js');
+import du from './debug-utilities';
+import eu from './error-utilities';
 
 chai.use(require('chai-json-schema'));
 

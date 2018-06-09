@@ -1,6 +1,6 @@
 
-const _ = require('lodash');
-const eu = global.SixCRM.routes.include('lib', 'error-utilities.js');
+import * as lodash from 'lodash';
+import eu from './error-utilities';
 const arrayutilities = global.SixCRM.routes.include('lib', 'array-utilities.js');
 const numberutilities = global.SixCRM.routes.include('lib', 'number-utilities.js');
 

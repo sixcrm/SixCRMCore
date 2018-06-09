@@ -1,10 +1,9 @@
-
-const base64utility = require('base-64');
-const du = global.SixCRM.routes.include('lib', 'debug-utilities.js');
+import * as base64utility from 'base-64';
+import du from './debug-utilities';
 
 module.exports = class EncodeUtilities {
 
-	static objectToBase64(object){
+	static objectToBase64(object: any){
 
 		du.debug('Object To Base 64');
 
@@ -12,7 +11,7 @@ module.exports = class EncodeUtilities {
 
 	}
 
-	static base64ToObject(string){
+	static base64ToObject(string: string){
 
 		du.debug('Base64 To Object');
 
@@ -20,7 +19,7 @@ module.exports = class EncodeUtilities {
 
 	}
 
-	static toBase64(string){
+	static toBase64(string: string){
 
 		du.debug('To Base64');
 
@@ -28,7 +27,7 @@ module.exports = class EncodeUtilities {
 
 	}
 
-	static fromBase64(string){
+	static fromBase64(string: string){
 
 		du.debug('From Base64');
 
