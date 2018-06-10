@@ -1,11 +1,11 @@
-let crypto = require('crypto');
-let _ = require('lodash');
+import * as crypto from 'crypto';
+import * as _ from 'lodash';
 
 import du from './debug-utilities';
 import eu from './error-utilities';
-const stringutilities = global.SixCRM.routes.include('lib', 'string-utilities.js');
+import stringutilities from './string-utilities';
 
-class HashUtilities {
+export default class HashUtilities {
 
 	static toHMAC(key, str, encoding) {
 
@@ -57,5 +57,3 @@ class HashUtilities {
 	}
 
 }
-
-module.exports = HashUtilities;

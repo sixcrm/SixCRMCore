@@ -1,7 +1,7 @@
 import * as lodash from 'lodash';
 import du from './debug-utilities';
 const numberutilities = global.SixCRM.routes.include('lib', 'number-utilities.js');
-const stringutilities = global.SixCRM.routes.include('lib', 'string-utilities.js');
+import stringutilities from './string-utilities';
 
 export default class CurrencyUtilities {
 

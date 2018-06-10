@@ -1,14 +1,13 @@
-
 import * as lodash from 'lodash';
-const xml2js = require('xml2js');
+import xml2js from 'xml2js';
 import du from './debug-utilities';
 import eu from './error-utilities';
 
-module.exports = class XMLUtilities {
+export default class XMLUtilities {
 
 	static parse(xml_string, fatal){
 
-		let error = null;
+		let error: any = null;
 		let json = null;
 
 		fatal = (_.isUndefined(fatal))?false:fatal;

@@ -1,12 +1,9 @@
-
-const _ =  require('lodash');
-
+import * as _ from 'lodash';
 import du from './debug-utilities';
-const objectutilities = global.SixCRM.routes.include('lib', 'object-utilities.js');
-const arrayutilities = global.SixCRM.routes.include('lib', 'array-utilities.js');
-//const stringutilities = global.SixCRM.routes.include('lib', 'string-utilities.js');
+import objectutilities from './object-utilities';
+import arrayutilities from './array-utilities';
 
-module.exports = class ParserUtilities {
+export default class ParserUtilities {
 
 	static parse(content, data, parse_explicit){
 
@@ -50,10 +47,10 @@ module.exports = class ParserUtilities {
 
 		let regex = /\{\{([^{}]*)\}\}/g;
 
-		let tokens = [];
+		let tokens: string[] = [];
 
 		//Technical Debt:  Use stringutilities.matchAll()
-		let m = null;
+		let m: RegExpExecArray | null = null;
 
 		// eslint-disable-next-line no-cond-assign
 		while(m = regex.exec(content)) {

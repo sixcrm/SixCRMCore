@@ -24,6 +24,7 @@
     "@types/uuid": "^3.4.3",
     "base-64": "^0.1.0",
     "chalk": "^2.4.1",
+    "jsonwebtoken": "^8.2.2",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.17",

@@ -2,8 +2,8 @@
 const _ =  require('lodash');
 
 import du from './debug-utilities';
-const stringutilities = global.SixCRM.routes.include('lib', 'string-utilities.js');
-const arrayutilities = global.SixCRM.routes.include('lib', 'array-utilities.js');
+import stringutilities from './string-utilities';
+import arrayutilities from './array-utilities';
 
 const references_regex = /"\$ref":\s*"([0-9a-zA-Z./\-_]+?)"/g;
 

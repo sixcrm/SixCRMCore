@@ -1,10 +1,9 @@
-
 import * as lodash from 'lodash';
 import eu from './error-utilities';
-const arrayutilities = global.SixCRM.routes.include('lib', 'array-utilities.js');
-const numberutilities = global.SixCRM.routes.include('lib', 'number-utilities.js');
+import arrayutilities from './array-utilities';
+import numberutilities from './number-utilities';
 
-class MathUtilities {
+export default class MathUtilities {
 
 	static signIdempotentModulus(n, m, fatal){
 
@@ -35,7 +34,7 @@ class MathUtilities {
 
 		//Technical Debt:  Account for divide by 0
 
-		return this.formatToPercentage((parseFloat(numerator/denominator) * 100), precision);
+		return this.formatToPercentage((numerator/denominator * 100), precision);
 
 	}
 
@@ -49,7 +48,7 @@ class MathUtilities {
 
 	}
 
-	static sum(a_array, base){
+	static sum(a_array: number[], base: number = NaN){
 
 		base = (_.isUndefined(base))?NaN:base;
 		if(!_.isArray(a_array)){
@@ -115,5 +114,3 @@ class MathUtilities {
 	}
 
 }
-
-module.exports = MathUtilities;

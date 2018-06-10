@@ -1,8 +1,8 @@
-const jwt = require('jsonwebtoken');
+import * as jwt from 'jsonwebtoken';
 import du from './debug-utilities';
 import eu from './error-utilities';
-const numberutilities = global.SixCRM.routes.include('lib', 'number-utilities.js');
-const timestamp = global.SixCRM.routes.include('lib', 'timestamp.js');
+import numberutilities from './number-utilities';
+import timestamp from './timestamp.js';
 
 module.exports = class JWTUtilities {
 

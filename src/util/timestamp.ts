@@ -1,17 +1,17 @@
-
 import * as lodash from 'lodash';
-const oneDayInSeconds = 86400;
-const moment = require('moment');
+import * as moment from 'moment';
 import eu from './error-utilities';
-const numberutilities = global.SixCRM.routes.include('lib', 'number-utilities.js');
+import numberutilities from './number-utilities';
+
+const oneDayInSeconds = 86400;
 
 //Technical Debt:  Need to consider that toISOString() returns a timestamp in UTC...
 //Technical Debt:  This could use a refactor.  Test cases too...
-module.exports = class Timestamp {
+export default class Timestamp {
 
-	static daysDifference(timestamp_1, timestamp_2 = null){
+	static daysDifference(timestamp_1: moment.Moment, timestamp_2: moment.Moment | null = null){
 
-		if(_.isNull(timestamp_2)){
+		if(timestamp_2 === null){
 			timestamp_2 = moment.utc().startOf('day');
 		}else{
 			timestamp_2 = moment.utc(timestamp_2).startOf('day');
@@ -68,32 +68,21 @@ module.exports = class Timestamp {
 
 	}
 
-	static subtractDays(days, now = null){
-
-		if(_.isNull(now)){
-			now = moment.utc();
-		}
+	static subtractDays(days, now = moment.utc()){
 
 		return now.subtract(days, 'd').toISOString();
 
 	}
 
-	static addDays(days, now = null){
-
-		if(_.isNull(now)){
-			now = moment.utc();
-		}else{
-			now = moment.utc(now);
-		}
-
+	static addDays(days, now = moment.utc()){
 
 		return now.add(days, 'd').toISOString();
 
 	}
 
-	static getDayNumber(timestamp = null){
+	static getDayNumber(timestamp: moment.Moment | null = null){
 
-		if(_.isNull(timestamp)){
+		if(timestamp === null){
 			return moment.utc().format('DD');
 		}
 
@@ -101,9 +90,9 @@ module.exports = class Timestamp {
 
 	}
 
-	static daysInMonth(timestamp = null){
+	static daysInMonth(timestamp: moment.Moment | null = null){
 
-		if(_.isNull(timestamp)){
+		if(timestamp === null){
 			return moment.utc().daysInMonth();
 		}
 		return moment.utc(timestamp).daysInMonth();
@@ -122,9 +111,9 @@ module.exports = class Timestamp {
 
 	}
 
-	static nextMonth(day = null){
+	static nextMonth(day: number | null = null){
 
-		if(_.isNull(day)){
+		if(day === null){
 			return moment.utc().add(1, 'month').startOf('month').toISOString();
 		}
 
@@ -132,9 +121,9 @@ module.exports = class Timestamp {
 
 	}
 
-	static thisMonth(day = null){
+	static thisMonth(day: number | null = null){
 
-		if(_.isNull(day)){
+		if(day === null){
 			return moment.utc().startOf('month').toISOString();
 		}
 

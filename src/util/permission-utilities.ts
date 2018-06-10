@@ -1,12 +1,12 @@
 import * as lodash from 'lodash';
 import du from './debug-utilities';
 import eu from './error-utilities';
-const arrayutilities = global.SixCRM.routes.include('lib', 'array-utilities.js');
-const objectutilities = global.SixCRM.routes.include('lib', 'object-utilities.js');
-const stringutilities = global.SixCRM.routes.include('lib', 'string-utilities.js');
+import arrayutilities from './array-utilities';
+import objectutilities from './object-utilities';
+import stringutilities from './string-utilities';
 
 //Technical Debt:  This needs to be a helper, it contains general business logic
-module.exports = class PermissionUtilities {
+export default class PermissionUtilities {
 
 	static validatePermissions(action, entity, identifier) {
 

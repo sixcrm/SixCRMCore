@@ -1,8 +1,8 @@
-import * as lodash from 'lodash';
-const chai = require('chai');
-const assert = require('chai').assert;
-const fs = require('fs');
-const jwt = require('jsonwebtoken');
+import * as _ from 'lodash';
+import chai from 'chai';
+const assert = chai.assert;
+import * as fs from 'fs';
+import jwt from 'jsonwebtoken';
 
 const timestamp = global.SixCRM.routes.include('lib', 'timestamp.js');
 import du from './debug-utilities';
@@ -10,7 +10,10 @@ import eu from './error-utilities';
 
 chai.use(require('chai-json-schema'));
 
-class TestUtilities {
+export class TestUtilities {
+
+	skip: string[];
+	testable: string[];
 
 	constructor() {
 		this.skip = ['pagination'];
@@ -126,20 +129,11 @@ class TestUtilities {
 		}
 		];
 
-		let return_object = null;
-
-		role_configs.forEach((role_config) => {
-
-			if (role_config.name == role) {
-				return_object = role_config;
-				return true;
-			}
-
-		});
-
+		let return_object = _.find(role_configs, (role_config) => role_config.name === role);
 		if (return_object == null) {
 			throw eu.getError('not_found', 'Undefined Role.');
 		}
+
 		return return_object;
 
 	}
@@ -155,7 +149,7 @@ class TestUtilities {
 
 		du.debug('Get Role Allow Rules');
 
-		let result_rules = [];
+		let result_rules: string[] = [];
 
 		role.permissions.allow.forEach((allow_statement) => {
 
@@ -514,6 +508,5 @@ class TestUtilities {
 
 }
 
-var tu = new TestUtilities();
-
-module.exports = tu;
+const tu = new TestUtilities();
+export default tu;
