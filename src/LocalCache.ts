@@ -1,13 +1,16 @@
-let _ = require('lodash');
-let du = require('../lib/debug-utilities');
-let eu = require('../lib/error-utilities');
+import * as _ from 'lodash';
+import du from './util/debug-utilities';
+import eu from './util/error-utilities';
 
 //Technical Debt:  This is largely unused...
-module.exports = class LocalCache {
+export default class LocalCache {
+
+	cache: Map<string, any>
 
 	constructor() {
 
 		this.clear('all');
+		this.cache = new Map();
 
 	}
 
@@ -104,7 +107,7 @@ module.exports = class LocalCache {
 		}
 
 		if (key == 'all') {
-			this.cache = {};
+			this.cache = new Map();
 		} else {
 			delete this.cache[key];
 		}

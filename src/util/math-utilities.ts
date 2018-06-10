@@ -1,4 +1,4 @@
-import * as lodash from 'lodash';
+import * as _ from 'lodash';
 import eu from './error-utilities';
 import arrayutilities from './array-utilities';
 import numberutilities from './number-utilities';

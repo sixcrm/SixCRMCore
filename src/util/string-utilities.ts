@@ -1,5 +1,5 @@
 import * as uuidV4 from 'uuid/v4';
-import * as lodash from 'lodash';
+import * as _ from 'lodash';
 import eu from './error-utilities';
 
 export default class StringUtilities {

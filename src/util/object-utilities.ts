@@ -398,7 +398,7 @@ export default class ObjectUtilities {
 
 		this.isObject(object, true);
 
-		if(!_.isUndefined(object, 'constructor') && _.has(object.constructor, 'name')){
+		if(!_.has(object, 'constructor') && _.has(object.constructor, 'name')){
 
 			let parent = Object.getPrototypeOf(object.constructor);
 

@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import Chalk from 'chalk';
 import * as moment from 'moment';
+import * as util from 'util';
 
 enum LogLevel {
 	debug,

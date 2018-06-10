@@ -1,6 +1,6 @@
 
 const rs = require('randomstring');
-import * as lodash from 'lodash';
+import * as _ from 'lodash';
 import eu from './error-utilities';
 
 class Random {
@@ -71,8 +71,6 @@ class Random {
 		if(!_.isNumber(probability)){
 			throw eu.getError('validation','Probability is not a number.');
 		}
-
-		probability = parseFloat(probability);
 
 		if(probability < 0 || probability > 1){
 			throw eu.getError('validation','Probability must be greater than or equal to 0 and less than or equal to 1');

@@ -3,7 +3,7 @@ import du from './util/debug-utilities';
 import Routes from './routes';
 import Configuration from './Configuration';
 import LocalCache from './LocalCache';
-import * as ajv from './controllers/providers/ajv-provider';
+import ajv from './ajv-provider';
 import arrayutilities from './util/array-utilities';
 import eu from './util/error-utilities';
 
@@ -13,7 +13,7 @@ class SixCRM {
 	_resources: Map<string, any>;
 	configuration: Configuration;
 	localcache: LocalCache;
-	validator: ajv;
+	validator: typeof ajv;
 
 	constructor() {
 
@@ -48,7 +48,7 @@ class SixCRM {
 		du.debug(`Model is ${valid ? 'valid' : 'not valid'}.`);
 
 		if (fatal && !valid) {
-			const errors = this.validator.errors;
+			const errors = this.validator.errors || [];
 			const error_messages = arrayutilities.map(errors, error => `[${schema.title}] instance${error.dataPath} ${error.message}`);
 			const error_message = arrayutilities.compress(error_messages, ', ', '');
 

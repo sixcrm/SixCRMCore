@@ -1,4 +1,4 @@
-import * as lodash from 'lodash';
+import * as _ from 'lodash';
 import xml2js from 'xml2js';
 import du from './debug-utilities';
 import eu from './error-utilities';

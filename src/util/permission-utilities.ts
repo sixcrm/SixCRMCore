@@ -1,4 +1,4 @@
-import * as lodash from 'lodash';
+import * as _ from 'lodash';
 import du from './debug-utilities';
 import eu from './error-utilities';
 import arrayutilities from './array-utilities';
@@ -172,21 +172,12 @@ export default class PermissionUtilities {
 
 		du.debug('Is Permission Match');
 
-		if (this.hasWildcardAccess(submitted_permission)) {
-			return true;
-		}
-
-		if (this.hasSpecificPermission(required_permission, submitted_permission)) {
-			return true;
-		}
-
-		if (this.hasCanonicalPermission(required_permission, submitted_permission)) {
-			return true;
-		}
-
-		if (this.hasPermissionSuperset(required_permission, submitted_permission)) {
-			return true;
-		}
+		return (
+			this.hasWildcardAccess(submitted_permission) ||
+			this.hasSpecificPermission(required_permission, submitted_permission) ||
+			this.hasCanonicalPermission(required_permission, submitted_permission) ||
+			this.hasPermissionSuperset(required_permission, submitted_permission)
+		);
 
 	}
 

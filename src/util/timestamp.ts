@@ -1,4 +1,4 @@
-import * as lodash from 'lodash';
+import * as _ from 'lodash';
 import * as moment from 'moment';
 import eu from './error-utilities';
 import numberutilities from './number-utilities';

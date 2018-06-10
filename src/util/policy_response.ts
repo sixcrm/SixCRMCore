@@ -1,18 +1,17 @@
-
-class PolicyResponse {
+export default class PolicyResponse {
 
 	static generatePolicy(principalId, effect, resource, user) {
 
-		let authResponse = {};
+		let authResponse: any = {};
 
 		authResponse.principalId = principalId;
 
 		if (effect && resource) {
-			let policyDocument = {};
+			let policyDocument: any = {};
 
 			policyDocument.Version = '2012-10-17'; // default version
 			policyDocument.Statement = [];
-			let statementOne = {};
+			let statementOne: any = {};
 
 			statementOne.Action = 'execute-api:Invoke'; // default action
 			statementOne.Effect = effect;
@@ -31,5 +30,3 @@ class PolicyResponse {
 	}
 
 }
-
-module.exports = PolicyResponse;

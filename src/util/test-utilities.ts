@@ -156,7 +156,7 @@ export class TestUtilities {
 			//has permissions for all actions across entires site
 			if (allow_statement == '*') {
 				result_rules.push('*');
-				return true;
+				return;
 			}
 
 			//check individual permissions

@@ -1,4 +1,4 @@
-import * as lodash from 'lodash';
+import * as _ from 'lodash';
 import eu from './error-utilities';
 
 export default class NumberUtilities {
