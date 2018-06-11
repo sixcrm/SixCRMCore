@@ -1,4 +1,3 @@
-
 import * as _ from 'lodash';
 const serverless = require('serverless');
 import du from './debug-utilities';
@@ -8,7 +7,7 @@ du.info(serverless);
 
 
 //Technical Debt: Finish this.
-class ServerlessUtilities {
+export default class ServerlessUtilities {
 
 	static loadConfig(stage, handler){
 
@@ -33,5 +32,3 @@ class ServerlessUtilities {
 	}
 
 }
-
-module.exports = ServerlessUtilities;

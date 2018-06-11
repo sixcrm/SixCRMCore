@@ -4,7 +4,7 @@ import eu from './error-utilities';
 import numberutilities from './number-utilities';
 import timestamp from './timestamp.js';
 
-module.exports = class JWTUtilities {
+export default class JWTUtilities {
 
 	static createSiteJWT(user) {
 

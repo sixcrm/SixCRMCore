@@ -4,7 +4,7 @@ const assert = chai.assert;
 import * as fs from 'fs';
 import jwt from 'jsonwebtoken';
 
-const timestamp = global.SixCRM.routes.include('lib', 'timestamp.js');
+import timestamp from './timestamp';
 import du from './debug-utilities';
 import eu from './error-utilities';
 

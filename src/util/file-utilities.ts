@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import * as util from 'util';
 import eu from './error-utilities';
 
-module.exports = class FileUtilities {
+export default class FileUtilities {
 
 	static writeFile(path: string, contents: any) {
 

@@ -30,6 +30,7 @@
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.17",
     "pg": "^7.4.3",
+    "randomstring": "^1.1.5",
     "require-yaml": "0.0.1"
   },
   "devDependencies": {

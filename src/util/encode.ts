@@ -1,7 +1,7 @@
 import * as base64utility from 'base-64';
 import du from './debug-utilities';
 
-module.exports = class EncodeUtilities {
+export default class EncodeUtilities {
 
 	static objectToBase64(object: any){
 

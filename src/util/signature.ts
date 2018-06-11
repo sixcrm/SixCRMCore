@@ -1,8 +1,7 @@
-
 import du from './debug-utilities';
-const hu = global.SixCRM.routes.include('lib', 'hash-utilities.js');
+import hu from './hash-utilities';
 
-class Signature {
+export default class Signature {
 
 	static createSignature(secret, signing_string){
 
@@ -29,5 +28,3 @@ class Signature {
 	}
 
 }
-
-module.exports = Signature;

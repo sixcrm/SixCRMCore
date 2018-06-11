@@ -1,5 +1,4 @@
-
-const _ =  require('lodash');
+import * as _ from 'lodash';
 
 import du from './debug-utilities';
 import stringutilities from './string-utilities';
@@ -7,7 +6,7 @@ import arrayutilities from './array-utilities';
 
 const references_regex = /"\$ref":\s*"([0-9a-zA-Z./\-_]+?)"/g;
 
-module.exports = class ModelBuilderUtilities {
+export default class ModelBuilderUtilities {
 
 	static build(path_to_model, depth){
 

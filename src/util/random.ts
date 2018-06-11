@@ -1,14 +1,10 @@
-
-const rs = require('randomstring');
+import rs from 'randomstring';
 import * as _ from 'lodash';
 import eu from './error-utilities';
 
-class Random {
+export default class Random {
 
-	static createRandomString(length, charset, capitalization){
-
-		charset = (_.isUndefined(charset) || _.isNull(charset))?'alphanumeric':charset;
-		capitalization = (_.isUndefined(capitalization))?'uppercase':capitalization;
+	static createRandomString(length: number, charset: string = 'alphanumeric', capitalization: string = 'uppercase'){
 
 		return rs.generate({
 			readable: true,
@@ -109,5 +105,3 @@ class Random {
 	}
 
 }
-
-module.exports = Random;
