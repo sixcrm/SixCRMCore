@@ -2,6 +2,14 @@
     "extends": "tslint:recommended",
     "rules": {
 		"indent": [true, "tabs"],
-		"quotemark": false
+		"quotemark": false,
+		"ordered-imports": false,
+		"member-access": false,
+		"variable-name": false,
+		"max-line-length": false,
+		"prefer-const": false,
+		"object-literal-sort-keys": false,
+		"object-literal-shorthand": false,
+		"trailing-comma": false
 	}
 }

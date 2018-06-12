@@ -85,11 +85,11 @@ export default class Configuration {
 
 			let identified_stage: string | null = null;
 
-			objectutilities.map(stages, key => {
+			objectutilities.map(stages, (key) => {
 				let stage = stages[key];
 
-				if (stage.branch_name == branch_name) {
-					identified_stage = key
+				if (stage.branch_name === branch_name) {
+					identified_stage = key;
 				}
 			});
 
