@@ -1,0 +1,27 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/sixcrmcore
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - checkout
+      - restore_cache:
+          key: node_modules-{{ checksum "package-lock.json" }}
+      - run:
+          name: npm install
+          command: echo //registry.npmjs.org/:_authToken=$NPM_TOKEN >> ~/.npmrc && npm install
+      - save_cache:
+          key: node_modules-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+
+      # - run:
+      #     name: lint
+      #     command: npm run lint
+      - run:
+          name: compile
+          command: npm run compile
+      - run:
+          name: test
+          command: npm run test
