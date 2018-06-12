@@ -6,9 +6,9 @@ import eu from './error-utilities';
 
 export default class FileUtilities {
 
-	static writeFile(path: string, contents: any) {
+	static writeFile(filepath: string, contents: any) {
 
-		fs.writeFileSync(path, contents);
+		fs.writeFileSync(filepath, contents);
 
 	}
 

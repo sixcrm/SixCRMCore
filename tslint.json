@@ -9,6 +9,11 @@
 		"max-line-length": false,
 		"object-literal-sort-keys": false,
 		"trailing-comma": false,
-		"one-line": [true, "check-open-brace", "check-whitespace"]
+		"one-line": [true, "check-open-brace", "check-whitespace"],
+		"max-classes-per-file": false,
+		"forin": false,
+		"one-variable-per-declaration": false,
+		"no-boolean-literal-compare": true,
+		"no-conditional-assignment": false
 	}
 }

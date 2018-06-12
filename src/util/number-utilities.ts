@@ -85,17 +85,18 @@ export default class NumberUtilities {
 
 		this.isNatural(n, true);
 
-		function ordinalSuffixOf(n: number) {
-			let j = n % 10,
-				k = n % 100;
+		function ordinalSuffixOf(no: number) {
+			const
+				j = no % 10,
+				k = no % 100;
 
-			if (j == 1 && k != 11) {
+			if (j === 1 && k !== 11) {
 				return "st";
 			}
-			if (j == 2 && k != 12) {
+			if (j === 2 && k !== 12) {
 				return "nd";
 			}
-			if (j == 3 && k != 13) {
+			if (j === 3 && k !== 13) {
 				return "rd";
 			}
 			return "th";

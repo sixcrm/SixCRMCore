@@ -89,7 +89,7 @@ export default class StringUtilities {
 
 		if (!_.isNull(error)) {
 
-			if (fatal == true) {
+			if (fatal) {
 				throw eu.getError('server', 'Thing is not a parsable JSON string');
 			}
 
@@ -327,7 +327,7 @@ export default class StringUtilities {
 
 		if (!_.isString(thing)) {
 
-			if (fatal == true) {
+			if (fatal) {
 
 				throw eu.getError('server', 'StringUtilities.isString thing argument is not an string.');
 

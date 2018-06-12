@@ -102,7 +102,7 @@ export default class ParserUtilities {
 					if (_.isObject(data_subset)) {
 
 						data_subset = objectutilities.recurse(data_subset, (key) => {
-							return (key == subtoken);
+							return (key === subtoken);
 						});
 
 					}

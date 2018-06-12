@@ -88,7 +88,7 @@ export default class ArrayUtilities {
 
 		}
 
-		if (fatal == true) {
+		if (fatal) {
 
 			throw eu.getError('server', 'Array is empty.');
 

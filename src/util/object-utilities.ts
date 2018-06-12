@@ -54,7 +54,7 @@ export default class ObjectUtilities {
 
 		const path = path_array.shift();
 
-		if (path_array.length == 0) {
+		if (path_array.length === 0) {
 			delete object[path];
 			return object;
 		}
@@ -85,7 +85,7 @@ export default class ObjectUtilities {
 		const properties = this.getProperties(object);
 
 		return arrayutilities.filter(properties, (property) => {
-			return typeof object[property] == 'function';
+			return typeof object[property] === 'function';
 		});
 
 	}
@@ -519,7 +519,7 @@ export default class ObjectUtilities {
 
 		}
 
-		if (fatal == true) {
+		if (fatal) {
 
 			throw eu.getError('server', 'Thing is not an object.');
 

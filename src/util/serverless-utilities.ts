@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-const serverless = require('serverless');
+import serverless from 'serverless';
 import du from './debug-utilities';
 import eu from './error-utilities';
 

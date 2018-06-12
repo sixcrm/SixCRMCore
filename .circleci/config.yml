@@ -16,9 +16,9 @@ jobs:
           paths:
             - node_modules
 
-      # - run:
-      #     name: lint
-      #     command: npm run lint
+      - run:
+          name: lint
+          command: npm run lint
       - run:
           name: compile
           command: npm run compile

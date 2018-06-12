@@ -12,7 +12,7 @@ export default class MathUtilities {
 		numberutilities.isInteger(n, fatal);
 		numberutilities.isInteger(m, fatal);
 
-		if (m == 0) {
+		if (m === 0) {
 			if (fatal) {
 				throw eu.getError('server', 'You cannot perform modulus counting when the base is 0');
 			}
@@ -30,7 +30,7 @@ export default class MathUtilities {
 		numerator = parseFloat(numerator);
 		denominator = parseFloat(denominator);
 
-		if (denominator == 0) { return (0.0).toFixed(precision); }
+		if (denominator === 0) { return (0.0).toFixed(precision); }
 
 		// Technical Debt:  Account for divide by 0
 
@@ -63,8 +63,8 @@ export default class MathUtilities {
 			return base;
 		}
 
-		if (a_array.length == 1) {
-			a_array[0];
+		if (a_array.length === 1) {
+			return a_array[0];
 		}
 
 		return arrayutilities.reduce(a_array, (a, b) => a + b, 0);
@@ -91,7 +91,7 @@ export default class MathUtilities {
 			throw eu.getError('server', 'Unexpected argumentation to mathutilities.calculateLSS');
 		}
 
-		if (array_1.length != array_2.length) {
+		if (array_1.length !== array_2.length) {
 			throw eu.getError('server', 'Array arguments to mathutilities.calculateLSS must be of equivalent length');
 		}
 

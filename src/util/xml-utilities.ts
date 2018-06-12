@@ -14,7 +14,7 @@ export default class XMLUtilities {
 
 		try {
 
-			xml2js.parseString(xml_string, function(innerError, innerJson) {
+			xml2js.parseString(xml_string, (innerError, innerJson) => {
 
 				if (!_.isUndefined(innerError)) {
 					error = innerError;

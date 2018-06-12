@@ -8,7 +8,8 @@ import timestamp from './timestamp';
 import du from './debug-utilities';
 import eu from './error-utilities';
 
-chai.use(require('chai-json-schema'));
+import chaijson from 'chai-json-schema';
+chai.use(chaijson);
 
 export class TestUtilities {
 
@@ -154,7 +155,7 @@ export class TestUtilities {
 		role.permissions.allow.forEach((allow_statement) => {
 
 			// has permissions for all actions across entires site
-			if (allow_statement == '*') {
+			if (allow_statement === '*') {
 				result_rules.push('*');
 				return;
 			}
@@ -168,7 +169,7 @@ export class TestUtilities {
 
 		});
 
-		if (key_name == 'roles' && !_.includes(result_rules, 'read')) {
+		if (key_name === 'roles' && !_.includes(result_rules, 'read')) {
 			result_rules.push('read');
 		}
 
@@ -183,7 +184,7 @@ export class TestUtilities {
 		const g_key_name = this.makeGeneralizedResultName(key_name);
 		const g_role_name = this.makeGeneralizedResultName(role_entity_name);
 
-		return (g_key_name == g_role_name);
+		return (g_key_name === g_role_name);
 	}
 
 	validateRoleResultsRecursive(obj, role) {

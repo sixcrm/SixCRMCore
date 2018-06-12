@@ -140,7 +140,7 @@ export default class ErrorUtilities {
 
 			const graph_name = this.removeNonAlphaNumeric(name).toLowerCase();
 
-			if (function_name == graph_name) {
+			if (function_name === graph_name) {
 
 				return new this.error_types[key]();
 

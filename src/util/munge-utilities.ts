@@ -1,4 +1,4 @@
-const crypto = require('crypto');
+import * as crypto from 'crypto';
 
 import du from './debug-utilities';
 import random from './random';

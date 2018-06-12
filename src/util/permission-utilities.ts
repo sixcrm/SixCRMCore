@@ -68,7 +68,7 @@ export default class PermissionUtilities {
 
 					// du.info('account_parity: '+global.account+' == '+acl_object.account.id);
 
-					if (acl_object.account.id == '*' || acl_object.account.id == global.account) {
+					if (acl_object.account.id === '*' || acl_object.account.id === global.account) {
 
 						if (objectutilities.hasRecursive(acl_object, 'role.permissions.allow') && arrayutilities.isArray(acl_object.role.permissions.allow)) {
 
@@ -235,7 +235,7 @@ export default class PermissionUtilities {
 		const canonical_required_permission_string = this.buildCanonicalPermissionString(required_permission);
 		const canonical_submitted_permission_string = this.buildCanonicalPermissionString(submitted_permission);
 
-		return (canonical_required_permission_string == canonical_submitted_permission_string);
+		return (canonical_required_permission_string === canonical_submitted_permission_string);
 
 	}
 
@@ -264,7 +264,7 @@ export default class PermissionUtilities {
 
 		stringutilities.isString(permission_string, true);
 
-		return (permission_string == '*');
+		return (permission_string === '*');
 
 	}
 
@@ -276,7 +276,7 @@ export default class PermissionUtilities {
 
 		stringutilities.isString(required_permission_string, true);
 
-		return (permission_string == required_permission_string);
+		return (permission_string === required_permission_string);
 
 	}
 
@@ -384,7 +384,7 @@ export default class PermissionUtilities {
 
 		du.debug('Action Checks Disabled');
 
-		return (_.has(global, 'disableactionchecks') && global.disableactionchecks == true);
+		return (_.has(global, 'disableactionchecks') && global.disableactionchecks === true);
 
 	}
 
@@ -392,7 +392,7 @@ export default class PermissionUtilities {
 
 		du.debug('Account Filter Disabled');
 
-		return (_.has(global, 'disableaccountfilter') && global.disableaccountfilter == true);
+		return (_.has(global, 'disableaccountfilter') && global.disableaccountfilter === true);
 
 	}
 
@@ -408,7 +408,7 @@ export default class PermissionUtilities {
 
 		du.debug('Is System User');
 
-		return (global.user == 'system@sixcrm.com');
+		return (global.user === 'system@sixcrm.com');
 
 	}
 
