@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 import * as Ajv from 'ajv';
-import glob from 'glob';
+import * as glob from 'glob';
 
 const schemas = glob.sync('model/**/*.json')
 	.map(filename => require(`${__dirname}/../../${filename}`))

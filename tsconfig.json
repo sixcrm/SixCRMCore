@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
 		"target": "es2017",
+		"module": "commonjs",
 		"lib": [ "es2017" ],
 		"outDir": "lib",
 		"sourceMap": true,
@@ -15,6 +16,7 @@
 		"src/**/*.ts"
 	],
 	"files": [
-		"src/global.d.ts"
-	]
+		"global.d.ts"
+	],
+	"baseUrl": "."
 }

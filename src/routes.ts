@@ -20,7 +20,7 @@ export default class Routes{
 	setRootPath(root_path?: string){
 
 		if(root_path === undefined){
-			root_path = __dirname;
+			root_path = __dirname + '/..';
 		}
 
 		this.root = path.resolve(root_path);

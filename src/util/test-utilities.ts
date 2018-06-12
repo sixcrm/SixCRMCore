@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import chai from 'chai';
+import * as chai from 'chai';
 const assert = chai.assert;
 import * as fs from 'fs';
 import jwt from 'jsonwebtoken';

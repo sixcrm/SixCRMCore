@@ -200,7 +200,7 @@ export default class ObjectUtilities {
 	}
 
 	//Technical Debt:  Test Me!
-	static map(object, map_function){
+	static map(object: object, map_function: (key: string) => any){
 
 		du.debug('Map');
 

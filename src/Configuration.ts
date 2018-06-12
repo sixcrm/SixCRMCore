@@ -21,7 +21,7 @@ export default class Configuration {
 
 	}
 
-	setEnvironmentVariable(key, value) {
+	setEnvironmentVariable(key: string, value: string) {
 
 		du.debug('Set Environment Variable');
 
@@ -29,13 +29,13 @@ export default class Configuration {
 
 	}
 
-	resolveStage(stage) {
+	resolveStage(stage?: string | null) {
 
 		du.debug('Resolve Stage');
 
-		if (_.isUndefined(stage)) {
+		if (stage === undefined) {
 
-			if (_.has(process.env, 'stage')) {
+			if (process.env.stage !== undefined) {
 
 				stage = process.env.stage;
 
@@ -83,7 +83,7 @@ export default class Configuration {
 
 			let stages = this.routes.include('config', 'stages.yml');
 
-			let identified_stage = null;
+			let identified_stage: string | null = null;
 
 			objectutilities.map(stages, key => {
 				let stage = stages[key];
@@ -94,7 +94,7 @@ export default class Configuration {
 			});
 
 			if (!_.isNull(identified_stage)) {
-				return identified_stage;
+				return identified_stage as string;
 			}
 
 			if (fatal) {
@@ -113,22 +113,22 @@ export default class Configuration {
 
 		let account_identifier = this.getAccountIdentifier();
 
-		if (!_.isNull(account_identifier)) {
+		if (account_identifier !== null) {
 
 			let stages = this.routes.include('config', 'stages.yml');
 
-			let identified_stage = null;
+			let identified_stage: string | null = null;
 
 			objectutilities.map(stages, key => {
 				let stage = stages[key];
 
 				if (_.has(stage, 'aws_account_id') && (stage.aws_account_id == account_identifier)) {
-					identified_stage = key
+					identified_stage = key;
 				}
 			});
 
-			if (!_.isNull(identified_stage)) {
-				return identified_stage;
+			if (identified_stage !== null) {
+				return identified_stage as string;
 			}
 
 			if (fatal) {
@@ -163,7 +163,7 @@ export default class Configuration {
 
 		du.debug('Get Branch Name From Environment');
 
-		if (_.has(process.env, 'CIRCLE_BRANCH')) {
+		if (process.env.CIRCLE_BRANCH !== undefined) {
 			return process.env.CIRCLE_BRANCH;
 		}
 
@@ -175,9 +175,9 @@ export default class Configuration {
 
 		du.debug('Get Account Identifier From Environment');
 
-		if (_.has(process.env, 'AWS_ACCOUNT')) {
+		if (process.env.AWS_ACCOUNT !== undefined) {
 			return process.env.AWS_ACCOUNT;
-		} else if (_.has(process.env, 'aws_account')) {
+		} else if (process.env.aws_account !== undefined) {
 			return process.env.aws_account;
 		}
 
@@ -203,13 +203,13 @@ export default class Configuration {
 
 	}
 
-	getEnvironmentConfig(field, fatal = true) {
+	getEnvironmentConfig(field: string, fatal = true) {
 
 		if (_.has(process.env, field)) {
 
 			du.debug(`getEnvironmentConfig: ${field} = ${process.env[field]}`);
 
-			return Promise.resolve(process.env[field]);
+			return process.env[field];
 
 		}
 
@@ -224,8 +224,8 @@ export default class Configuration {
 		return null;
 
 	}
-	
-	handleStage(stage) {
+
+	handleStage(stage?: string) {
 
 		du.debug('Handle Stage');
 
@@ -253,7 +253,7 @@ export default class Configuration {
 
 	}
 
-	getBase(subdomain = null){
+	getBase(subdomain?: string){
 
 		du.debug('Get Base');
 
@@ -265,7 +265,7 @@ export default class Configuration {
 
 	}
 
-	getSubdomainPath(subdomain = null){
+	getSubdomainPath(subdomain?: string){
 
 		du.debug('Get Subdomain Path');
 
@@ -277,7 +277,7 @@ export default class Configuration {
 			domain: this.getStageDomain()
 		}
 
-		if(_.isUndefined(subdomain) || _.isNull(subdomain)){
+		if(subdomain === undefined){
 			settings.subdomain_seperator = '';
 			settings.stage = '';
 			settings.stage_seperator = '';
@@ -298,7 +298,7 @@ export default class Configuration {
 		du.debug('Get Stage Domain');
 
 		if(_.has(this, 'site_config') && _.has(this.site_config, 'site') && _.has(this.site_config.site, 'domain')){
-			return this.site_config.site.domain;
+			return this.site_config.site.domain as string;
 		}
 
 		return null;

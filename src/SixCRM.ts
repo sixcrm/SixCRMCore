@@ -1,3 +1,5 @@
+import 'source-map-support/register';
+
 import * as _ from 'lodash';
 import du from './util/debug-utilities';
 import Routes from './routes';
