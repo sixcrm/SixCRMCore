@@ -25,3 +25,14 @@ jobs:
       - run:
           name: test
           command: npm run test
+
+      - deploy:
+          name: deploy
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              git config --global user.email $GIT_EMAIL
+              git config --global user.name $GIT_USER
+              npm version 0.0.$CIRCLE_BUILD_NUM
+              git push --tags
+              npm publish
+            fi
