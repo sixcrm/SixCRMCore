@@ -2,6 +2,6 @@
     "extends": "tslint:recommended",
     "rules": {
 		"indent": [true, "tabs"],
-		"quotemark": false,
+		"quotemark": false
 	}
 }
