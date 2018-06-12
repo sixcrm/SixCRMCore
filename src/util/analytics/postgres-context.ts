@@ -42,7 +42,7 @@ export default class PostgresContext {
 		}
 
 		return this._resolveConfiguration()
-			.then(config => {
+			.then((config) => {
 
 				this._connection = new RedshiftConnection(config);
 				return;
@@ -57,7 +57,7 @@ export default class PostgresContext {
 
 		return this.connection.dispose().then(() => {
 
-			return this._connection = null
+			return this._connection = null;
 
 		});
 
@@ -99,14 +99,14 @@ export default class PostgresContext {
 			return {
 				status: 'OK',
 				message: 'Successfully connected to Aurora'
-			}
+			};
 
 		} catch (ex) {
 
 			return {
 				status: 'ERROR',
 				message: ex.message
-			}
+			};
 
 		}
 
@@ -123,7 +123,7 @@ export default class PostgresContext {
 				du.debug('PostgresContext._createConnection(): fetching host');
 
 				global.SixCRM.configuration.getEnvironmentConfig(`${this._configRoot}_host`)
-					.then(host => {
+					.then((host) => {
 
 						du.debug('PostgresContext._createConnection(): host fetched', host);
 

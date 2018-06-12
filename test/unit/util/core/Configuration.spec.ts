@@ -1,41 +1,22 @@
-const chai = require('chai');
+import * as chai from 'chai';
 const expect = chai.expect;
-const mockery = require('mockery');
-const _ = require('lodash');
+import * as _ from 'lodash';
 
-const objectutilities = global.SixCRM.routes.include('lib', 'object-utilities.js');
-const Configuration = global.SixCRM.routes.include('core', 'Configuration.js');
+import objectutilities from '../../../../src/util/object-utilities';
+import Configuration from '../../../../src/Configuration';
 
 describe('core/Configuration.js', () => {
 
 	const DEVELOPMENT_ACCOUNT = '068070110666';
 
-	before(() => {
-		mockery.enable({
-			useCleanCache: true,
-			warnOnReplace: false,
-			warnOnUnregistered: false
-		});
-	});
-
-	afterEach(() => {
-		mockery.resetCache();
-	});
-
-	after(() => {
-		mockery.deregisterAll();
-	});
-
 	describe('constructor', () => {
 		it('instantiates', () => {
 
-			let configuration = new Configuration(global.SixCRM.routes);
+			const configuration = new Configuration(global.SixCRM.routes);
 
-			//expect(configuration.stage).to.equal('local');
+			// expect(configuration.stage).to.equal('local');
 			expect(configuration.serverless_config).not.to.be.undefined;
 			expect(configuration.serverless_config).not.to.be.undefined;
-			expect(configuration.environment_config).not.to.be.null;
-			expect(configuration.environment_config).not.to.be.null;
 			expect(configuration.site_config).not.to.be.undefined;
 			expect(configuration.site_config).not.to.be.null;
 
@@ -53,8 +34,8 @@ describe('core/Configuration.js', () => {
 
 	describe('getAccountIdentifier', () => {
 
-		let _context = null;
-		let _process_env = null;
+		let _context: any = null;
+		let _process_env: any = null;
 
 		before(() => {
 			_process_env = process.env;
@@ -68,7 +49,7 @@ describe('core/Configuration.js', () => {
 		});
 
 		xit('determines account identifier', () => {
-			let configuration = new Configuration(global.SixCRM.routes, 'development');
+			const configuration = new Configuration(global.SixCRM.routes, 'development');
 
 			process.env.AWS_ACCOUNT = DEVELOPMENT_ACCOUNT;
 
@@ -80,8 +61,8 @@ describe('core/Configuration.js', () => {
 			// eslint-disable-next-line no-global-assign
 			context = {
 				invokedFunctionArn: DEVELOPMENT_ACCOUNT
-			};
-			let configuration = new Configuration(global.SixCRM.routes);
+			} as any;
+			const configuration = new Configuration(global.SixCRM.routes);
 
 			expect(configuration.getAccountIdentifier()).to.equal(DEVELOPMENT_ACCOUNT);
 		});
@@ -90,7 +71,7 @@ describe('core/Configuration.js', () => {
 
 	describe('determineStageFromAccountIdentifier', () => {
 
-		let _process_env = null;
+		let _process_env: any = null;
 
 		before(() => {
 			_process_env = process.env;
@@ -101,16 +82,12 @@ describe('core/Configuration.js', () => {
 		});
 
 		xit('determines stage from account identifier', () => {
-			let configuration = new Configuration(global.SixCRM.routes);
+			const configuration = new Configuration(global.SixCRM.routes);
 
 			process.env.AWS_ACCOUNT = DEVELOPMENT_ACCOUNT;
 
 			expect(configuration.determineStageFromAccountIdentifier()).to.equal('development');
 		});
-
-	});
-
-	describe('getEnvironmentConfig', () => {
 
 	});
 
@@ -124,17 +101,17 @@ describe('core/Configuration.js', () => {
 
 		afterEach(() => {
 			process.env = process_env;
-		})
+		});
 
 		it('successfully identifies the stage based on branch name', () => {
 
-			let stages = global.SixCRM.routes.include('config', 'stages.yml');
+			const stages = global.SixCRM.routes.include('config', 'stages.yml');
 
-			objectutilities.map(stages, key => {
+			objectutilities.map(stages, (key) => {
 
-				let stage = stages[key];
+				const stage = stages[key];
 
-				if(_.has(stage, 'branch_name')){
+				if (_.has(stage, 'branch_name')) {
 
 					if (!_.isUndefined(process.env.AWS_ACCOUNT) && !_.isNull(process.env.AWS_ACCOUNT)) {
 						delete process.env.AWS_ACCOUNT;
@@ -146,7 +123,7 @@ describe('core/Configuration.js', () => {
 
 					process.env.CIRCLE_BRANCH = stage.branch_name;
 
-					let configuration = new Configuration(global.SixCRM.routes);
+					const configuration = new Configuration(global.SixCRM.routes);
 
 					expect(configuration.stage).to.equal(key);
 
@@ -158,7 +135,7 @@ describe('core/Configuration.js', () => {
 
 		it('successfully identifies the stage (local) in absence of branch name or ', () => {
 
-			//let stages = global.SixCRM.routes.include('config', 'stages.yml');
+			// let stages = global.SixCRM.routes.include('config', 'stages.yml');
 
 			if (!_.isUndefined(process.env.AWS_ACCOUNT) && !_.isNull(process.env.AWS_ACCOUNT)) {
 				delete process.env.AWS_ACCOUNT;
@@ -172,7 +149,7 @@ describe('core/Configuration.js', () => {
 				delete process.env.CIRCLE_BRANCH;
 			}
 
-			let configuration = new Configuration(global.SixCRM.routes);
+			const configuration = new Configuration(global.SixCRM.routes);
 
 			expect(configuration.stage).to.equal('local');
 

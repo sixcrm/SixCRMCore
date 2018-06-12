@@ -39,9 +39,9 @@ export default class Configuration {
 
 				stage = process.env.stage;
 
-				let stages = this.routes.include('config', 'stages.yml');
+				const stages = this.routes.include('config', 'stages.yml');
 
-				let stage_names = objectutilities.getKeys(stages);
+				const stage_names = objectutilities.getKeys(stages);
 
 				if (!_.includes(stage_names, stage)) {
 
@@ -64,7 +64,7 @@ export default class Configuration {
 		}
 
 		if (_.isNull(stage) || _.isUndefined(stage)) {
-			stage = 'local'
+			stage = 'local';
 		}
 
 		du.warning('Stage: ' + stage);
@@ -77,16 +77,16 @@ export default class Configuration {
 
 		du.debug('Determine Stage From Branch Name');
 
-		let branch_name = this.getBranchName();
+		const branch_name = this.getBranchName();
 
 		if (!_.isNull(branch_name)) {
 
-			let stages = this.routes.include('config', 'stages.yml');
+			const stages = this.routes.include('config', 'stages.yml');
 
 			let identified_stage: string | null = null;
 
 			objectutilities.map(stages, (key) => {
-				let stage = stages[key];
+				const stage = stages[key];
 
 				if (stage.branch_name === branch_name) {
 					identified_stage = key;
@@ -111,18 +111,18 @@ export default class Configuration {
 
 		du.debug('Determine Stage From Account Identifier');
 
-		let account_identifier = this.getAccountIdentifier();
+		const account_identifier = this.getAccountIdentifier();
 
 		if (account_identifier !== null) {
 
-			let stages = this.routes.include('config', 'stages.yml');
+			const stages = this.routes.include('config', 'stages.yml');
 
 			let identified_stage: string | null = null;
 
-			objectutilities.map(stages, key => {
-				let stage = stages[key];
+			objectutilities.map(stages, (key) => {
+				const stage = stages[key];
 
-				if (_.has(stage, 'aws_account_id') && (stage.aws_account_id == account_identifier)) {
+				if (_.has(stage, 'aws_account_id') && (stage.aws_account_id === account_identifier)) {
 					identified_stage = key;
 				}
 			});
@@ -153,7 +153,7 @@ export default class Configuration {
 
 		du.debug('Get Branch Name');
 
-		let branch_name = this.getBranchNameFromEnvironment();
+		const branch_name = this.getBranchNameFromEnvironment();
 
 		return branch_name;
 
@@ -189,7 +189,7 @@ export default class Configuration {
 
 		du.debug('Is Local');
 
-		let stages = this.routes.include('config', 'stages.yml');
+		const stages = this.routes.include('config', 'stages.yml');
 
 		if (!_.has(stages, global.SixCRM.configuration.stage)) {
 			throw eu.getError('server', 'Unrecognized stage: ' + global.SixCRM.configuration.stage);
@@ -253,7 +253,7 @@ export default class Configuration {
 
 	}
 
-	getBase(subdomain?: string){
+	getBase(subdomain?: string) {
 
 		du.debug('Get Base');
 
@@ -265,26 +265,26 @@ export default class Configuration {
 
 	}
 
-	getSubdomainPath(subdomain?: string){
+	getSubdomainPath(subdomain?: string) {
 
 		du.debug('Get Subdomain Path');
 
-		let settings = {
+		const settings = {
 			stage: this.stage,
 			stage_seperator: '-',
-			subdomain: subdomain,
+			subdomain,
 			subdomain_seperator: '.',
 			domain: this.getStageDomain()
-		}
+		};
 
-		if(subdomain === undefined){
+		if (subdomain === undefined) {
 			settings.subdomain_seperator = '';
 			settings.stage = '';
 			settings.stage_seperator = '';
 			settings.subdomain_seperator = '';
 		}
 
-		if(!_.has(this, 'site_config') || !_.has(this.site_config, 'site') || !_.has(this.site_config.site, 'include_stage') || this.site_config.site.include_stage == false){
+		if (!_.has(this, 'site_config') || !_.has(this.site_config, 'site') || !_.has(this.site_config.site, 'include_stage') || this.site_config.site.include_stage === false) {
 			settings.stage_seperator = '',
 			settings.stage = '';
 		}
@@ -293,11 +293,11 @@ export default class Configuration {
 
 	}
 
-	getStageDomain(){
+	getStageDomain() {
 
 		du.debug('Get Stage Domain');
 
-		if(_.has(this, 'site_config') && _.has(this.site_config, 'site') && _.has(this.site_config.site, 'domain')){
+		if (_.has(this, 'site_config') && _.has(this.site_config, 'site') && _.has(this.site_config.site, 'domain')) {
 			return this.site_config.site.domain as string;
 		}
 

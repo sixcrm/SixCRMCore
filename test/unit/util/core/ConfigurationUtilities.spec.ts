@@ -1,6 +1,6 @@
-const chai = require('chai');
+import * as chai from 'chai';
 const expect = chai.expect;
-const ConfigurationUtilities = global.SixCRM.routes.include('core', 'ConfigurationUtilities.js');
+import ConfigurationUtilities from '../../../../src/Configuration';
 
 describe('core/ConfigurationUtilities.js', () => {
 
@@ -16,33 +16,33 @@ describe('core/ConfigurationUtilities.js', () => {
 		});
 
 		after(() => {
-			context = context_temp; //eslint-disable-line no-global-assign
+			context = context_temp; // eslint-disable-line no-global-assign
 			process.env.AWS_ACCOUNT = AWS_ACCOUNT;
 		});
 
 		it('throws error when account identifier returns unexpected value', () => {
 
-			let aws_account = process.env.AWS_ACCOUNT;
+			const aws_account = process.env.AWS_ACCOUNT;
 
-			let configurationUtilities = new ConfigurationUtilities(global.SixCRM.routes);
+			const configurationUtilities = new ConfigurationUtilities(global.SixCRM.routes);
 
-			process.env.AWS_ACCOUNT = aws_account ? aws_account : 'an_aws_account'; //invalid aws account value
+			process.env.AWS_ACCOUNT = aws_account ? aws_account : 'an_aws_account'; // invalid aws account value
 
-			try{
+			try {
 				configurationUtilities.determineStageFromAccountIdentifier();
-			}catch (error) {
+			} catch (error) {
 				expect(error.message).to.equal('[500] Unrecognized account identifier in stage.yml: ' + process.env.AWS_ACCOUNT);
 			}
 		});
 
 		it('returns null when account identifier is undefined', () => {
 
-			//remove any account identifier specification
+			// remove any account identifier specification
 			delete process.env.AWS_ACCOUNT;
 			delete process.env.aws_account;
-			delete context.invokedFunctionArn;
+			delete (context as any).invokedFunctionArn;
 
-			let configurationUtilities = new ConfigurationUtilities(global.SixCRM.routes);
+			const configurationUtilities = new ConfigurationUtilities(global.SixCRM.routes);
 
 			expect(configurationUtilities.determineStageFromAccountIdentifier()).to.equal(null);
 		});
@@ -62,7 +62,7 @@ describe('core/ConfigurationUtilities.js', () => {
 
 		it('returns "local" when stage value is null', () => {
 
-			let configurationUtilities = new ConfigurationUtilities(global.SixCRM.routes);
+			const configurationUtilities = new ConfigurationUtilities(global.SixCRM.routes);
 
 			expect(configurationUtilities.resolveStage(null)).to.equal('local');
 		});
@@ -86,31 +86,31 @@ describe('core/ConfigurationUtilities.js', () => {
 
 		it('successfully retrieves an account identifier "AWS_ACCOUNT" from environment', () => {
 
-			let aws_account = process.env.AWS_ACCOUNT;
+			const this_aws_account = process.env.AWS_ACCOUNT;
 
-			let configurationUtilities = new ConfigurationUtilities(global.SixCRM.routes);
+			const configurationUtilities = new ConfigurationUtilities(global.SixCRM.routes);
 
-			process.env.AWS_ACCOUNT = aws_account ? aws_account : 'an_aws_account';
+			process.env.AWS_ACCOUNT = this_aws_account ? this_aws_account : 'an_aws_account';
 
 			expect(configurationUtilities.getAccountIdentifierFromEnvironment()).to.equal(process.env.AWS_ACCOUNT);
 		});
 
 		it('successfully retrieves an account identifier "aws_account" from environment', () => {
 
-			let aws_account = process.env.aws_account;
+			const this_aws_account = process.env.aws_account;
 
-			let configurationUtilities = new ConfigurationUtilities(global.SixCRM.routes);
+			const configurationUtilities = new ConfigurationUtilities(global.SixCRM.routes);
 
 			delete process.env.AWS_ACCOUNT;
 
-			process.env.aws_account = aws_account ? aws_account : 'an_aws_account';
+			process.env.aws_account = this_aws_account ? this_aws_account : 'an_aws_account';
 
 			expect(configurationUtilities.getAccountIdentifierFromEnvironment()).to.equal(process.env.aws_account);
 		});
 
 		it('returns null when an account identifier from environment is undefined', () => {
 
-			let configurationUtilities = new ConfigurationUtilities(global.SixCRM.routes);
+			const configurationUtilities = new ConfigurationUtilities(global.SixCRM.routes);
 
 			delete process.env.AWS_ACCOUNT;
 			delete process.env.aws_account;
@@ -131,15 +131,15 @@ describe('core/ConfigurationUtilities.js', () => {
 		});
 
 		after(() => {
-			context = context_temp; //eslint-disable-line no-global-assign
+			context = context_temp; // eslint-disable-line no-global-assign
 			process.env.AWS_ACCOUNT = AWS_ACCOUNT;
 		});
 
 		it('returns account identifier from environment', () => {
 
-			let aws_account = process.env.AWS_ACCOUNT;
+			const aws_account = process.env.AWS_ACCOUNT;
 
-			let configurationUtilities = new ConfigurationUtilities(global.SixCRM.routes);
+			const configurationUtilities = new ConfigurationUtilities(global.SixCRM.routes);
 
 			process.env.AWS_ACCOUNT = aws_account ? aws_account : 'an_aws_account';
 

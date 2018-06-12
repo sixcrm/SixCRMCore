@@ -2,10 +2,10 @@ import * as _ from 'lodash';
 import du from './util/debug-utilities';
 import eu from './util/error-utilities';
 
-//Technical Debt:  This is largely unused...
+// Technical Debt:  This is largely unused...
 export default class LocalCache {
 
-	cache: Map<string, any>
+	cache: Map<string, any>;
 
 	constructor() {
 
@@ -18,7 +18,7 @@ export default class LocalCache {
 
 		du.debug('Resolve Question');
 
-		let answer = this.get(question);
+		const answer = this.get(question);
 
 		du.debug('Asking: ' + question);
 
@@ -30,13 +30,13 @@ export default class LocalCache {
 				throw eu.getError('server', 'Answer function must be a function');
 			}
 
-			return Promise.resolve(answer_function()).then((answer) => {
+			return Promise.resolve(answer_function()).then((innerAnswer) => {
 
-				global.SixCRM.localcache.set(question, answer);
+				global.SixCRM.localcache.set(question, innerAnswer);
 
-				du.debug('Caching Question: ' + question, answer)
+				du.debug('Caching Question: ' + question, innerAnswer);
 
-				return answer;
+				return innerAnswer;
 
 			});
 
@@ -106,7 +106,7 @@ export default class LocalCache {
 			throw eu.getError('server', 'Key should be a string');
 		}
 
-		if (key == 'all') {
+		if (key === 'all') {
 			this.cache = new Map();
 		} else {
 			delete this.cache[key];

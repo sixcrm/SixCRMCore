@@ -12,23 +12,23 @@ describe('core/Configuration.js', () => {
 
 		it('retrieves site domain', () => {
 
-			let configuration = new Configuration(new Routes());
+			const configuration = new Configuration(new Routes());
 
 			configuration.site_config.site.domain = 'furbolg.zoo';
 			configuration.stage = 'fuzzy';
 
-			let domain = configuration.getStageDomain();
+			const domain = configuration.getStageDomain();
 			expect(domain).to.equal('furbolg.zoo');
 
 		});
 
 		it('returns null', () => {
 
-			let configuration = new Configuration(new Routes());
+			const configuration = new Configuration(new Routes());
 
 			delete configuration.site_config.site.domain;
 
-			let domain = configuration.getStageDomain();
+			const domain = configuration.getStageDomain();
 			expect(domain).to.equal(null);
 
 		});
@@ -39,48 +39,48 @@ describe('core/Configuration.js', () => {
 
 		it('retrieves the correct domain', () => {
 
-			//Technical Debt:  This fails when production credentials are used (get stage references...)
-			let configuration = new Configuration(new Routes());
+			// Technical Debt:  This fails when production credentials are used (get stage references...)
+			const configuration = new Configuration(new Routes());
 
 			configuration.site_config.site.domain = 'furbolg.zoo';
 			configuration.stage = 'fuzzy';
-			let domain_path = configuration.getSubdomainPath('critters');
+			const domain_path = configuration.getSubdomainPath('critters');
 			expect(domain_path).to.equal('fuzzy-critters.furbolg.zoo');
 
 		});
 
 		it('retrieves the correct domain (no stage)', () => {
 
-			let configuration = new Configuration(new Routes());
+			const configuration = new Configuration(new Routes());
 
 			configuration.site_config.site.domain = 'furbolg.zoo';
 			configuration.stage = 'fuzzy';
-			configuration.site_config.site.include_stage = false
+			configuration.site_config.site.include_stage = false;
 
-			let domain_path = configuration.getSubdomainPath('critters');
+			const domain_path = configuration.getSubdomainPath('critters');
 			expect(domain_path).to.equal('critters.furbolg.zoo');
 
 		});
 
 		it('retrieves the correct domain (undefined stage)', () => {
 
-			let configuration = new Configuration(new Routes());
+			const configuration = new Configuration(new Routes());
 
 			configuration.site_config.site.domain = 'furbolg.zoo';
 			delete configuration.site_config.site.include_stage;
 			configuration.stage = 'fuzzy';
-			let domain_path = configuration.getSubdomainPath('critters');
+			const domain_path = configuration.getSubdomainPath('critters');
 			expect(domain_path).to.equal('critters.furbolg.zoo');
 
 		});
 
 		it('retrieves the correct domain (undefined subdomain)', () => {
 
-			let configuration = new Configuration(new Routes());
+			const configuration = new Configuration(new Routes());
 
 			configuration.site_config.site.domain = 'furbolg.zoo';
 			configuration.stage = 'fuzzy';
-			let domain_path = configuration.getSubdomainPath();
+			const domain_path = configuration.getSubdomainPath();
 			expect(domain_path).to.equal('furbolg.zoo');
 
 		});

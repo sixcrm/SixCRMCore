@@ -3,7 +3,7 @@ import LambdaContext from './lambda-context';
 export default class ServerlessRuntime {
 
 	static _context: LambdaContext | null;
-	
+
 	static getContext() {
 		return this._context;
 	}

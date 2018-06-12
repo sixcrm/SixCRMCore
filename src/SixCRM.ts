@@ -1,6 +1,5 @@
 import 'source-map-support/register';
 
-import * as _ from 'lodash';
 import du from './util/debug-utilities';
 import Routes from './routes';
 import Configuration from './Configuration';
@@ -51,7 +50,7 @@ class SixCRM {
 
 		if (fatal && !valid) {
 			const errors = this.validator.errors || [];
-			const error_messages = arrayutilities.map(errors, error => `[${schema.title}] instance${error.dataPath} ${error.message}`);
+			const error_messages = arrayutilities.map(errors, (error) => `[${schema.title}] instance${error.dataPath} ${error.message}`);
 			const error_message = arrayutilities.compress(error_messages, ', ', '');
 
 			du.warning({
@@ -63,7 +62,7 @@ class SixCRM {
 			throw eu.getError(
 				'server',
 				`One or more validation errors occurred: ${error_message}`,
-				{issues: errors.map(e => e.message)}
+				{issues: errors.map((e) => e.message)}
 			);
 		}
 
