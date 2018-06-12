@@ -5,23 +5,22 @@ import eu from './error-utilities';
 
 du.info(serverless);
 
-
-//Technical Debt: Finish this.
+// Technical Debt: Finish this.
 export default class ServerlessUtilities {
 
-	static loadConfig(stage, handler){
+	static loadConfig(stage, handler) {
 
-		let serverless_config = global.SixCRM.routes.include('root','serverless.yml');
+		const serverless_config = global.SixCRM.routes.include('root', 'serverless.yml');
 
-		if(!_.has(serverless_config, 'functions') || !_.has(serverless_config.functions, handler)){
-			throw eu.getError('server','The function "'+handler+'" is not defined in the serverless.yml file.');
+		if (!_.has(serverless_config, 'functions') || !_.has(serverless_config.functions, handler)) {
+			throw eu.getError('server', 'The function "' + handler + '" is not defined in the serverless.yml file.');
 		}
 
-		let function_config = serverless_config.functions[handler];
+		const function_config = serverless_config.functions[handler];
 
-		if(_.has(function_config, 'environment')){
+		if (_.has(function_config, 'environment')) {
 
-			for(var k in function_config.environment){
+			for (const k in function_config.environment) {
 
 				du.debug(k, function_config.environment[k]);
 

@@ -5,37 +5,37 @@ import eu from './error-utilities';
 
 export default class XMLUtilities {
 
-	static parse(xml_string, fatal){
+	static parse(xml_string, fatal) {
 
 		let error: any = null;
 		let json = null;
 
-		fatal = (_.isUndefined(fatal))?false:fatal;
+		fatal = (_.isUndefined(fatal)) ? false : fatal;
 
 		try {
 
-			xml2js.parseString(xml_string, function (innerError, innerJson) {
+			xml2js.parseString(xml_string, function(innerError, innerJson) {
 
-				if(!_.isUndefined(innerError)){
+				if (!_.isUndefined(innerError)) {
 					error = innerError;
 				}
 
-				if(!_.isUndefined(innerJson)){
+				if (!_.isUndefined(innerJson)) {
 					json = innerJson;
 				}
 
 			});
 
-		}catch(a_error){
+		} catch (a_error) {
 
 			error = a_error;
 
 		}
 
-		if(!_.isNull(error)){
+		if (!_.isNull(error)) {
 
 			du.error(error);
-			if(fatal){
+			if (fatal) {
 				throw eu.getError(error);
 			}
 

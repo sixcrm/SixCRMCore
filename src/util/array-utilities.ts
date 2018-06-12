@@ -7,26 +7,26 @@ export default class ArrayUtilities {
 		// Technical debt: Remove this type checking once we're using TS everywhere, TS does this for us
 		this.isArray(array, true);
 		if (!_.isFunction(iterator)) {
-			throw eu.getError('server', 'ArrayUtilities.forEach iterator is not a function.')
+			throw eu.getError('server', 'ArrayUtilities.forEach iterator is not a function.');
 		}
 
 		array.forEach(iterator);
 	}
 
-	//Technical Debt:  Needs testing.
+	// Technical Debt:  Needs testing.
 	static group(object_array: object[], differentiator_acquisition_function: (object) => any) {
 
 		this.isArray(object_array, true);
 
 		if (!_.isFunction(differentiator_acquisition_function)) {
-			throw eu.getError('server', 'ArrayUtilities.group differentiator_acquisition_function is not a function.')
+			throw eu.getError('server', 'ArrayUtilities.group differentiator_acquisition_function is not a function.');
 		}
 
 		const return_object = {};
 
-		this.map(object_array, object_array_element => {
+		this.map(object_array, (object_array_element) => {
 
-			let differentiator = differentiator_acquisition_function(object_array_element);
+			const differentiator = differentiator_acquisition_function(object_array_element);
 
 			if (!_.isNull(differentiator)) {
 
@@ -50,15 +50,15 @@ export default class ArrayUtilities {
 			throw eu.getError('server', 'Array Utilities flatten recursion depth exceeded.');
 		}
 
-		let return_object: any[] = [];
+		const return_object: any[] = [];
 
 		if (this.isArray(multidimensional_array)) {
 
-			this.map(multidimensional_array, multidimensional_array_element => {
+			this.map(multidimensional_array, (multidimensional_array_element) => {
 
-				let flattened_array = this.flatten(multidimensional_array_element, (depth + 1));
+				const flattened_array = this.flatten(multidimensional_array_element, (depth + 1));
 
-				this.map(flattened_array, flattened_array_element => {
+				this.map(flattened_array, (flattened_array_element) => {
 
 					return_object.push(flattened_array_element);
 
@@ -118,7 +118,7 @@ export default class ArrayUtilities {
 
 	static assureEntries(a_array, type) {
 
-		let validation_functions = {
+		const validation_functions = {
 			number: (array_value) => {
 				return _.isNumber(array_value);
 			},
@@ -151,7 +151,7 @@ export default class ArrayUtilities {
 		if (_.isUndefined(sort_function)) {
 			sort_function = (a, b) => {
 				return a - b;
-			}
+			};
 		}
 
 		this.nonEmpty(sort_array, true);
@@ -178,7 +178,7 @@ export default class ArrayUtilities {
 			throw eu.getError('validation', 'ArrayUtilities.every function argument is not a function.');
 		}
 
-		let return_array = array.every(a_function);
+		const return_array = array.every(a_function);
 
 		return return_array;
 
@@ -194,7 +194,7 @@ export default class ArrayUtilities {
 			throw eu.getError('validation', 'ArrayUtilities.map function argument is not a function.');
 		}
 
-		let return_array = array.map(a_function);
+		const return_array = array.map(a_function);
 
 		return return_array;
 
@@ -224,7 +224,7 @@ export default class ArrayUtilities {
 			return array_object;
 		}
 
-		let index = array_object.indexOf(element);
+		const index = array_object.indexOf(element);
 
 		if (index > -1) {
 			array_object.splice(index, 1);
@@ -261,7 +261,7 @@ export default class ArrayUtilities {
 			throw eu.getError('validation', 'ArrayUtilities.filter filter function is not a function.');
 		}
 
-		let return_array = array.filter(filter_function);
+		const return_array = array.filter(filter_function);
 
 		return return_array;
 
@@ -286,17 +286,16 @@ export default class ArrayUtilities {
 		return this.reduce(
 			array_of_promises,
 			(promiseChain, currentTask) => {
-				return promiseChain.then(chainResults =>
-					Promise.resolve(currentTask).then(currentResult => [...chainResults, currentResult])
+				return promiseChain.then((chainResults) =>
+					Promise.resolve(currentTask).then((currentResult) => [...chainResults, currentResult])
 				);
 			},
 			Promise.resolve([])
-		).then(results => {
+		).then((results) => {
 			return results;
 		});
 
 	}
-
 
 	static serial(array, reduction_function, initial_value) {
 
@@ -338,7 +337,7 @@ export default class ArrayUtilities {
 				if (_.isUndefined(current)) {
 					return next;
 				}
-				return current.then(r => next().then(s => [...r, s]));
+				return current.then((r) => next().then((s) => [...r, s]));
 			};
 
 		}
@@ -367,10 +366,10 @@ export default class ArrayUtilities {
 
 	static unique(array) {
 
-		var a = array.concat();
+		const a = array.concat();
 
-		for (var i = 0; i < a.length; ++i) {
-			for (var j = i + 1; j < a.length; ++j) {
+		for (let i = 0; i < a.length; ++i) {
+			for (let j = i + 1; j < a.length; ++j) {
 				if (a[i] === a[j]) {
 					a.splice(j--, 1);
 				}

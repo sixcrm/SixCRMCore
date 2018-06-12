@@ -16,7 +16,7 @@ export default class CompressionUtilities {
 					return reject(error);
 				}
 
-				let string = buffer.toString('utf8');
+				const string = buffer.toString('utf8');
 
 				return resolve(string);
 

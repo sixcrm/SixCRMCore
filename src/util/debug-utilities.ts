@@ -64,10 +64,10 @@ export default class DebugUtilities {
 
 	static echoLocal(args: any[], level: LogLevel) {
 
-		let outputItems: any[] = [];
+		const outputItems: any[] = [];
 		args.forEach((arg) => {
 
-			if(_.isObject(arg)) {
+			if (_.isObject(arg)) {
 				outputItems.push(util.inspect(arg, {depth : null}));
 			}
 			else {
@@ -76,11 +76,12 @@ export default class DebugUtilities {
 
 		});
 
-		if(outputItems.length > 0){
+		if (outputItems.length > 0) {
 			let output = outputItems.join('\n');
 
 			output = this.formatForConsole(output, level);
 			// eslint-disable-next-line no-console
+			// tslint:disable-next-line no-console
 			console.log(output);
 		}
 
@@ -96,8 +97,8 @@ export default class DebugUtilities {
 
 		let message = "";
 		let context = {};
-		let error_code = undefined;
-		let stack = undefined;
+		let error_code;
+		let stack;
 
 		if (_.isString(args[0])) {
 			message = args[0];
@@ -116,7 +117,8 @@ export default class DebugUtilities {
 			}
 		}
 
-		//eslint-disable-next-line no-console
+		// eslint-disable-next-line no-console
+		// tslint:disable-next-line no-console
 		console.log(JSON.stringify({
 			timestamp: moment().toISOString(),
 			message,
@@ -124,8 +126,8 @@ export default class DebugUtilities {
 			level,
 			error_code,
 			stack,
-			//class,
-			//method
+			// class,
+			// method
 		}));
 
 	}

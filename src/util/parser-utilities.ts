@@ -5,13 +5,13 @@ import arrayutilities from './array-utilities';
 
 export default class ParserUtilities {
 
-	static parse(content, data, parse_explicit){
+	static parse(content, data, parse_explicit) {
 
 		du.debug('Parse');
 
 		let token;
 
-		let token_values = {};
+		const token_values = {};
 
 		do {
 
@@ -19,11 +19,11 @@ export default class ParserUtilities {
 
 			if (token) {
 
-				if(!_.has(token_values, token)){
+				if (!_.has(token_values, token)) {
 
 					let discovered_token_value = this.getTokenValue(token, data, parse_explicit);
 
-					if(_.isNull(discovered_token_value) && parse_explicit !== true){
+					if (_.isNull(discovered_token_value) && parse_explicit !== true) {
 						discovered_token_value = this.getTokenValue(token, data, true);
 					}
 
@@ -41,39 +41,39 @@ export default class ParserUtilities {
 
 	}
 
-	static getTokens(content){
+	static getTokens(content) {
 
 		du.debug('Get Tokens');
 
-		let regex = /\{\{([^{}]*)\}\}/g;
+		const regex = /\{\{([^{}]*)\}\}/g;
 
 		let tokens: string[] = [];
 
-		//Technical Debt:  Use stringutilities.matchAll()
+		// Technical Debt:  Use stringutilities.matchAll()
 		let m: RegExpExecArray | null = null;
 
 		// eslint-disable-next-line no-cond-assign
-		while(m = regex.exec(content)) {
+		while (m = regex.exec(content)) {
 			tokens.push(m[0]);
 		}
 
 		tokens = arrayutilities.unique(tokens);
 
-		return arrayutilities.map(tokens, token => {
+		return arrayutilities.map(tokens, (token) => {
 			return token.substring(2, (token.length - 2));
 		});
 
 	}
 
-	static getToken(content){
+	static getToken(content) {
 
 		du.debug('Get Token');
 
 		const find_token_regular_expression = /\\*({{[^{}}]*}})/g;
 
-		let m = find_token_regular_expression.exec(content);
+		const m = find_token_regular_expression.exec(content);
 
-		if(!_.isNull(m) && !_.isUndefined(m[1])){
+		if (!_.isNull(m) && !_.isUndefined(m[1])) {
 
 			return m[1];
 
@@ -83,23 +83,23 @@ export default class ParserUtilities {
 
 	}
 
-	static getTokenValue(token, data, parse_explicit){
+	static getTokenValue(token, data, parse_explicit) {
 
 		du.debug('Get Token Value');
 
-		parse_explicit = (_.isUndefined(parse_explicit) || _.isNull(parse_explicit))?false:parse_explicit;
+		parse_explicit = (_.isUndefined(parse_explicit) || _.isNull(parse_explicit)) ? false : parse_explicit;
 
 		let data_subset = data;
 
-		if(!parse_explicit){
+		if (!parse_explicit) {
 
-			let token_array = token.replace('{{','').replace('}}','').split('.');
+			const token_array = token.replace('{{', '').replace('}}', '').split('.');
 
-			if(_.isArray(token_array) && token_array.length > 0){
+			if (_.isArray(token_array) && token_array.length > 0) {
 
 				token_array.forEach((subtoken) => {
 
-					if(_.isObject(data_subset)){
+					if (_.isObject(data_subset)) {
 
 						data_subset = objectutilities.recurse(data_subset, (key) => {
 							return (key == subtoken);
@@ -111,11 +111,11 @@ export default class ParserUtilities {
 
 			}
 
-		}else{
+		} else {
 
-			token = token.replace('{{','').replace('}}','');
+			token = token.replace('{{', '').replace('}}', '');
 
-			data_subset = (_.has(data, token))?data[token]:null;
+			data_subset = (_.has(data, token)) ? data[token] : null;
 
 		}
 
@@ -123,15 +123,15 @@ export default class ParserUtilities {
 
 	}
 
-	static replaceTokensWithValues(content, values_object){
+	static replaceTokensWithValues(content, values_object) {
 
 		du.debug('Replace Tokens With Values');
 
-		objectutilities.map(values_object, key => {
-			if(_.has(values_object, key)){
+		objectutilities.map(values_object, (key) => {
+			if (_.has(values_object, key)) {
 				content = content.replace(new RegExp(key, 'g'), values_object[key]);
 			}
-		})
+		});
 
 		return content;
 

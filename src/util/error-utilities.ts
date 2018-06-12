@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 
-//Note:  Graph is dumb and needs the error names to match the error class names
+// Note:  Graph is dumb and needs the error names to match the error class names
 class SixError extends Error {
-	code: number
+	code: number;
 
 	constructor(message?: string) {
 		super(message);
@@ -11,7 +11,7 @@ class SixError extends Error {
 
 // Not sure what's going on here with calling super(message) and then immediately replacing it.
 class ForbiddenError extends SixError {
-	constructor(message?: string){
+	constructor(message?: string) {
 		super(message);
 		this.name = 'Forbidden Error';
 		this.message = '[403] User is not authorized to perform this action.';
@@ -20,7 +20,7 @@ class ForbiddenError extends SixError {
 }
 
 class NotImplementedError extends SixError {
-	constructor(message?: string){
+	constructor(message?: string) {
 		super(message);
 		this.name = 'Not Implemented Error';
 		this.message = '[501] Not Implemented.';
@@ -29,7 +29,7 @@ class NotImplementedError extends SixError {
 }
 
 class NotFoundError extends SixError {
-	constructor(message?: string){
+	constructor(message?: string) {
 		super(message);
 		this.name = 'Not Found Error';
 		this.message = '[404] Not found.';
@@ -38,7 +38,7 @@ class NotFoundError extends SixError {
 }
 
 class ServerError extends SixError {
-	constructor(message?: string){
+	constructor(message?: string) {
 		super(message);
 		this.name = 'Server Error';
 		this.message = '[500] Internal Server Error';
@@ -47,7 +47,7 @@ class ServerError extends SixError {
 }
 
 class BadRequestError extends SixError {
-	constructor(message?: string){
+	constructor(message?: string) {
 		super(message);
 		this.name = 'Bad Request Error';
 		this.message = '[400] Bad Request Error';
@@ -56,7 +56,7 @@ class BadRequestError extends SixError {
 }
 
 class ValidationError extends SixError {
-	constructor(message?: string){
+	constructor(message?: string) {
 		super(message);
 		this.name = 'Validation Error';
 		this.message = '[500] Validation failed.';
@@ -65,7 +65,7 @@ class ValidationError extends SixError {
 }
 
 class ControlError extends SixError {
-	constructor(message?: string){
+	constructor(message?: string) {
 		super(message);
 		this.name = 'Control Error';
 		this.message = '[520] Control Error';
@@ -94,28 +94,28 @@ export default class ErrorUtilities {
 		control: ControlError
 	};
 
-	static getError(type: string, message?, additional_properties?: object){
+	static getError(type: string, message?, additional_properties?: object) {
 
-		if(_.isUndefined(type)){
+		if (_.isUndefined(type)) {
 			type = 'server';
 		}
 
-		let error = this.getErrorType(type)
+		const error = this.getErrorType(type);
 
-		if(!_.isUndefined(message)){
+		if (!_.isUndefined(message)) {
 
-			error.message = '['+error.code+'] '+message;
+			error.message = '[' + error.code + '] ' + message;
 
 		}
 
-		if(_.isError(message) && _.has(message, 'message') && !_.isNull(message.message)){
+		if (_.isError(message) && _.has(message, 'message') && !_.isNull(message.message)) {
 
 			message = message.message.replace(/^\[\d{3}\]\s/g, "");
 
 		}
 
-		if(additional_properties !== undefined && _.isObject(additional_properties)){
-			for(var key in additional_properties){
+		if (additional_properties !== undefined && _.isObject(additional_properties)) {
+			for (const key in additional_properties) {
 				error[key] = additional_properties[key];
 			}
 		}
@@ -124,23 +124,23 @@ export default class ErrorUtilities {
 
 	}
 
-	static getErrorType(type){
+	static getErrorType(type) {
 
-		const errorType: typeof SixError = this.error_types[type] || this.error_types['server'];
+		const errorType: typeof SixError = this.error_types[type] || this.error_types.server;
 
 		return new errorType();
 
 	}
 
-	static getErrorByName(name){
+	static getErrorByName(name) {
 
-		for (var key in this.error_types) {
+		for (const key in this.error_types) {
 
-			let function_name = this.removeNonAlphaNumeric(this.error_types[key].name).toLowerCase();
+			const function_name = this.removeNonAlphaNumeric(this.error_types[key].name).toLowerCase();
 
-			let graph_name = this.removeNonAlphaNumeric(name).toLowerCase();
+			const graph_name = this.removeNonAlphaNumeric(name).toLowerCase();
 
-			if(function_name == graph_name){
+			if (function_name == graph_name) {
 
 				return new this.error_types[key]();
 
@@ -152,15 +152,15 @@ export default class ErrorUtilities {
 
 	}
 
-	static removeNonAlphaNumeric(string){
+	static removeNonAlphaNumeric(string) {
 
-		return string.replace(/[^0-9a-z]/gi,'');
+		return string.replace(/[^0-9a-z]/gi, '');
 
 	}
 
-	static isError(thing){
+	static isError(thing) {
 
-		if(thing instanceof Error){
+		if (thing instanceof Error) {
 			return true;
 		}
 

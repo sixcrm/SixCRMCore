@@ -4,9 +4,9 @@ import eu from './error-utilities';
 
 export default class StringUtilities {
 
-	static clone(thing: string){
+	static clone(thing: string) {
 
-		if(_.isString(thing)){
+		if (_.isString(thing)) {
 
 			return thing.slice(0);
 
@@ -18,11 +18,11 @@ export default class StringUtilities {
 
 	static extractJSON(message: string) {
 
-		let json_start = message.indexOf('{');
+		const json_start = message.indexOf('{');
 
 		if (json_start > -1) {
 
-			let json_substring = message.substring(json_start);
+			const json_substring = message.substring(json_start);
 
 			if (this.isValidJSON(json_substring)) {
 				return json_substring;
@@ -60,7 +60,7 @@ export default class StringUtilities {
 
 	static pluralize(thing: string, fatal: boolean = true) {
 
-		this.isString(thing, fatal)
+		this.isString(thing, fatal);
 
 		if (this.isMatch(thing, /^.*[^aeiou]y$/)) {
 			thing = thing.replace(/y$/, 'ie');
@@ -105,7 +105,7 @@ export default class StringUtilities {
 
 		if (this.isString(thing, fatal)) {
 
-			let is_numeric = (!isNaN(thing) && isFinite(thing));
+			const is_numeric = (!isNaN(thing) && isFinite(thing));
 
 			if (is_numeric) {
 
@@ -127,7 +127,7 @@ export default class StringUtilities {
 
 		if (this.isString(thing, fatal)) {
 
-			let nonempty = (thing.trim().length > 0);
+			const nonempty = (thing.trim().length > 0);
 
 			if (nonempty) {
 
@@ -166,7 +166,7 @@ export default class StringUtilities {
 		if (this.isString(a_string)) {
 
 			try {
-				return global.SixCRM.validate(a_string, global.SixCRM.routes.path('model', 'definitions/uuidv' + version), null, false)
+				return global.SixCRM.validate(a_string, global.SixCRM.routes.path('model', 'definitions/uuidv' + version), null, false);
 			} catch {
 				return false;
 			}
@@ -181,7 +181,7 @@ export default class StringUtilities {
 		if (this.isString(a_string)) {
 
 			try {
-				return global.SixCRM.validate(a_string, global.SixCRM.routes.path('model', 'definitions/url.json'))
+				return global.SixCRM.validate(a_string, global.SixCRM.routes.path('model', 'definitions/url.json'));
 			} catch {
 				return false;
 			}
@@ -197,7 +197,7 @@ export default class StringUtilities {
 		if (this.isString(a_string)) {
 
 			try {
-				return global.SixCRM.validate(a_string, global.SixCRM.routes.path('model', 'definitions/phone.json'))
+				return global.SixCRM.validate(a_string, global.SixCRM.routes.path('model', 'definitions/phone.json'));
 			} catch {
 				return false;
 			}
@@ -213,7 +213,7 @@ export default class StringUtilities {
 		if (this.isString(a_string)) {
 
 			try {
-				return global.SixCRM.validate(a_string, global.SixCRM.routes.path('model', 'definitions/email'), false)
+				return global.SixCRM.validate(a_string, global.SixCRM.routes.path('model', 'definitions/email'), false);
 			} catch {
 				return false;
 			}
@@ -238,7 +238,7 @@ export default class StringUtilities {
 
 		this.isRegex(regex, true);
 
-		let matches = a_string.match(regex);
+		const matches = a_string.match(regex);
 
 		if (matches && matches.length > 0) {
 			return true;
@@ -254,7 +254,7 @@ export default class StringUtilities {
 			return true;
 		}
 
-		//this doesn't work here....
+		// this doesn't work here....
 		if (fatal) {
 			throw eu.getError('server', 'StringUtilities.isRegex argument is not an regular expression.');
 		}
@@ -265,7 +265,7 @@ export default class StringUtilities {
 
 	static stripHTML(string_object) {
 
-		let striptags = require('striptags');
+		const striptags = require('striptags');
 
 		return striptags(string_object);
 
@@ -273,7 +273,7 @@ export default class StringUtilities {
 
 	static escapeCharacter(content: string, character: string) {
 
-		var re = new RegExp(character, "g");
+		const re = new RegExp(character, "g");
 
 		return content.replace(re, '\\' + character);
 
@@ -313,7 +313,7 @@ export default class StringUtilities {
 
 		while (result.indexOf('_') > -1) {
 
-			let underscore = result.indexOf('_');
+			const underscore = result.indexOf('_');
 
 			result = result.slice(0, underscore) + result[underscore + 1].toUpperCase() + result.slice(underscore + 2);
 
@@ -347,7 +347,7 @@ export default class StringUtilities {
 
 		this.isRegex(regex, true);
 
-		//Technical Debt:  Test immediately!
+		// Technical Debt:  Test immediately!
 		/*
       let regex = /\{\{([^{}]*)\}\}/g;
 
@@ -359,7 +359,7 @@ export default class StringUtilities {
       }
       */
 
-		let matches = a_string.match(regex);
+		const matches = a_string.match(regex);
 
 		if (matches && matches.length > 0) {
 			return matches;
@@ -375,7 +375,7 @@ export default class StringUtilities {
 
 		this.isRegex(regex, true);
 
-		let matches: string[] = [];
+		const matches: string[] = [];
 		let match: RegExpExecArray | null;
 
 		do {
@@ -393,7 +393,7 @@ export default class StringUtilities {
 
 		this.isString(string, true);
 
-		let regex = new RegExp(target_string, "g");
+		const regex = new RegExp(target_string, "g");
 
 		return string.replace(regex, replace_string);
 

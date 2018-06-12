@@ -5,17 +5,17 @@ import stringutilities from './string-utilities';
 
 export default class CurrencyUtilities {
 
-	static toCurrency(value: string | number, fatal: boolean = false){
+	static toCurrency(value: string | number, fatal: boolean = false) {
 
 		du.debug('To Currency');
 
-		if(numberutilities.isNumber(value, fatal)){
+		if (numberutilities.isNumber(value, fatal)) {
 			return (value as number).toFixed(2);
 		}
 
-		if(stringutilities.isNumeric(value, fatal)){
+		if (stringutilities.isNumeric(value, fatal)) {
 
-			let number = parseFloat(value as string);
+			const number = parseFloat(value as string);
 
 			return number.toFixed(2);
 		}
@@ -24,11 +24,11 @@ export default class CurrencyUtilities {
 
 	}
 
-	static toCurrencyString(value: string | number, fatal: boolean = false){
+	static toCurrencyString(value: string | number, fatal: boolean = false) {
 
 		du.debug('To Currency String');
 
-		return '$'+this.toCurrency(value, fatal);
+		return '$' + this.toCurrency(value, fatal);
 
 	}
 

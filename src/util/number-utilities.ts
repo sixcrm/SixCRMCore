@@ -3,67 +3,67 @@ import eu from './error-utilities';
 
 export default class NumberUtilities {
 
-	static isNumber(value: any, fatal: boolean = false){
+	static isNumber(value: any, fatal: boolean = false) {
 
-		if(_.isNumber(value)){
+		if (_.isNumber(value)) {
 			return true;
 		}
 
-		if(fatal){
-			throw eu.getError('server', 'Not a number: '+value);
+		if (fatal) {
+			throw eu.getError('server', 'Not a number: ' + value);
 		}
 
 		return false;
 
 	}
 
-	static isNatural(number: any, fatal: boolean = false){
+	static isNatural(number: any, fatal: boolean = false) {
 
-		if(this.isInteger(number) && number > 0){
+		if (this.isInteger(number) && number > 0) {
 			return true;
 		}
 
-		if(fatal){
-			throw eu.getError('server', 'Not a natural: '+number);
+		if (fatal) {
+			throw eu.getError('server', 'Not a natural: ' + number);
 		}
 
 		return false;
 
 	}
 
-	static isInteger(number: any, fatal: boolean = false){
+	static isInteger(number: any, fatal: boolean = false) {
 
-		if(this.isNumber(number, fatal) && (number % 1 === 0)){
+		if (this.isNumber(number, fatal) && (number % 1 === 0)) {
 
 			return true;
 
 		}
 
-		if(fatal){
-			throw eu.getError('server', 'Not a integer: '+number);
+		if (fatal) {
+			throw eu.getError('server', 'Not a integer: ' + number);
 		}
 
 		return false;
 
 	}
 
-	static isFloat(number: any){
+	static isFloat(number: any) {
 
 		return Number(number) === number && ! this.isInteger(number);
 
 	}
 
-	static formatFloat(number: number, precision: number = 2){
+	static formatFloat(number: number, precision: number = 2) {
 
-		if(!this.isNumber(number)){
-			throw eu.getError('validation','Not a number: '+number);
+		if (!this.isNumber(number)) {
+			throw eu.getError('validation', 'Not a number: ' + number);
 		}
 
-		if(!this.isNumber(precision)){
-			throw eu.getError('validation','Not a number: '+precision);
+		if (!this.isNumber(precision)) {
+			throw eu.getError('validation', 'Not a number: ' + precision);
 		}
 
-		if(!this.isInteger(precision)){
+		if (!this.isInteger(precision)) {
 			precision = Math.floor(precision);
 		}
 
@@ -71,9 +71,9 @@ export default class NumberUtilities {
 
 	}
 
-	static toNumber(thing: any){
+	static toNumber(thing: any) {
 
-		if(this.isNumber(thing)){
+		if (this.isNumber(thing)) {
 			return thing as number;
 		}
 
@@ -81,12 +81,12 @@ export default class NumberUtilities {
 
 	}
 
-	static appendOrdinalSuffix(n: number){
+	static appendOrdinalSuffix(n: number) {
 
 		this.isNatural(n, true);
 
 		function ordinalSuffixOf(n: number) {
-			var j = n % 10,
+			let j = n % 10,
 				k = n % 100;
 
 			if (j == 1 && k != 11) {
@@ -101,7 +101,7 @@ export default class NumberUtilities {
 			return "th";
 		}
 
-		return n+ordinalSuffixOf(n);
+		return n + ordinalSuffixOf(n);
 
 	}
 

@@ -13,14 +13,14 @@ export default class JWTUtilities {
 		const now = timestamp.createTimestampSeconds();
 
 		const jwt_contents = {
-			"email": user.id,
-			"email_verified": true,
-			"picture": "",
-			"iss": "https://sixcrm.auth0.com/",
-			"sub": "",
-			"aud": "",
-			"exp": (now + numberutilities.toNumber(global.SixCRM.configuration.site_config.jwt.site.expiration)),
-			"iat": now
+			email: user.id,
+			email_verified: true,
+			picture: "",
+			iss: "https://sixcrm.auth0.com/",
+			sub: "",
+			aud: "",
+			exp: (now + numberutilities.toNumber(global.SixCRM.configuration.site_config.jwt.site.expiration)),
+			iat: now
 		};
 
 		return this._generateJWT(jwt_contents, global.SixCRM.configuration.site_config.jwt.site.secret_key);

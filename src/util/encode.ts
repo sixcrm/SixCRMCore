@@ -3,7 +3,7 @@ import du from './debug-utilities';
 
 export default class EncodeUtilities {
 
-	static objectToBase64(object: any){
+	static objectToBase64(object: any) {
 
 		du.debug('Object To Base 64');
 
@@ -11,7 +11,7 @@ export default class EncodeUtilities {
 
 	}
 
-	static base64ToObject(string: string){
+	static base64ToObject(string: string) {
 
 		du.debug('Base64 To Object');
 
@@ -19,7 +19,7 @@ export default class EncodeUtilities {
 
 	}
 
-	static toBase64(string: string){
+	static toBase64(string: string) {
 
 		du.debug('To Base64');
 
@@ -27,7 +27,7 @@ export default class EncodeUtilities {
 
 	}
 
-	static fromBase64(string: string){
+	static fromBase64(string: string) {
 
 		du.debug('From Base64');
 

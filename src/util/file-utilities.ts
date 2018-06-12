@@ -8,7 +8,7 @@ export default class FileUtilities {
 
 	static writeFile(path: string, contents: any) {
 
-		fs.writeFileSync(path, contents)
+		fs.writeFileSync(path, contents);
 
 	}
 
@@ -23,9 +23,9 @@ export default class FileUtilities {
 		const readdir = util.promisify(fs.readdir);
 		const all = await readdir(directory_path);
 
-		return all.filter(file => {
+		return all.filter((file) => {
 
-			return fs.lstatSync(directory_path + '/' + file).isDirectory()
+			return fs.lstatSync(directory_path + '/' + file).isDirectory();
 
 		});
 
@@ -36,9 +36,9 @@ export default class FileUtilities {
 		const readdir = util.promisify(fs.readdir);
 		const all = await readdir(directory_path);
 
-		return all.filter(file => {
+		return all.filter((file) => {
 
-			return fs.lstatSync(directory_path + '/' + file).isFile()
+			return fs.lstatSync(directory_path + '/' + file).isFile();
 
 		});
 
@@ -80,7 +80,7 @@ export default class FileUtilities {
 
 	static getDirectoryList(directory_path: string) {
 
-		return fs.readdirSync(directory_path).filter(f => fs.statSync(directory_path + "/" + f).isDirectory());
+		return fs.readdirSync(directory_path).filter((f) => fs.statSync(directory_path + "/" + f).isDirectory());
 
 	}
 

@@ -5,19 +5,19 @@ import arrayutilities from './array-utilities';
 
 export default class ObjectUtilities {
 
-	static recursiveMerge(authority_object, secondary_object){
+	static recursiveMerge(authority_object, secondary_object) {
 
-		let return_object = authority_object;
+		const return_object = authority_object;
 
 		this.map(secondary_object, (key) => {
 
-			if(!_.has(return_object, key)){
+			if (!_.has(return_object, key)) {
 
 				return_object[key] = secondary_object[key];
 
-			}else{
+			} else {
 
-				if(_.isObject(authority_object[key]) && _.isObject(secondary_object[key])){
+				if (_.isObject(authority_object[key]) && _.isObject(secondary_object[key])) {
 					return_object[key] = this.recursiveMerge(return_object[key], secondary_object[key]);
 				}
 
@@ -28,17 +28,17 @@ export default class ObjectUtilities {
 		return return_object;
 
 	}
-	static removeIfExists(object, field, fatal){
+	static removeIfExists(object, field, fatal) {
 
-		fatal = (_.isUndefined(fatal))?false:fatal;
+		fatal = (_.isUndefined(fatal)) ? false : fatal;
 
-		if(!this.isObject(object, fatal)){
+		if (!this.isObject(object, fatal)) {
 			return object;
 		}
 
-		if(this.hasRecursive(object, field, fatal)){
+		if (this.hasRecursive(object, field, fatal)) {
 
-			if(_.isString(field)){
+			if (_.isString(field)) {
 				field = field.split('.');
 			}
 
@@ -50,13 +50,13 @@ export default class ObjectUtilities {
 
 	}
 
-	static deepDelete(object, path_array){
+	static deepDelete(object, path_array) {
 
-		let path = path_array.shift();
+		const path = path_array.shift();
 
-		if(path_array.length == 0){
+		if (path_array.length == 0) {
 			delete object[path];
-			return object
+			return object;
 		}
 
 		object[path] = this.deepDelete(object[path], path_array);
@@ -64,9 +64,9 @@ export default class ObjectUtilities {
 
 	}
 
-	static getProperties(object: object, fatal: boolean = false){
+	static getProperties(object: object, fatal: boolean = false) {
 
-		if(!this.isObject(object, fatal)){
+		if (!this.isObject(object, fatal)) {
 			return false;
 		}
 
@@ -74,15 +74,15 @@ export default class ObjectUtilities {
 
 	}
 
-	static getAllMethods(object, fatal){
+	static getAllMethods(object, fatal) {
 
-		fatal = (_.isUndefined(fatal))?false:fatal;
+		fatal = (_.isUndefined(fatal)) ? false : fatal;
 
-		if(!this.isObject(object, fatal)){
+		if (!this.isObject(object, fatal)) {
 			return false;
 		}
 
-		let properties = this.getProperties(object);
+		const properties = this.getProperties(object);
 
 		return arrayutilities.filter(properties, (property) => {
 			return typeof object[property] == 'function';
@@ -90,19 +90,19 @@ export default class ObjectUtilities {
 
 	}
 
-	static nonEmpty(object, fatal){
+	static nonEmpty(object, fatal) {
 
-		fatal = (_.isUndefined(fatal))?false:fatal;
+		fatal = (_.isUndefined(fatal)) ? false : fatal;
 
-		if(!this.isObject(object, fatal)){
+		if (!this.isObject(object, fatal)) {
 			return false;
 		}
 
-		if(arrayutilities.nonEmpty(Object.keys(object))){
+		if (arrayutilities.nonEmpty(Object.keys(object))) {
 			return true;
 		}
 
-		if(fatal){
+		if (fatal) {
 			throw eu.getError('server', 'Object is empty.');
 		}
 
@@ -110,44 +110,44 @@ export default class ObjectUtilities {
 
 	}
 
-	//Technical Debt:  Test Me!
-	static has(object, properties, fatal){
+	// Technical Debt:  Test Me!
+	static has(object, properties, fatal) {
 
 		du.debug('Has');
 
-		fatal = (_.isUndefined(fatal))?false:fatal;
+		fatal = (_.isUndefined(fatal)) ? false : fatal;
 
-		if(!this.isObject(object, fatal)){
+		if (!this.isObject(object, fatal)) {
 			return false;
 		}
 
-		if(_.isString(properties)){
+		if (_.isString(properties)) {
 
-			if(_.has(object, properties)){ return true; }
+			if (_.has(object, properties)) { return true; }
 
-			if(fatal){
-				throw eu.getError('server', 'Object missing property "'+properties+'".');
+			if (fatal) {
+				throw eu.getError('server', 'Object missing property "' + properties + '".');
 			}
 
 			return false;
 
 		}
 
-		if(arrayutilities.nonEmpty(properties, fatal)){
+		if (arrayutilities.nonEmpty(properties, fatal)) {
 
-			return arrayutilities.every(properties, property => {
+			return arrayutilities.every(properties, (property) => {
 
-				if(!_.isString(property)){
-					if(fatal){
-						throw eu.getError('server', 'Unrecognized properties object: '+property);
+				if (!_.isString(property)) {
+					if (fatal) {
+						throw eu.getError('server', 'Unrecognized properties object: ' + property);
 					}
 					return false;
 				}
 
-				if(_.has(object, property)){ return true; }
+				if (_.has(object, property)) { return true; }
 
-				if(fatal){
-					throw eu.getError('server', 'Object missing property "'+property+'".');
+				if (fatal) {
+					throw eu.getError('server', 'Object missing property "' + property + '".');
 				}
 
 				return false;
@@ -156,12 +156,12 @@ export default class ObjectUtilities {
 
 		}
 
-		throw eu.getError('server', 'Unrecognized properties object: '+properties);
+		throw eu.getError('server', 'Unrecognized properties object: ' + properties);
 
 	}
 
-	//Technical Debt:  Test Me!
-	static transcribe(mapping_object, source_object, return_object, fatal){
+	// Technical Debt:  Test Me!
+	static transcribe(mapping_object, source_object, return_object, fatal) {
 
 		du.debug('Transcribe');
 
@@ -169,25 +169,25 @@ export default class ObjectUtilities {
 
 		this.isObject(source_object, true);
 
-		if(_.isUndefined(return_object) || _.isNull(return_object)){
+		if (_.isUndefined(return_object) || _.isNull(return_object)) {
 			return_object = {};
 		}
 
-		if(_.isUndefined(fatal) || _.isNull(fatal)){
+		if (_.isUndefined(fatal) || _.isNull(fatal)) {
 			fatal = false;
 		}
 
 		this.map(mapping_object, (key) => {
 
-			let map_key = mapping_object[key];
+			const map_key = mapping_object[key];
 
-			if(!this.hasRecursive(source_object, map_key)){
+			if (!this.hasRecursive(source_object, map_key)) {
 
-				if(fatal){
-					throw eu.getError('server', 'Missing source object field: "'+map_key+'".');
+				if (fatal) {
+					throw eu.getError('server', 'Missing source object field: "' + map_key + '".');
 				}
 
-			}else{
+			} else {
 
 				return_object[key] = this.getKey(source_object, map_key, true);
 
@@ -199,20 +199,20 @@ export default class ObjectUtilities {
 
 	}
 
-	//Technical Debt:  Test Me!
-	static map(object: object, map_function: (key: string) => any){
+	// Technical Debt:  Test Me!
+	static map(object: object, map_function: (key: string) => any) {
 
 		du.debug('Map');
 
 		this.isObject(object, true);
 
-		if(!_.isFunction(map_function)){
+		if (!_.isFunction(map_function)) {
 			throw eu.getError('server', 'map_function is not a function.');
 		}
 
-		let keys = this.getKeys(object);
+		const keys = this.getKeys(object);
 
-		let output: any[] = [];
+		const output: any[] = [];
 
 		arrayutilities.map(keys, (key) => {
 			output.push(map_function(key));
@@ -222,17 +222,17 @@ export default class ObjectUtilities {
 
 	}
 
-	static getKey(object, key, fatal){
+	static getKey(object, key, fatal) {
 
 		du.debug('Get Key');
 
-		if(_.isUndefined(fatal)){
+		if (_.isUndefined(fatal)) {
 			fatal = false;
 		}
 
-		if(this.hasRecursive(object, key, fatal)){
+		if (this.hasRecursive(object, key, fatal)) {
 
-			if(!_.isArray(key)){
+			if (!_.isArray(key)) {
 				key = key.split('.');
 			}
 
@@ -246,35 +246,35 @@ export default class ObjectUtilities {
 
 	}
 
-	static hasRecursive(object: object, key: string | any[], fatal: boolean = false){
+	static hasRecursive(object: object, key: string | any[], fatal: boolean = false) {
 
 		du.debug('Has Recursive');
 
-		if(!arrayutilities.isArray(key)){
-			if(_.isString(key)){
+		if (!arrayutilities.isArray(key)) {
+			if (_.isString(key)) {
 				key = (key as string).split('.');
-			}else{
+			} else {
 				throw eu.getError('server', 'Key must be a array or a string.');
 			}
 		}
 
-		if(key.length < 1){
+		if (key.length < 1) {
 			throw eu.getError('server', 'key array must be of length 1 or greater.');
 		}
 
-		let specific_key = key[0];
+		const specific_key = key[0];
 
-		if(!_.isString(specific_key)){
+		if (!_.isString(specific_key)) {
 			throw eu.getError('server', 'Non-string key observed.');
 		}
 
-		if(_.has(object, specific_key)){
+		if (_.has(object, specific_key)) {
 
-			if(key.length > 1){
+			if (key.length > 1) {
 
 				return this.hasRecursive(object[specific_key], key.slice(1, (key.length)), fatal);
 
-			}else{
+			} else {
 
 				return true;
 
@@ -282,9 +282,9 @@ export default class ObjectUtilities {
 
 		}
 
-		if(fatal){
+		if (fatal) {
 
-			throw eu.getError('server','Expected object to have key "'+arrayutilities.compress(key,'.','')+'"');
+			throw eu.getError('server', 'Expected object to have key "' + arrayutilities.compress(key, '.', '') + '"');
 
 		}
 
@@ -292,39 +292,39 @@ export default class ObjectUtilities {
 
 	}
 
-	static getRecursive(object, key, fatal){
+	static getRecursive(object, key, fatal) {
 
 		du.debug('Get Recursive');
 
-		if(_.isUndefined(fatal)){
+		if (_.isUndefined(fatal)) {
 			fatal = false;
 		}
 
-		if(!arrayutilities.isArray(key)){
-			if(_.isString(key)){
+		if (!arrayutilities.isArray(key)) {
+			if (_.isString(key)) {
 				key = key.split('.');
-			}else{
+			} else {
 				throw eu.getError('server', 'Key must be a array or a string.');
 			}
 		}
 
-		if(key.length < 1){
+		if (key.length < 1) {
 			throw eu.getError('server', 'key array must be of length 1 or greater.');
 		}
 
-		let specific_key = key[0];
+		const specific_key = key[0];
 
-		if(!_.isString(specific_key)){
+		if (!_.isString(specific_key)) {
 			throw eu.getError('server', 'Non-string key observed.');
 		}
 
-		if(_.has(object, specific_key)){
+		if (_.has(object, specific_key)) {
 
-			if(key.length > 1){
+			if (key.length > 1) {
 
 				return this.getRecursive(object[specific_key], key.slice(1, (key.length)), fatal);
 
-			}else{
+			} else {
 
 				return object[specific_key];
 
@@ -332,9 +332,9 @@ export default class ObjectUtilities {
 
 		}
 
-		if(fatal){
+		if (fatal) {
 
-			throw eu.getError('server','Expected object to have key "'+arrayutilities.compress(key,'.','')+'"');
+			throw eu.getError('server', 'Expected object to have key "' + arrayutilities.compress(key, '.', '') + '"');
 
 		}
 
@@ -342,39 +342,39 @@ export default class ObjectUtilities {
 
 	}
 
-	static setRecursive(object, key, value, fatal){
+	static setRecursive(object, key, value, fatal) {
 
 		du.debug('Set Recursive');
 
-		if(_.isUndefined(fatal)){
+		if (_.isUndefined(fatal)) {
 			fatal = false;
 		}
 
-		if(!arrayutilities.isArray(key)){
-			if(_.isString(key)){
+		if (!arrayutilities.isArray(key)) {
+			if (_.isString(key)) {
 				key = key.split('.');
-			}else{
+			} else {
 				throw eu.getError('server', 'Key must be a array or a string.');
 			}
 		}
 
-		if(key.length < 1){
+		if (key.length < 1) {
 			throw eu.getError('server', 'key array must be of length 1 or greater.');
 		}
 
-		let specific_key = key[0];
+		const specific_key = key[0];
 
-		if(!_.isString(specific_key)){
+		if (!_.isString(specific_key)) {
 			throw eu.getError('server', 'Non-string key observed.');
 		}
 
-		if(_.has(object, specific_key)){
+		if (_.has(object, specific_key)) {
 
-			if(key.length > 1){
+			if (key.length > 1) {
 
 				this.setRecursive(object[specific_key], key.slice(1, (key.length)), value, fatal);
 
-			}else{
+			} else {
 
 				object[specific_key] = value;
 
@@ -382,9 +382,9 @@ export default class ObjectUtilities {
 
 		}
 
-		if(fatal){
+		if (fatal) {
 
-			throw eu.getError('server','Expected object to have key "'+arrayutilities.compress(key,'.','')+'"');
+			throw eu.getError('server', 'Expected object to have key "' + arrayutilities.compress(key, '.', '') + '"');
 
 		}
 
@@ -392,17 +392,17 @@ export default class ObjectUtilities {
 
 	}
 
-	static getParentClassName(object){
+	static getParentClassName(object) {
 
 		du.debug('Get Parent Class Name');
 
 		this.isObject(object, true);
 
-		if(!_.has(object, 'constructor') && _.has(object.constructor, 'name')){
+		if (!_.has(object, 'constructor') && _.has(object.constructor, 'name')) {
 
-			let parent = Object.getPrototypeOf(object.constructor);
+			const parent = Object.getPrototypeOf(object.constructor);
 
-			if(_.has(parent, 'name')){
+			if (_.has(parent, 'name')) {
 
 				return parent.name;
 
@@ -414,13 +414,13 @@ export default class ObjectUtilities {
 
 	}
 
-	static getClassName(object){
+	static getClassName(object) {
 
 		du.debug('Get Class Name');
 
 		this.isObject(object, true);
 
-		if(_.has(object.constructor, 'name')){
+		if (_.has(object.constructor, 'name')) {
 
 			return object.constructor.name;
 		}
@@ -429,7 +429,7 @@ export default class ObjectUtilities {
 
 	}
 
-	static clone(object){
+	static clone(object) {
 
 		du.debug('Clone');
 
@@ -439,7 +439,7 @@ export default class ObjectUtilities {
 
 	}
 
-	static additiveFilter(keys, object){
+	static additiveFilter(keys, object) {
 
 		du.debug('Additive Filter');
 
@@ -447,11 +447,11 @@ export default class ObjectUtilities {
 
 		this.isObject(object, true);
 
-		let return_object = {};
+		const return_object = {};
 
-		keys.map(key => {
+		keys.map((key) => {
 
-			if(_.has(object, key)){
+			if (_.has(object, key)) {
 
 				return_object[key] = object[key];
 
@@ -463,7 +463,7 @@ export default class ObjectUtilities {
 
 	}
 
-	static subtractiveFilter(keys, object){
+	static subtractiveFilter(keys, object) {
 
 		du.debug('Subtractive Filter');
 
@@ -471,11 +471,11 @@ export default class ObjectUtilities {
 
 		this.isObject(object, true);
 
-		let return_object = this.clone(object);
+		const return_object = this.clone(object);
 
-		keys.map(key => {
+		keys.map((key) => {
 
-			if(_.has(return_object, key)){
+			if (_.has(return_object, key)) {
 
 				delete return_object[key];
 
@@ -487,13 +487,13 @@ export default class ObjectUtilities {
 
 	}
 
-	static merge(){
+	static merge() {
 
 		du.debug('Merge');
 
 		let return_object = {};
 
-		let argumentation = this.getValues(arguments);
+		const argumentation = this.getValues(arguments);
 
 		arrayutilities.map(argumentation, (argument) => {
 
@@ -507,19 +507,19 @@ export default class ObjectUtilities {
 
 	}
 
-	static isObject(thing, fatal){
+	static isObject(thing, fatal) {
 
 		du.debug('Is Object');
 
-		fatal = _.isUndefined(fatal)?false:fatal;
+		fatal = _.isUndefined(fatal) ? false : fatal;
 
-		if(_.isObject(thing)){
+		if (_.isObject(thing)) {
 
 			return true;
 
 		}
 
-		if(fatal == true){
+		if (fatal == true) {
 
 			throw eu.getError('server', 'Thing is not an object.');
 
@@ -529,7 +529,7 @@ export default class ObjectUtilities {
 
 	}
 
-	static getKeys(object){
+	static getKeys(object) {
 
 		du.debug('Get Keys');
 
@@ -539,37 +539,37 @@ export default class ObjectUtilities {
 
 	}
 
-	static getValues(object){
+	static getValues(object) {
 
 		du.debug('Get Values');
 
 		this.isObject(object, true);
 
-		return Object.keys(object).map(key => object[key]);
+		return Object.keys(object).map((key) => object[key]);
 
 	}
 
-	static getObjectType(object){
+	static getObjectType(object) {
 
 		du.debug('Get Object Type');
 
-		if(_.isArray(object)){
+		if (_.isArray(object)) {
 			return 'array';
 		}
 
-		if(_.isString(object)){
+		if (_.isString(object)) {
 			return 'string';
 		}
 
-		if(_.isNumber(object)){
+		if (_.isNumber(object)) {
 			return 'number';
 		}
 
-		if(_.isBoolean(object)){
+		if (_.isBoolean(object)) {
 			return 'boolean';
 		}
 
-		if(_.isObject(object)){
+		if (_.isObject(object)) {
 			return 'object';
 		}
 
@@ -577,41 +577,41 @@ export default class ObjectUtilities {
 
 	}
 
-	static recurseByDepth(object, match_function){
+	static recurseByDepth(object, match_function) {
 
 		du.debug('Recurse By Depth');
 
-		let all_results = this.recurseAll(object, match_function);
+		const all_results = this.recurseAll(object, match_function);
 
 		let result: any = null;
 
-		if(_.isObject(all_results)){
+		if (_.isObject(all_results)) {
 
 			all_results!.forEach((all_result) => {
 
-				if(_.isNull(result)){
+				if (_.isNull(result)) {
 
-					if(_.has(all_result, 'depth') && _.has(all_result, 'match')){
+					if (_.has(all_result, 'depth') && _.has(all_result, 'match')) {
 						result = all_result;
-					}else{
-						throw eu.getError('validation','Undefined result object:', all_result);
+					} else {
+						throw eu.getError('validation', 'Undefined result object:', all_result);
 					}
 
-				}else{
+				} else {
 
-					if(_.has(all_result, 'depth') && _.has(all_result, 'match')){
-						if(all_result.depth < result!.depth){
+					if (_.has(all_result, 'depth') && _.has(all_result, 'match')) {
+						if (all_result.depth < result!.depth) {
 							result = all_result;
 						}
-					}else{
-						throw eu.getError('validation','Undefined result object:', all_result);
+					} else {
+						throw eu.getError('validation', 'Undefined result object:', all_result);
 					}
 
 				}
 
 			});
 
-			if(!_.isNull(result) && _.has(result, 'match')){
+			if (!_.isNull(result) && _.has(result, 'match')) {
 
 				result = result.match;
 
@@ -623,33 +623,33 @@ export default class ObjectUtilities {
 
 	}
 
-	static recurseAll(object: object, match_function: (key: string, value: any) => any, depth: number = 1){
+	static recurseAll(object: object, match_function: (key: string, value: any) => any, depth: number = 1) {
 
 		du.debug('Recurse All');
 
-		if(!_.isObject(object)){
+		if (!_.isObject(object)) {
 			return null;
 		}
 
-		if(!_.isFunction(match_function)){
-			throw eu.getError('validation','Match function must be a function.');
+		if (!_.isFunction(match_function)) {
+			throw eu.getError('validation', 'Match function must be a function.');
 		}
 
 		let results: any[] = [];
 
-		for(var key in object){
+		for (const key in object) {
 
-			let value = (_.has(object, key))?object[key]:key;
+			const value = (_.has(object, key)) ? object[key] : key;
 
-			if(match_function(key, value)){
+			if (match_function(key, value)) {
 
-				results.push({depth: depth, match: value});
+				results.push({depth, match: value});
 
 			}
 
-			var sub_results = this.recurseAll(value, match_function, (depth+1));
+			const sub_results = this.recurseAll(value, match_function, (depth + 1));
 
-			if(_.isArray(sub_results) && sub_results!.length > 0){
+			if (_.isArray(sub_results) && sub_results!.length > 0) {
 
 				results = arrayutilities.merge(results, sub_results);
 
@@ -661,23 +661,23 @@ export default class ObjectUtilities {
 
 	}
 
-	static recurse(object, match_function){
+	static recurse(object, match_function) {
 
 		du.debug('Recurse');
 
 		let response = null;
 
-		if(!_.isObject(object)){ return response; }
+		if (!_.isObject(object)) { return response; }
 
-		if(!_.isFunction(match_function)){
+		if (!_.isFunction(match_function)) {
 			throw eu.getError('validation', 'Match function must be a function.');
 		}
 
-		for(var key in object){
+		for (const key in object) {
 
-			let value = (_.has(object, key))?object[key]:key;
+			const value = (_.has(object, key)) ? object[key] : key;
 
-			if(match_function(key, value)){
+			if (match_function(key, value)) {
 
 				return value;
 
@@ -685,7 +685,7 @@ export default class ObjectUtilities {
 
 			response = this.recurse(value, match_function);
 
-			if(!_.isNull(response)){ return response; }
+			if (!_.isNull(response)) { return response; }
 
 		}
 
@@ -693,24 +693,24 @@ export default class ObjectUtilities {
 
 	}
 
-	//Note:  Works but deprecated...
-	//Note:  Doesn't do exactly what I intended...
+	// Note:  Works but deprecated...
+	// Note:  Doesn't do exactly what I intended...
 
-	static orderedRecursion(object: object, match_function: (any) => boolean){
+	static orderedRecursion(object: object, match_function: (any) => boolean) {
 
 		du.debug('Ordered Recursion');
 
-		let children: any[] = [];
+		const children: any[] = [];
 
-		for(var key in object){
+		for (const key in object) {
 
-			if(match_function(object[key])){
+			if (match_function(object[key])) {
 
 				return object[key];
 
 			}
 
-			if(_.isArray(object[key]) || _.isObject(object[key])){
+			if (_.isArray(object[key]) || _.isObject(object[key])) {
 
 				children.push(object[key]);
 
@@ -720,11 +720,11 @@ export default class ObjectUtilities {
 
 		let recursion_result = null;
 
-		for(var c_key in children){
+		for (const c_key in children) {
 
 			recursion_result = this.orderedRecursion(children[c_key], match_function);
 
-			if(!_.isNull(recursion_result)){
+			if (!_.isNull(recursion_result)) {
 
 				return recursion_result;
 

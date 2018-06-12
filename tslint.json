@@ -7,9 +7,8 @@
 		"member-access": false,
 		"variable-name": false,
 		"max-line-length": false,
-		"prefer-const": false,
 		"object-literal-sort-keys": false,
-		"object-literal-shorthand": false,
-		"trailing-comma": false
+		"trailing-comma": false,
+		"one-line": [true, "check-open-brace", "check-whitespace"]
 	}
 }

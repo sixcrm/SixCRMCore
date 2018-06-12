@@ -9,7 +9,7 @@ export default class HashUtilities {
 
 	static toHMAC(key, str, encoding) {
 
-		du.debug('To HMAC')
+		du.debug('To HMAC');
 
 		return crypto.createHmac('sha256', key).update(str, 'utf8').digest(encoding);
 

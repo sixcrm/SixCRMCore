@@ -5,15 +5,15 @@ import numberutilities from './number-utilities';
 
 const oneDayInSeconds = 86400;
 
-//Technical Debt:  Need to consider that toISOString() returns a timestamp in UTC...
-//Technical Debt:  This could use a refactor.  Test cases too...
+// Technical Debt:  Need to consider that toISOString() returns a timestamp in UTC...
+// Technical Debt:  This could use a refactor.  Test cases too...
 export default class Timestamp {
 
-	static daysDifference(timestamp_1: moment.Moment, timestamp_2: moment.Moment | null = null){
+	static daysDifference(timestamp_1: moment.Moment, timestamp_2: moment.Moment | null = null) {
 
-		if(timestamp_2 === null){
+		if (timestamp_2 === null) {
 			timestamp_2 = moment.utc().startOf('day');
-		}else{
+		} else {
 			timestamp_2 = moment.utc(timestamp_2).startOf('day');
 		}
 
@@ -57,32 +57,32 @@ export default class Timestamp {
 
 	static isToday(timestamp) {
 
-		//Technical Debt:  Introduct margin of error to account for transactions that may occur right on the threshold of day.
+		// Technical Debt:  Introduct margin of error to account for transactions that may occur right on the threshold of day.
 		return moment.utc().isSame(timestamp, 'd');
 
 	}
 
-	static today(){
+	static today() {
 
 		return moment.utc().toISOString();
 
 	}
 
-	static subtractDays(days, now = moment.utc()){
+	static subtractDays(days, now = moment.utc()) {
 
 		return now.subtract(days, 'd').toISOString();
 
 	}
 
-	static addDays(days, now = moment.utc()){
+	static addDays(days, now = moment.utc()) {
 
 		return now.add(days, 'd').toISOString();
 
 	}
 
-	static getDayNumber(timestamp: moment.Moment | null = null){
+	static getDayNumber(timestamp: moment.Moment | null = null) {
 
-		if(timestamp === null){
+		if (timestamp === null) {
 			return moment.utc().format('DD');
 		}
 
@@ -90,9 +90,9 @@ export default class Timestamp {
 
 	}
 
-	static daysInMonth(timestamp: moment.Moment | null = null){
+	static daysInMonth(timestamp: moment.Moment | null = null) {
 
-		if(timestamp === null){
+		if (timestamp === null) {
 			return moment.utc().daysInMonth();
 		}
 		return moment.utc(timestamp).daysInMonth();
@@ -111,9 +111,9 @@ export default class Timestamp {
 
 	}
 
-	static nextMonth(day: number | null = null){
+	static nextMonth(day: number | null = null) {
 
-		if(day === null){
+		if (day === null) {
 			return moment.utc().add(1, 'month').startOf('month').toISOString();
 		}
 
@@ -121,9 +121,9 @@ export default class Timestamp {
 
 	}
 
-	static thisMonth(day: number | null = null){
+	static thisMonth(day: number | null = null) {
 
-		if(day === null){
+		if (day === null) {
 			return moment.utc().startOf('month').toISOString();
 		}
 
@@ -152,7 +152,7 @@ export default class Timestamp {
 	static delay(time) {
 
 		if (!numberutilities.isNatural(time)) {
-			throw eu.getError('server', 'Timestamp.delay assumes time is an natural integer.')
+			throw eu.getError('server', 'Timestamp.delay assumes time is an natural integer.');
 		}
 
 		return (passthrough) => {
@@ -164,7 +164,7 @@ export default class Timestamp {
 					time
 				);
 			});
-		}
+		};
 
 	}
 
@@ -248,7 +248,7 @@ export default class Timestamp {
 
 	static isISO8601(string) {
 
-		const re = /^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/
+		const re = /^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/;
 
 		return re.test(string);
 

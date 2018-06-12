@@ -5,7 +5,7 @@ import arrayutilities from './array-utilities';
 import objectutilities from './object-utilities';
 import stringutilities from './string-utilities';
 
-//Technical Debt:  This needs to be a helper, it contains general business logic
+// Technical Debt:  This needs to be a helper, it contains general business logic
 export default class PermissionUtilities {
 
 	static validatePermissions(action, entity, identifier) {
@@ -18,9 +18,9 @@ export default class PermissionUtilities {
 
 		} else {
 
-			let permission_string = this.buildPermissionString(action, entity, identifier);
+			const permission_string = this.buildPermissionString(action, entity, identifier);
 
-			let permissions = this.getPermissions();
+			const permissions = this.getPermissions();
 
 			du.debug('Permission String: ' + permission_string, 'Permissions: ', permissions);
 
@@ -36,7 +36,7 @@ export default class PermissionUtilities {
 
 		if (!_.has(global, 'user') || _.isNull(global.user)) {
 
-			if(!_.has(global, 'customer') || _.isNull(global.customer)){
+			if (!_.has(global, 'customer') || _.isNull(global.customer)) {
 
 				throw eu.getError('server', 'Global is missing the user property.');
 
@@ -66,7 +66,7 @@ export default class PermissionUtilities {
 
 				if (objectutilities.hasRecursive(acl_object, 'account.id')) {
 
-					//du.info('account_parity: '+global.account+' == '+acl_object.account.id);
+					// du.info('account_parity: '+global.account+' == '+acl_object.account.id);
 
 					if (acl_object.account.id == '*' || acl_object.account.id == global.account) {
 
@@ -100,7 +100,7 @@ export default class PermissionUtilities {
 
 		if (objectutilities.hasRecursive(global, 'customer')) {
 
-			if(objectutilities.hasRecursive(global.customer, 'acl.allow') && _.isArray(global.customer.acl.allow) && arrayutilities.nonEmpty(global.customer.acl.allow)){
+			if (objectutilities.hasRecursive(global.customer, 'acl.allow') && _.isArray(global.customer.acl.allow) && arrayutilities.nonEmpty(global.customer.acl.allow)) {
 
 				allow = global.customer.acl.allow;
 
@@ -108,7 +108,7 @@ export default class PermissionUtilities {
 
 		}
 
-		//Technical Debt:  Deny List is being set to "*"
+		// Technical Debt:  Deny List is being set to "*"
 		return {
 			allow: arrayutilities.unique(allow),
 			deny: ['*']
@@ -116,7 +116,7 @@ export default class PermissionUtilities {
 
 	}
 
-	//Technical Debt:  This seems remedial
+	// Technical Debt:  This seems remedial
 	static buildPermissionString(action, entity, identifier) {
 
 		du.debug('Build Permission String');
@@ -131,8 +131,8 @@ export default class PermissionUtilities {
 
 		stringutilities.nonEmpty(identifier, true);
 
-		//Technical Debt:  Order matters here.  Ick.
-		let permission_array = [entity, action, identifier];
+		// Technical Debt:  Order matters here.  Ick.
+		const permission_array = [entity, action, identifier];
 
 		return arrayutilities.compress(permission_array, '/', '');
 
@@ -150,7 +150,7 @@ export default class PermissionUtilities {
 
 		} else if (arrayutilities.nonEmpty(permission_array)) {
 
-			let permission_match = arrayutilities.find(permission_array, (permission) => {
+			const permission_match = arrayutilities.find(permission_array, (permission) => {
 
 				return this.isPermissionMatch(required_permission_string, permission);
 
@@ -185,10 +185,10 @@ export default class PermissionUtilities {
 
 		du.debug('Has Permission Superset');
 
-		let canonical_required_permission_array = this.buildCanonicalPermissionString(required_permission).split('/');
-		let canonical_submitted_permission_array = this.buildCanonicalPermissionString(submitted_permission).split('/');
+		const canonical_required_permission_array = this.buildCanonicalPermissionString(required_permission).split('/');
+		const canonical_submitted_permission_array = this.buildCanonicalPermissionString(submitted_permission).split('/');
 
-		//Technical Debt:  I don't like the use of "for" here
+		// Technical Debt:  I don't like the use of "for" here
 		for (let i = 0; i < canonical_required_permission_array.length; i++) {
 
 			if (canonical_required_permission_array[i] !== canonical_submitted_permission_array[i] && canonical_submitted_permission_array[i] !== '*') {
@@ -207,9 +207,9 @@ export default class PermissionUtilities {
 
 		du.debug('Is Universal Permission');
 
-		//let universal_permissions = this.getUniversalPermissions();
+		// let universal_permissions = this.getUniversalPermissions();
 
-		let permission = arrayutilities.find(this.getUniversalPermissions(), (universal_permission) => {
+		const permission = arrayutilities.find(this.getUniversalPermissions(), (universal_permission) => {
 
 			return this.isPermissionMatch(required_permission, universal_permission);
 
@@ -219,7 +219,7 @@ export default class PermissionUtilities {
 
 	}
 
-	//Technical Debt:  This is a hack, need immuatable objects
+	// Technical Debt:  This is a hack, need immuatable objects
 	static getUniversalPermissions() {
 
 		du.debug('Get Universal Permissions');
@@ -232,8 +232,8 @@ export default class PermissionUtilities {
 
 		du.debug('Has Canonical Permission');
 
-		let canonical_required_permission_string = this.buildCanonicalPermissionString(required_permission);
-		let canonical_submitted_permission_string = this.buildCanonicalPermissionString(submitted_permission);
+		const canonical_required_permission_string = this.buildCanonicalPermissionString(required_permission);
+		const canonical_submitted_permission_string = this.buildCanonicalPermissionString(submitted_permission);
 
 		return (canonical_required_permission_string == canonical_submitted_permission_string);
 
@@ -245,12 +245,12 @@ export default class PermissionUtilities {
 
 		stringutilities.isString(permission_string, true);
 
-		let permission_string_array = permission_string.split('/');
+		const permission_string_array = permission_string.split('/');
 
-		//Note:  This appears to be strongly bound to the length of the permission string.
-		//Technical Debt:  What happens in the case where permission string array length < 3
-		//Technical Debt:  Hate the use of for
-		for (var i = 0; i < Math.max(0, (3 - permission_string_array.length)); i++) {
+		// Note:  This appears to be strongly bound to the length of the permission string.
+		// Technical Debt:  What happens in the case where permission string array length < 3
+		// Technical Debt:  Hate the use of for
+		for (let i = 0; i < Math.max(0, (3 - permission_string_array.length)); i++) {
 			permission_string_array.push('*');
 		}
 
@@ -284,7 +284,7 @@ export default class PermissionUtilities {
 
 		du.debug('Validate Permissions Array');
 
-		let permissions = this.getPermissions();
+		const permissions = this.getPermissions();
 
 		let permission_failures = arrayutilities.find(permissions_array, (permission_string) => {
 
@@ -292,16 +292,16 @@ export default class PermissionUtilities {
 
 		});
 
-		permission_failures = (_.isUndefined(permission_failures) || _.isNull(permission_failures)) ? [] : permission_failures
+		permission_failures = (_.isUndefined(permission_failures) || _.isNull(permission_failures)) ? [] : permission_failures;
 
-		let permission_object = {
+		const permission_object = {
 			has_permission: false,
-			permission_failures: permission_failures
+			permission_failures
 		};
 
 		if (!arrayutilities.nonEmpty(permission_failures)) {
 
-			permission_object['has_permission'] = true;
+			permission_object.has_permission = true;
 
 		}
 
@@ -317,7 +317,7 @@ export default class PermissionUtilities {
 
 	}
 
-	//Technical Debt:  Move this to the global SixCRM Object
+	// Technical Debt:  Move this to the global SixCRM Object
 	static unsetGlobalAccount() {
 
 		du.debug('Unset Global Account');
@@ -326,7 +326,7 @@ export default class PermissionUtilities {
 
 	}
 
-	//Technical Debt:  Move this to the global SixCRM Object
+	// Technical Debt:  Move this to the global SixCRM Object
 	static unsetGlobalUser() {
 
 		du.debug('Unset Global User.');
@@ -335,7 +335,7 @@ export default class PermissionUtilities {
 
 	}
 
-	//Technical Debt:  Move this to the global SixCRM Object
+	// Technical Debt:  Move this to the global SixCRM Object
 	static setGlobalUser(user) {
 
 		du.debug('Set Global User');
@@ -344,7 +344,7 @@ export default class PermissionUtilities {
 
 	}
 
-	//Technical Debt:  Move this to the global SixCRM Object
+	// Technical Debt:  Move this to the global SixCRM Object
 	static unsetGlobalCustomer() {
 
 		du.debug('Unset Global Customer.');
@@ -353,7 +353,7 @@ export default class PermissionUtilities {
 
 	}
 
-	//Technical Debt:  Move this to the global SixCRM Object
+	// Technical Debt:  Move this to the global SixCRM Object
 	static setGlobalCustomer(customer) {
 
 		du.debug('Set Global Customer');
@@ -433,7 +433,7 @@ export default class PermissionUtilities {
 
 	static setPermissions(account, allow, deny) {
 
-		let user = {
+		const user = {
 			id: 'system@sixcrm.com',
 			acl: [{
 				account: {
@@ -441,8 +441,8 @@ export default class PermissionUtilities {
 				},
 				role: {
 					permissions: {
-						allow: allow,
-						deny: deny
+						allow,
+						deny
 					},
 				}
 			}]
