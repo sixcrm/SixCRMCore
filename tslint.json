@@ -15,6 +15,7 @@
 		"one-variable-per-declaration": false,
 		"no-boolean-literal-compare": true,
 		"no-conditional-assignment": false,
-		"prefer-const": true
+		"prefer-const": true,
+		"radix": false
 	}
 }

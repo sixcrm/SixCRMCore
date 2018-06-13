@@ -1,4 +1,4 @@
-const chai = require('chai');
+import * as chai from 'chai';
 const expect = chai.expect;
 
 const any_string = 'a_random_string';

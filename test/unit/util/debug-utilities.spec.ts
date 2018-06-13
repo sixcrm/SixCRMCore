@@ -1,10 +1,10 @@
-const chai = require('chai');
+import * as chai from 'chai';
 const expect = chai.expect;
-const du = global.SixCRM.routes.include('lib', 'debug-utilities.js');
+import du, { LogLevel } from '../../../src/util/debug-utilities';
 
 /* eslint-disable no-console */
 describe('lib/debug-utilities', () => {
-	let verbose_setting;
+	let verbose_setting: string | undefined;
 	before(() => {
 		verbose_setting = process.env.SIX_VERBOSE;
 	});
@@ -17,22 +17,22 @@ describe('lib/debug-utilities', () => {
 
 		it('does not emit if SIX_VERBOSE is not set', () => {
 			delete process.env.SIX_VERBOSE;
-			expect(du.emit('fatal')).to.equal(false);
+			expect(du.emit(LogLevel.fatal)).to.equal(false);
 		});
 
 		it('does not emit if selected level is greater than configured level', () => {
-			process.env.SIX_VERBOSE = 2;
-			expect(du.emit('debug')).to.equal(false);
+			process.env.SIX_VERBOSE = '2';
+			expect(du.emit(LogLevel.debug)).to.equal(false);
 		});
 
 		it('emits if selected level is equal to configured level', () => {
-			process.env.SIX_VERBOSE = 2;
-			expect(du.emit('info')).to.equal(true);
+			process.env.SIX_VERBOSE = '2';
+			expect(du.emit(LogLevel.info)).to.equal(true);
 		});
 
 		it('emits if selected level is less than configured level', () => {
-			process.env.SIX_VERBOSE = 2;
-			expect(du.emit('error')).to.equal(true);
+			process.env.SIX_VERBOSE = '2';
+			expect(du.emit(LogLevel.error)).to.equal(true);
 		});
 
 	});
@@ -40,7 +40,7 @@ describe('lib/debug-utilities', () => {
 	describe('debug', () => {
 
 		it('prints output', () => {
-			process.env.SIX_VERBOSE = 6;
+			process.env.SIX_VERBOSE = '6';
 			du.debug('test');
 		});
 
@@ -49,7 +49,7 @@ describe('lib/debug-utilities', () => {
 	describe('info', () => {
 
 		it('prints output', () => {
-			process.env.SIX_VERBOSE = 6;
+			process.env.SIX_VERBOSE = '6';
 			du.info('test');
 		});
 
@@ -58,7 +58,7 @@ describe('lib/debug-utilities', () => {
 	describe('warning', () => {
 
 		it('prints output', () => {
-			process.env.SIX_VERBOSE = 6;
+			process.env.SIX_VERBOSE = '6';
 			du.warning('test');
 		});
 
@@ -67,7 +67,7 @@ describe('lib/debug-utilities', () => {
 	describe('error', () => {
 
 		it('prints output', () => {
-			process.env.SIX_VERBOSE = 6;
+			process.env.SIX_VERBOSE = '6';
 			du.error('test');
 		});
 
@@ -76,7 +76,7 @@ describe('lib/debug-utilities', () => {
 	describe('fatal', () => {
 
 		it('prints output', () => {
-			process.env.SIX_VERBOSE = 6;
+			process.env.SIX_VERBOSE = '6';
 			du.fatal('test');
 		});
 

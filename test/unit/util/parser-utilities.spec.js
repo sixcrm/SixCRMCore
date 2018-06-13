@@ -1,4 +1,4 @@
-const chai = require('chai');
+import * as chai from 'chai';
 const expect = chai.expect;
 const arrayutilities = global.SixCRM.routes.include('lib', 'array-utilities.js');
 const parserutilities = global.SixCRM.routes.include('lib', 'parser-utilities.js');

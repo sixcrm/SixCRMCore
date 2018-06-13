@@ -3,23 +3,15 @@ import Chalk from 'chalk';
 import * as moment from 'moment';
 import * as util from 'util';
 
-enum LogLevel {
-	debug,
-	info,
-	warning,
-	error,
-	fatal
+export enum LogLevel {
+	debug = 3,
+	info = 2,
+	warning = 1,
+	error = 0,
+	fatal = -1
 }
 
 export default class DebugUtilities {
-
-	static SixVerbosityLevels = new Map<LogLevel, number>([
-		[LogLevel.debug, 3],
-		[LogLevel.info, 2],
-		[LogLevel.warning, 1],
-		[LogLevel.error, 0],
-		[LogLevel.fatal, -1]
-	]);
 
 	static Formatters = new Map<LogLevel, (string) => string>([
 		[LogLevel.debug, Chalk.grey],
@@ -52,13 +44,17 @@ export default class DebugUtilities {
 
 	static isLocal() {
 
-		return (process.env.SIX_DEBUG_LOCAL || process.env.CIRCLECI) ? true : false;
+		return process.env.SIX_DEBUG_LOCAL || process.env.CIRCLECI;
 
 	}
 
 	static emit(level: LogLevel) {
 
-		return process.env.SIX_VERBOSE !== null && process.env.SIX_VERBOSE !== undefined && process.env.SIX_VERBOSE >= this.SixVerbosityLevels[level];
+		if (process.env.SIX_VERBOSE === undefined) {
+			return false;
+		}
+
+		return parseInt(process.env.SIX_VERBOSE) >= level;
 
 	}
 
@@ -89,7 +85,7 @@ export default class DebugUtilities {
 
 	static formatForConsole(output: string, level: LogLevel): string {
 
-		return this.Formatters[level](output);
+		return this.Formatters.get(level)!(output);
 
 	}
 

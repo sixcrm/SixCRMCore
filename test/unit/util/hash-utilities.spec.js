@@ -1,4 +1,4 @@
-const chai = require('chai');
+import * as chai from 'chai';
 const expect = chai.expect;
 const hashutilities = global.SixCRM.routes.include('lib', 'hash-utilities.js');
 

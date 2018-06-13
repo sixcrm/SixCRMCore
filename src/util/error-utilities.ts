@@ -75,15 +75,6 @@ class ControlError extends SixError {
 
 export default class ErrorUtilities {
 
-	static error_codes = new Map([
-		[403, 'forbidden'],
-		[501, 'not_implemented'],
-		[404, 'not_found'],
-		[500, 'server'],
-		[400, 'bad_request'],
-		[520, 'control']
-	]);
-
 	static error_types = {
 		forbidden: ForbiddenError,
 		not_implemented: NotImplementedError,
