@@ -8,7 +8,7 @@ import stringutilities from './string-utilities';
 // Technical Debt:  This needs to be a helper, it contains general business logic
 export default class PermissionUtilities {
 
-	static validatePermissions(action, entity, identifier) {
+	static validatePermissions(action, entity, identifier?: string) {
 
 		du.debug('Validate Permissions');
 
@@ -117,13 +117,9 @@ export default class PermissionUtilities {
 	}
 
 	// Technical Debt:  This seems remedial
-	static buildPermissionString(action, entity, identifier) {
+	static buildPermissionString(action, entity, identifier = '*') {
 
 		du.debug('Build Permission String');
-
-		if (_.isUndefined(identifier)) {
-			identifier = '*';
-		}
 
 		stringutilities.nonEmpty(action, true);
 

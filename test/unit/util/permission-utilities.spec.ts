@@ -1,7 +1,6 @@
-let PermissionUtilities = global.SixCRM.routes.include('lib', 'permission-utilities.js');
-// let du = global.SixCRM.routes.include('lib', 'debug-utilities.js');
-let PermissionTestGenerators = require('./permission-test-generators');
-let chai = require('chai');
+import PermissionUtilities from '../../../src/util/permission-utilities';
+import PermissionTestGenerators from './permission-test-generators';
+import * as chai from 'chai';
 let expect = chai.expect;
 
 describe('lib/permission-utilities', () => {
@@ -623,7 +622,7 @@ describe('lib/permission-utilities', () => {
 			// when
 			const result = PermissionUtilities.getPermissions();
 
-			expect(result).to.be.defined;
+			expect(result).to.not.be.undefined;
 
 		});
 	});
@@ -637,7 +636,7 @@ describe('lib/permission-utilities', () => {
 
 			const result = PermissionUtilities.validatePermissionsArray(permissions_array);
 
-			expect(result).to.be.defined;
+			expect(result).to.not.be.undefined;
 		});
 	});
 
