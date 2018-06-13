@@ -1,6 +1,6 @@
 import * as chai from 'chai';
 const expect = chai.expect;
-import mathutilities from '../../../src/util/math-utilities';
+import mathUtilities from '../../../src/util/math-utilities';
 
 describe('lib/math-utilities', () => {
 
@@ -31,7 +31,7 @@ describe('lib/math-utilities', () => {
 
 		it('throws error when argumentation is not an array', () => {
 			try {
-				mathUtilities.sum(1, 1);
+				mathUtilities.sum(1 as any, 1);
 			} catch (error) {
 				expect(error.message).to.equal('[500] ' + 'Unexpected argumentation to mathutilities.calculateSum');
 			}
@@ -39,7 +39,7 @@ describe('lib/math-utilities', () => {
 
 		it('throws error when array argument is not a number', () => {
 			try {
-				mathUtilities.sum(['a', 'b'], 1);
+				mathUtilities.sum(['a', 'b'] as any, 1);
 			} catch (error) {
 				expect(error.message).to.equal('[500] ' + 'Array argument to mathutilities.calculateSum must be numeric');
 			}
@@ -47,33 +47,6 @@ describe('lib/math-utilities', () => {
 
 		it('returns base itself when array is empty', () => {
 			expect(mathUtilities.sum([], 1)).to.equal(1);
-		});
-	});
-
-	describe('power', () => {
-
-		it('throws error when base is not a number', () => {
-			try {
-				mathUtilities.power('a', 1);
-			} catch (error) {
-				expect(error.message).to.equal('[500] ' + 'MathUtilities.power assumes requires a numeric base.');
-			}
-		});
-
-		it('throws error when exponent is not a number', () => {
-			try {
-				mathUtilities.power(1, 'a');
-			} catch (error) {
-				expect(error.message).to.equal('[500] ' + 'MathUtilities.power assumes requires a numeric exponent.');
-			}
-		});
-
-		it('successfully returns base^exponent result', () => {
-			expect(mathUtilities.power(2, 0)).to.equal(1);
-			expect(mathUtilities.power(4, 3)).to.equal(64);
-			expect(mathUtilities.power(150, 2)).to.equal(22500);
-			expect(mathUtilities.power(1, 3)).to.equal(1);
-			expect(mathUtilities.power(10, 10)).to.equal(10000000000);
 		});
 	});
 

@@ -5,9 +5,7 @@ import numberutilities from './number-utilities';
 
 export default class MathUtilities {
 
-	static signIdempotentModulus(n, m, fatal) {
-
-		fatal = (_.isUndefined(fatal)) ? true : fatal;
+	static signIdempotentModulus(n, m, fatal = true) {
 
 		numberutilities.isInteger(n, fatal);
 		numberutilities.isInteger(m, fatal);
@@ -23,9 +21,7 @@ export default class MathUtilities {
 
 	}
 
-	static safePercentage(numerator, denominator, precision) {
-
-		if (_.isUndefined(precision)) { precision = 2; }
+	static safePercentage(numerator, denominator, precision = 2) {
 
 		numerator = parseFloat(numerator);
 		denominator = parseFloat(denominator);
@@ -38,11 +34,7 @@ export default class MathUtilities {
 
 	}
 
-	static formatToPercentage(value, precision) {
-
-		if (_.isUndefined(precision)) {
-			precision = 2;
-		}
+	static formatToPercentage(value, precision = 2) {
 
 		return parseFloat(value).toFixed(precision);
 
@@ -71,20 +63,6 @@ export default class MathUtilities {
 
 	}
 
-	static power(base, exponent) {
-
-		if (!numberutilities.isNumber(base)) {
-			throw eu.getError('server', 'MathUtilities.power assumes requires a numeric base.');
-		}
-
-		if (!numberutilities.isNumber(exponent)) {
-			throw eu.getError('server', 'MathUtilities.power assumes requires a numeric exponent.');
-		}
-
-		return Math.pow(base, exponent);
-
-	}
-
 	static calculateLSS(array_1, array_2) {
 
 		if (!_.isArray(array_1) || !_.isArray(array_2)) {
@@ -105,7 +83,7 @@ export default class MathUtilities {
 
 		const differences = array_1.map((array_1_entry, index) => {
 
-			return this.power((array_1_entry - array_2[index]), 2);
+			return Math.pow((array_1_entry - array_2[index]), 2);
 
 		});
 
