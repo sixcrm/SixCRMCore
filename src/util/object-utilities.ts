@@ -284,7 +284,7 @@ export default class ObjectUtilities {
 
 		if (fatal) {
 
-			throw eu.getError('server', 'Expected object to have key "' + arrayutilities.compress(key, '.', '') + '"');
+			throw eu.getError('server', 'Expected object to have key "' + arrayutilities.compress(key as any[], '.', '') + '"');
 
 		}
 

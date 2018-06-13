@@ -100,9 +100,9 @@ export default class ArrayUtilities {
 
 	static isArray(thing: any, fatal: boolean = false) {
 
-		if (!_.isArray(thing) && fatal) {
+		if (!_.isArray(thing)) {
 
-			if (fatal === true) {
+			if (fatal) {
 
 				throw eu.getError('server', 'ArrayUtilities.isArray thing argument is not an array.');
 
@@ -146,7 +146,7 @@ export default class ArrayUtilities {
 
 	}
 
-	static sort(sort_array, sort_function) {
+	static sort(sort_array, sort_function?) {
 
 		if (_.isUndefined(sort_function)) {
 			sort_function = (a, b) => {
@@ -200,17 +200,9 @@ export default class ArrayUtilities {
 
 	}
 
-	static compress(precompression_array, delimiter, quote_style) {
+	static compress(precompression_array: any[], delimiter = ',', quote_style = '\'') {
 
 		this.validateArray(precompression_array);
-
-		if (_.isUndefined(delimiter)) {
-			delimiter = ',';
-		}
-
-		if (_.isUndefined(quote_style)) {
-			quote_style = '\'';
-		}
 
 		return quote_style + precompression_array.join(quote_style + delimiter + quote_style) + quote_style;
 
@@ -297,9 +289,7 @@ export default class ArrayUtilities {
 
 	}
 
-	static serial(array, reduction_function, initial_value) {
-
-		initial_value = (_.isUndefined(initial_value)) ? Promise.resolve() : initial_value;
+	static serial(array: Array<() => Promise<any>>, reduction_function?, initial_value: Promise<any> = Promise.resolve()) {
 
 		if (_.isUndefined(reduction_function) || !_.isFunction(reduction_function)) {
 
@@ -346,7 +336,7 @@ export default class ArrayUtilities {
 
 	}
 
-	static reduce(array, reduce_function, initial_value) {
+	static reduce(array, reduce_function?, initial_value: any = 0) {
 
 		if (!_.isArray(array)) {
 			throw eu.getError('validation', 'ArrayUtilities.reduce array argument is not a array.');

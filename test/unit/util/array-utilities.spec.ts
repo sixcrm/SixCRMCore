@@ -15,7 +15,7 @@ describe('lib/array-utilities', () => {
 
 	it('throws error when second argument is not a function', () => {
 		const subject = [{foo: 1}, {foo: 2}, {foo: 3}];
-		const unexpected_params = ['unexpected_element', '123', '-123', '', 123, 11.22, -123, {}, []];
+		const unexpected_params: any[] = ['unexpected_element', '123', '-123', '', 123, 11.22, -123, {}, []];
 
 		unexpected_params.forEach((param) => {
 			try {
@@ -52,7 +52,6 @@ describe('lib/array-utilities', () => {
 		expect(arrayutilities.isArray('')).to.be.false;
 		expect(arrayutilities.isArray({})).to.be.false;
 		expect(arrayutilities.isArray(1)).to.be.false;
-		expect(arrayutilities.isArray()).to.be.false;
 
 		try {
 			arrayutilities.isArray('', true);
@@ -294,7 +293,7 @@ describe('lib/array-utilities', () => {
 
 	it('throws error when first argument is not an array', () => {
 
-		const params = ['any_string', '123', 'any_string123', 123, 123.123, -123, -123.123, {}, () => {}, true];
+		const params: any[] = ['any_string', '123', 'any_string123', 123, 123.123, -123, -123.123, {}, () => {}, true];
 
 		params.forEach((param) => {
 			try {
@@ -307,7 +306,7 @@ describe('lib/array-utilities', () => {
 
 	it('throws error when second argument is not a function', () => {
 
-		const params = ['any_string', '123', 'any_string123', 123, 123.123, -123, -123.123, {}, [], true];
+		const params: any[] = ['any_string', '123', 'any_string123', 123, 123.123, -123, -123.123, {}, [], true];
 
 		params.forEach((param) => {
 			try {
@@ -320,7 +319,7 @@ describe('lib/array-utilities', () => {
 
 	it('successfully groups with random data', () => {
 
-		const params =  [];
+		const params: any[] = [];
 
 		const count1 = randomutilities.randomInt(2, 10);
 		const count2 = randomutilities.randomInt(2, 10);

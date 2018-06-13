@@ -1,4 +1,4 @@
-import rs from 'randomstring';
+import * as rs from 'randomstring';
 import * as _ from 'lodash';
 import eu from './error-utilities';
 
