@@ -1,7 +1,7 @@
 import * as chai from 'chai';
 const expect = chai.expect;
-const currencyutilities = global.SixCRM.routes.include('lib', 'currency-utilities.js');
-const arrayutilities = global.SixCRM.routes.include('lib', 'array-utilities.js');
+import currencyutilities from '../../../src/util/currency-utilities';
+import arrayutilities from '../../../src/util/array-utilities';
 
 function getValidCurrencyStrings() {
 	return ['$1.00', '$32.94', '$0.22', '$0.00'];
@@ -46,7 +46,7 @@ describe('lib/currency-utilities.js', () => {
 
 		const any_currency_values = [true, false]; // random values that are not string nor int
 
-		expect(currencyutilities.toCurrency(any_currency_values)).to.equal(null);
+		expect(currencyutilities.toCurrency(any_currency_values as any)).to.equal(null);
 
 	});
 

@@ -1,7 +1,7 @@
 import * as chai from 'chai';
 const expect = chai.expect;
-const arrayutilities = global.SixCRM.routes.include('lib', 'array-utilities.js');
-const parserutilities = global.SixCRM.routes.include('lib', 'parser-utilities.js');
+import arrayutilities from '../../../src/util/array-utilities';
+import parserutilities from '../../../src/util/parser-utilities';
 
 describe('lib/parser-utilities', () => {
 

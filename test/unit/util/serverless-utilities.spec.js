@@ -4,7 +4,7 @@ const expect = chai.expect;
 describe('lib/serverless-utilities', () => {
 
 	it('throws error when specified function is invalid', () => {
-		const serverlessutilities = global.SixCRM.routes.include('lib', 'serverless-utilities.js');
+		import serverlessutilities from '../../../src/util/serverless-utilities';
 
 		try {
 			serverlessutilities.loadConfig('a_stage', 'non_existing_function');

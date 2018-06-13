@@ -1,6 +1,6 @@
 import * as chai from 'chai';
 const expect = chai.expect;
-const mathUtilities = global.SixCRM.routes.include('lib', 'math-utilities.js');
+import mathutilities from '../../../src/util/math-utilities';
 
 describe('lib/math-utilities', () => {
 

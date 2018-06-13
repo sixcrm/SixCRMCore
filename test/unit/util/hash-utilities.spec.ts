@@ -1,6 +1,6 @@
 import * as chai from 'chai';
 const expect = chai.expect;
-const hashutilities = global.SixCRM.routes.include('lib', 'hash-utilities.js');
+import hashutilities from '../../../src/util/hash-utilities';
 
 describe('lib/hash-utilities', () => {
 

@@ -2,6 +2,9 @@ local:
   local: true
 circle:
   local: true
+development:
+  local: true
+  branch_name: development
 master:
   local: true
   branch_name: master

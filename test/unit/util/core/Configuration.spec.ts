@@ -48,7 +48,7 @@ describe('core/Configuration.js', () => {
 			context = _context;
 		});
 
-		xit('determines account identifier', () => {
+		it('determines account identifier', () => {
 			const configuration = new Configuration(global.SixCRM.routes, 'development');
 
 			process.env.AWS_ACCOUNT = DEVELOPMENT_ACCOUNT;
