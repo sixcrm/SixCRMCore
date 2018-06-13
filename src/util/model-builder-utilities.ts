@@ -8,11 +8,7 @@ const references_regex = /"\$ref":\s*"([0-9a-zA-Z./\-_]+?)"/g;
 
 export default class ModelBuilderUtilities {
 
-	static build(path_to_model, depth) {
-
-		if (_.isUndefined(depth)) {
-			depth = 0;
-		}
+	static build(path_to_model, depth = 0) {
 
 		if (depth > 20) {
 

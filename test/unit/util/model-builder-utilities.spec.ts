@@ -1,6 +1,6 @@
-let mbu = global.SixCRM.routes.include('lib', 'model-builder-utilities.js');
-let chai = require('chai');
-let expect = chai.expect;
+import mbu from '../../../src/util/model-builder-utilities';
+import * as chai from 'chai';
+const expect = chai.expect;
 
 describe('lib/model-builder-utilities', () => {
 
