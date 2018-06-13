@@ -1,8 +1,8 @@
 import * as chai from 'chai';
 const expect = chai.expect;
-const _ = require('lodash');
-const objectutilities = global.SixCRM.routes.include('lib', 'object-utilities.js');
-const arrayutilities = global.SixCRM.routes.include('lib', 'array-utilities.js');
+import * as _ from 'lodash';
+import objectutilities from '../../../src/util/object-utilities';
+import arrayutilities from '../../../src/util/array-utilities';
 
 describe('lib/object-utilities', () => {
 
@@ -57,7 +57,7 @@ describe('lib/object-utilities', () => {
 	describe('has', () => {
 
 		it('should return false when it\'s not an object', () => {
-			expect(objectutilities.has()).to.equal(false);
+			expect(objectutilities.has([], 'test')).to.equal(false);
 		});
 
 		it('should return false when object is missing specified property', () => {
@@ -113,17 +113,6 @@ describe('lib/object-utilities', () => {
 
 	describe('hasRecursive', () => {
 
-		it('should fail with null key argumentation', () => {
-
-			try {
-				objectutilities.hasRecursive({});
-				expect.fail();
-			} catch (error) {
-				expect(error.message).to.equal('[500] Key must be a array or a string.');
-			}
-
-		});
-
 		it('should fail with empty key argumentation', () => {
 
 			try {
@@ -156,7 +145,7 @@ describe('lib/object-utilities', () => {
 
 			try {
 
-				objectutilities.hasRecursive({test: 'hello'}, {}, true);
+				objectutilities.hasRecursive({test: 'hello'}, {} as string, true);
 				expect.fail();
 
 			} catch (error) {
@@ -171,7 +160,7 @@ describe('lib/object-utilities', () => {
 
 			try {
 
-				objectutilities.hasRecursive({test: 'hello'}, [{}], true);
+				objectutilities.hasRecursive({test: 'hello'}, [{} as string], true);
 				expect.fail();
 
 			} catch (error) {
@@ -284,7 +273,7 @@ describe('lib/object-utilities', () => {
 
 		it('should return true for array argument (three dimensional with array index notation)', () => {
 
-			expect(objectutilities.hasRecursive({test: [{another_key: {yet_another_key: '1'}}]}, 'test.0.another_key.yet_another_key'), true).to.equal(true);
+			expect(objectutilities.hasRecursive({test: [{another_key: {yet_another_key: '1'}}]}, 'test.0.another_key.yet_another_key', true)).to.equal(true);
 
 		});
 
@@ -292,21 +281,10 @@ describe('lib/object-utilities', () => {
 
 	describe('setRecursive', () => {
 
-		it('should fail with null key argumentation', () => {
-
-			try {
-				objectutilities.setRecursive({});
-				expect.fail();
-			} catch (error) {
-				expect(error.message).to.equal('[500] Key must be a array or a string.');
-			}
-
-		});
-
 		it('should fail with empty key argumentation', () => {
 
 			try {
-				objectutilities.setRecursive({}, []);
+				objectutilities.setRecursive({}, [], undefined);
 				expect.fail();
 			} catch (error) {
 				expect(error.message).to.equal('[500] key array must be of length 1 or greater.');
@@ -335,7 +313,7 @@ describe('lib/object-utilities', () => {
 
 			try {
 
-				objectutilities.setRecursive({test: 'hello'}, {}, true);
+				objectutilities.setRecursive({test: 'hello'}, {} as string, true);
 				expect.fail();
 
 			} catch (error) {
@@ -350,7 +328,7 @@ describe('lib/object-utilities', () => {
 
 			try {
 
-				objectutilities.setRecursive({test: 'hello'}, [{}], true);
+				objectutilities.setRecursive({test: 'hello'}, [{} as string], true);
 				expect.fail();
 
 			} catch (error) {
@@ -473,24 +451,14 @@ describe('lib/object-utilities', () => {
 
 		it('should return object with keys and value for array argument (three dimensional with array index notation)', () => {
 
-			expect(objectutilities.setRecursive({test: [{another_key: {yet_another_key: '1'}}]}, 'test.0.another_key.yet_another_key', '1'), true).to.deep.equal({test: [{another_key: {yet_another_key: '1'}}]});
+			expect(objectutilities.setRecursive({test: [{another_key: {yet_another_key: '1'}}]}, 'test.0.another_key.yet_another_key', '2', true))
+				.to.deep.equal({test: [{another_key: {yet_another_key: '2'}}]});
 
 		});
 
 	});
 
 	describe('getRecursive', () => {
-
-		it('should fail with null key argumentation', () => {
-
-			try {
-				objectutilities.getRecursive({});
-				expect.fail();
-			} catch (error) {
-				expect(error.message).to.equal('[500] Key must be a array or a string.');
-			}
-
-		});
 
 		it('should fail with empty key argumentation', () => {
 
@@ -524,7 +492,7 @@ describe('lib/object-utilities', () => {
 
 			try {
 
-				objectutilities.getRecursive({test: 'hello'}, {}, true);
+				objectutilities.getRecursive({test: 'hello'}, {} as string, true);
 				expect.fail();
 
 			} catch (error) {
@@ -539,7 +507,7 @@ describe('lib/object-utilities', () => {
 
 			try {
 
-				objectutilities.getRecursive({test: 'hello'}, [{}], true);
+				objectutilities.getRecursive({test: 'hello'}, [{} as string], true);
 				expect.fail();
 
 			} catch (error) {
@@ -660,7 +628,7 @@ describe('lib/object-utilities', () => {
 
 		it('should return value for array argument (three dimensional with array index notation)', () => {
 
-			expect(objectutilities.getRecursive({test: [{another_key: {yet_another_key: '1'}}]}, 'test.0.another_key.yet_another_key'), true).to.equal('1');
+			expect(objectutilities.getRecursive({test: [{another_key: {yet_another_key: '1'}}]}, 'test.0.another_key.yet_another_key', true)).to.equal('1');
 
 		});
 
@@ -698,9 +666,7 @@ describe('lib/object-utilities', () => {
 			// send any function
 			expect(objectutilities.recurseByDepth(
 				{a_key: 'a_value'},
-				function() {
-					return true;
-				}
+				() => true
 			)).to.equal('a_value');
 		});
 
@@ -717,7 +683,7 @@ describe('lib/object-utilities', () => {
 			const unexpected_params = ['unexpected_element', '123', '-123', '', 123, 11.22, -123, true];
 
 			unexpected_params.forEach((param) => {
-				expect(objectutilities.recurseByDepth(param)).to.equal(null);
+				expect(objectutilities.recurseByDepth(param, undefined)).to.equal(null);
 			});
 
 		});
@@ -796,8 +762,7 @@ describe('lib/object-utilities', () => {
 
 			const match_func = (key) => key === 'd';
 
-			expect(objectutilities.recurseByDepth(params, match_func, 0)).to.equal('v6');
-			expect(objectutilities.recurseByDepth(params, match_func, 3)).to.equal('v6');
+			expect(objectutilities.recurseByDepth(params, match_func)).to.equal('v6');
 		});
 
 		it('returns null when value does not exist', () => {
@@ -820,7 +785,7 @@ describe('lib/object-utilities', () => {
 
 		it('throws error when second argument is not a function', () => {
 			try {
-				objectutilities.recurseAll({}, 'not_a_function');
+				objectutilities.recurseAll({}, 'not_a_function' as any);
 			} catch (error) {
 				expect(error.message).to.equal('[500] Match function must be a function.');
 			}
@@ -831,7 +796,7 @@ describe('lib/object-utilities', () => {
 			const unexpected_params = ['unexpected_element', '123', '-123', '', 123, 11.22, -123, true];
 
 			unexpected_params.forEach((param) => {
-				expect(objectutilities.recurseAll(param)).to.equal(null);
+				expect(objectutilities.recurseAll(param as any, 'not_a_function' as any)).to.equal(null);
 			});
 
 		});
@@ -956,7 +921,7 @@ describe('lib/object-utilities', () => {
 			const unexpected_params = ['unexpected_element', '123', '-123', '', 123, 11.22, -123, true];
 
 			unexpected_params.forEach((param) => {
-				expect(objectutilities.recurse(param)).to.equal(null);
+				expect(objectutilities.recurse(param as any, undefined)).to.equal(null);
 			});
 		});
 
@@ -1050,9 +1015,7 @@ describe('lib/object-utilities', () => {
 			// send any function
 			expect(objectutilities.orderedRecursion(
 				{a_key: 'a_value'},
-				function() {
-					return true;
-				}
+				() => true
 			)).to.equal('a_value');
 		});
 
@@ -1060,9 +1023,7 @@ describe('lib/object-utilities', () => {
 			// send any function
 			expect(objectutilities.orderedRecursion(
 				{a_key: ['a_value']},
-				function() {
-					return false;
-				}
+				() => false
 			)).to.equal(null);
 		});
 	});
@@ -1121,7 +1082,7 @@ describe('lib/object-utilities', () => {
 			const valid_objects = [{}, {hello: 'world'}];
 
 			arrayutilities.map(valid_objects, (valid_object) => {
-				expect(objectutilities.isObject(valid_object), true).to.equal(true);
+				expect(objectutilities.isObject(valid_object, true)).to.equal(true);
 			});
 
 		});

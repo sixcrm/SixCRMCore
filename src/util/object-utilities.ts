@@ -28,9 +28,7 @@ export default class ObjectUtilities {
 		return return_object;
 
 	}
-	static removeIfExists(object, field, fatal) {
-
-		fatal = (_.isUndefined(fatal)) ? false : fatal;
+	static removeIfExists(object, field, fatal = false) {
 
 		if (!this.isObject(object, fatal)) {
 			return object;
@@ -74,9 +72,7 @@ export default class ObjectUtilities {
 
 	}
 
-	static getAllMethods(object, fatal) {
-
-		fatal = (_.isUndefined(fatal)) ? false : fatal;
+	static getAllMethods(object, fatal = false) {
 
 		if (!this.isObject(object, fatal)) {
 			return false;
@@ -90,9 +86,7 @@ export default class ObjectUtilities {
 
 	}
 
-	static nonEmpty(object, fatal) {
-
-		fatal = (_.isUndefined(fatal)) ? false : fatal;
+	static nonEmpty(object, fatal = false) {
 
 		if (!this.isObject(object, fatal)) {
 			return false;
@@ -111,11 +105,9 @@ export default class ObjectUtilities {
 	}
 
 	// Technical Debt:  Test Me!
-	static has(object, properties, fatal) {
+	static has(object, properties, fatal = false) {
 
 		du.debug('Has');
-
-		fatal = (_.isUndefined(fatal)) ? false : fatal;
 
 		if (!this.isObject(object, fatal)) {
 			return false;
@@ -161,7 +153,7 @@ export default class ObjectUtilities {
 	}
 
 	// Technical Debt:  Test Me!
-	static transcribe(mapping_object, source_object, return_object, fatal) {
+	static transcribe(mapping_object, source_object, return_object, fatal = false) {
 
 		du.debug('Transcribe');
 
@@ -171,10 +163,6 @@ export default class ObjectUtilities {
 
 		if (_.isUndefined(return_object) || _.isNull(return_object)) {
 			return_object = {};
-		}
-
-		if (_.isUndefined(fatal) || _.isNull(fatal)) {
-			fatal = false;
 		}
 
 		this.map(mapping_object, (key) => {
@@ -222,13 +210,9 @@ export default class ObjectUtilities {
 
 	}
 
-	static getKey(object, key, fatal) {
+	static getKey(object, key, fatal = false) {
 
 		du.debug('Get Key');
-
-		if (_.isUndefined(fatal)) {
-			fatal = false;
-		}
 
 		if (this.hasRecursive(object, key, fatal)) {
 
@@ -246,13 +230,13 @@ export default class ObjectUtilities {
 
 	}
 
-	static hasRecursive(object: object, key: string | any[], fatal: boolean = false) {
+	static hasRecursive(object: object, key: string | string[], fatal: boolean = false) {
 
 		du.debug('Has Recursive');
 
-		if (!arrayutilities.isArray(key)) {
-			if (_.isString(key)) {
-				key = (key as string).split('.');
+		if (!(key instanceof Array)) {
+			if (typeof key === 'string') {
+				key = key.split('.');
 			} else {
 				throw eu.getError('server', 'Key must be a array or a string.');
 			}
@@ -292,16 +276,12 @@ export default class ObjectUtilities {
 
 	}
 
-	static getRecursive(object, key, fatal) {
+	static getRecursive(object, key: string | string[], fatal = false) {
 
 		du.debug('Get Recursive');
 
-		if (_.isUndefined(fatal)) {
-			fatal = false;
-		}
-
-		if (!arrayutilities.isArray(key)) {
-			if (_.isString(key)) {
+		if (!(key instanceof Array)) {
+			if (typeof(key) === 'string') {
 				key = key.split('.');
 			} else {
 				throw eu.getError('server', 'Key must be a array or a string.');
@@ -342,16 +322,12 @@ export default class ObjectUtilities {
 
 	}
 
-	static setRecursive(object, key, value, fatal) {
+	static setRecursive(object, key: string | string[], value: any, fatal = false) {
 
 		du.debug('Set Recursive');
 
-		if (_.isUndefined(fatal)) {
-			fatal = false;
-		}
-
-		if (!arrayutilities.isArray(key)) {
-			if (_.isString(key)) {
+		if (!(key instanceof Array)) {
+			if (typeof(key) === 'string') {
 				key = key.split('.');
 			} else {
 				throw eu.getError('server', 'Key must be a array or a string.');
@@ -381,8 +357,7 @@ export default class ObjectUtilities {
 			}
 
 		}
-
-		if (fatal) {
+		else if (fatal) {
 
 			throw eu.getError('server', 'Expected object to have key "' + arrayutilities.compress(key, '.', '') + '"');
 
@@ -507,11 +482,9 @@ export default class ObjectUtilities {
 
 	}
 
-	static isObject(thing, fatal) {
+	static isObject(thing, fatal = false) {
 
 		du.debug('Is Object');
-
-		fatal = _.isUndefined(fatal) ? false : fatal;
 
 		if (_.isObject(thing)) {
 
