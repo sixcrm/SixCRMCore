@@ -1,6 +1,6 @@
 import * as chai from 'chai';
 const expect = chai.expect;
-const numberUtilities = global.SixCRM.routes.include('lib', 'number-utilities.js');
+import numberUtilities from '../../../src/util/number-utilities';
 
 describe('lib/number-utilities', () => {
 
@@ -117,14 +117,14 @@ describe('lib/number-utilities', () => {
 			expect(numberUtilities.formatFloat(1.0123, 2)).to.equal(1.01);
 		});
 
-		it('throws error when appointed value is not an integer', () => {
+		it('throws error when appointed value is not a number', () => {
 
-			const precision = 'a';
+			const precision: any = 'a';
 
 			try {
 				numberUtilities.formatFloat(1.01, precision);
 			} catch (error) {
-				expect(error.message).to.equal('[500] ' + 'Not an integer: ' + precision);
+				expect(error.message).to.equal('[500] ' + 'Not a number: ' + precision);
 			}
 		});
 

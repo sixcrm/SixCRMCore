@@ -31,7 +31,8 @@
     "pg": "^7.4.3",
     "randomstring": "^1.1.5",
     "require-yaml": "0.0.1",
-    "source-map-support": "^0.5.6"
+    "source-map-support": "^0.5.6",
+    "striptags": "^3.1.1"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.0",

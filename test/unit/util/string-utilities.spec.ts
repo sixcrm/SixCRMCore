@@ -1,6 +1,6 @@
-let stringutilities = global.SixCRM.routes.include('lib', 'string-utilities.js');
-let chai = require('chai');
-let expect = chai.expect;
+import stringutilities from '../../../src/util/string-utilities';
+import * as chai from 'chai';
+const expect = chai.expect;
 
 describe('lib/string-utilities', () => {
 
@@ -17,31 +17,31 @@ describe('lib/string-utilities', () => {
 		it('fails when string is not a string ', () => {
 
 			try {
-				stringutilities.isMatch({}, /^[a-z]{1}$/);
+				stringutilities.isMatch({} as any, /^[a-z]{1}$/);
 			} catch (error) {
 				expect(error.message).to.equal('[500] StringUtilities.isString thing argument is not an string.');
 			}
 
 			try {
-				stringutilities.isMatch([], /^[a-z]{1}$/);
+				stringutilities.isMatch([] as any, /^[a-z]{1}$/);
 			} catch (error) {
 				expect(error.message).to.equal('[500] StringUtilities.isString thing argument is not an string.');
 			}
 
 			try {
-				stringutilities.isMatch(null, /^[a-z]{1}$/);
+				stringutilities.isMatch(null as any, /^[a-z]{1}$/);
 			} catch (error) {
 				expect(error.message).to.equal('[500] StringUtilities.isString thing argument is not an string.');
 			}
 
 			try {
-				stringutilities.isMatch(123, /^[a-z]{1}$/);
+				stringutilities.isMatch(123 as any, /^[a-z]{1}$/);
 			} catch (error) {
 				expect(error.message).to.equal('[500] StringUtilities.isString thing argument is not an string.');
 			}
 
 			try {
-				stringutilities.isMatch(/123/, /^[a-z]{1}$/);
+				stringutilities.isMatch(/123/ as any, /^[a-z]{1}$/);
 			} catch (error) {
 				expect(error.message).to.equal('[500] StringUtilities.isString thing argument is not an string.');
 			}
@@ -120,7 +120,7 @@ describe('lib/string-utilities', () => {
 		});
 
 		it('returns false for invalid UUIDs', () => {
-			const uuids = [
+			const uuids: any[] = [
 				[],
 				null,
 				{},
@@ -151,7 +151,7 @@ describe('lib/string-utilities', () => {
 		});
 
 		it('returns false for invalid emails', () => {
-			const emails = [
+			const emails: any[] = [
 				[],
 				null,
 				{},
@@ -275,15 +275,15 @@ describe('lib/string-utilities', () => {
 			// example of valid html tags
 			expect(stringutilities.stripHTML(
 				'<li>Coffee, </li>' +
-                '<li>Tea, </li>' +
-                '<li>Milk</li>' +
-                '</ul>')).to.equal('Coffee, Tea, Milk');
+				'<li>Tea, </li>' +
+				'<li>Milk</li>' +
+				'</ul>')).to.equal('Coffee, Tea, Milk');
 
 			expect(stringutilities.stripHTML('<table>' +
-                '<tr>' +
-                '<td>any_value</td>' +
-                '</tr>' +
-                '</table>')).to.equal('any_value');
+				'<tr>' +
+				'<td>any_value</td>' +
+				'</tr>' +
+				'</table>')).to.equal('any_value');
 
 			expect(stringutilities.stripHTML('<p><b>any_value</b></p>')).to.equal('any_value');
 

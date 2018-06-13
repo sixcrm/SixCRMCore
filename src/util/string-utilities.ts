@@ -1,5 +1,6 @@
 import * as uuidV4 from 'uuid/v4';
 import * as _ from 'lodash';
+import * as striptags from 'striptags';
 import eu from './error-utilities';
 
 export default class StringUtilities {
@@ -264,8 +265,6 @@ export default class StringUtilities {
 	}
 
 	static stripHTML(string_object) {
-
-		const striptags = require('striptags');
 
 		return striptags(string_object);
 
