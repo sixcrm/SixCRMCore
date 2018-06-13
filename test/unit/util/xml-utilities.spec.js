@@ -5,16 +5,16 @@ const xmlutilities = global.SixCRM.routes.include('lib', 'xml-utilities.js');
 
 describe('lib/xml-utilities', () => {
 
-	let valid_xml_string_1 = "<root>Test</root>";
+	const valid_xml_string_1 = "<root>Test</root>";
 
-	let valid_xml_string_2 = "<note>\n" +
+	const valid_xml_string_2 = "<note>\n" +
             "<to>John</to>\n" +
             "<from>Jane</from>\n" +
             "<heading>Reminder</heading>\n" +
             "<body>Example</body>\n" +
         "</note>";
 
-	let valid_xml_string_3 = "<characters>\n" +
+	const valid_xml_string_3 = "<characters>\n" +
             "<character>\n" +
                 "<name>John</name>\n" +
             "</character>\n" +
@@ -49,18 +49,18 @@ describe('lib/xml-utilities', () => {
 
 		it('throws error when xml is not valid', () => {
 
-			let unexpected_arguments = [
+			const unexpected_arguments = [
 				'any_string', 'any_string12345',
 				-123, null, true, {}, () => {},
-				stringutilities.replaceAll(valid_xml_string_1,'</',''),
-				stringutilities.replaceAll(valid_xml_string_2,'/from','to'),
-				stringutilities.replaceAll(valid_xml_string_3,'<name>','<n>'),
+				stringutilities.replaceAll(valid_xml_string_1, '</', ''),
+				stringutilities.replaceAll(valid_xml_string_2, '/from', 'to'),
+				stringutilities.replaceAll(valid_xml_string_3, '<name>', '<n>'),
 			];
 
-			unexpected_arguments.forEach(unexpected_argument => {
-				try{
-					xmlutilities.parse(unexpected_argument, true)
-				}catch(error) {
+			unexpected_arguments.forEach((unexpected_argument) => {
+				try {
+					xmlutilities.parse(unexpected_argument, true);
+				} catch (error) {
 					expect(error.message).to.equal('[500] Internal Server Error');
 				}
 			});
@@ -68,9 +68,9 @@ describe('lib/xml-utilities', () => {
 
 		it('throws error when parsing fails', () => {
 
-			try{
-				xmlutilities.parse([], true)
-			}catch(error) {
+			try {
+				xmlutilities.parse([], true);
+			} catch (error) {
 				expect(error.message).to.equal('[500] The callback was suddenly async or something.');
 			}
 		});

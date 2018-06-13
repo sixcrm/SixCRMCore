@@ -1,43 +1,43 @@
-const chai = require('chai');
+import * as chai from 'chai';
 const expect = chai.expect;
-const arrayutilities = global.SixCRM.routes.include('lib', 'array-utilities.js');
-const randomutilities = global.SixCRM.routes.include('lib', 'random.js')
+import arrayutilities from '../../../src/util/array-utilities';
+import randomutilities from '../../../src/util/random';
 
 describe('lib/array-utilities', () => {
 
 	it('forEach', () => {
-		let subject = [{foo: 1}, {foo: 2}, {foo: 3}];
-		let expected = [{foo: 2}, {foo: 3}, {foo: 4}];
+		const subject = [{foo: 1}, {foo: 2}, {foo: 3}];
+		const expected = [{foo: 2}, {foo: 3}, {foo: 4}];
 
-		arrayutilities.forEach(subject, x => x.foo++)
+		arrayutilities.forEach(subject, (x) => x.foo++);
 		expect(subject).to.deep.equal(expected);
 	});
 
 	it('throws error when second argument is not a function', () => {
-		let subject = [{foo: 1}, {foo: 2}, {foo: 3}];
-		let unexpected_params = ['unexpected_element', '123', '-123', '', 123, 11.22, -123, {}, []];
+		const subject = [{foo: 1}, {foo: 2}, {foo: 3}];
+		const unexpected_params = ['unexpected_element', '123', '-123', '', 123, 11.22, -123, {}, []];
 
-		unexpected_params.forEach(param => {
-			try{
-				arrayutilities.forEach(subject, param)
-			}catch(error) {
+		unexpected_params.forEach((param) => {
+			try {
+				arrayutilities.forEach(subject, param);
+			} catch (error) {
 				expect(error.message).to.equal('[500] ArrayUtilities.forEach iterator is not a function.');
 			}
 		});
 	});
 
 	it('flatten', () => {
-		expect(arrayutilities.flatten(['a', ['b','c']])).to.deep.equal(['a','b','c']);
-		expect(arrayutilities.flatten(['a', ['b','c',['d','e']]])).to.deep.equal(['a','b','c','d','e']);
+		expect(arrayutilities.flatten(['a', ['b', 'c']])).to.deep.equal(['a', 'b', 'c']);
+		expect(arrayutilities.flatten(['a', ['b', 'c', ['d', 'e']]])).to.deep.equal(['a', 'b', 'c', 'd', 'e']);
 	});
 
 	it('throws error when flatten recursion depth exceeded', () => {
 
-		let multidimensional_array = [[[[[[[[[[[[[[[[[[[[[1, 2, 3]]]]]]]]]]]]]]]]]]]]]; //depth over 20 for any array
+		const multidimensional_array = [[[[[[[[[[[[[[[[[[[[[1, 2, 3]]]]]]]]]]]]]]]]]]]]]; // depth over 20 for any array
 
 		try {
-			arrayutilities.flatten(multidimensional_array)
-		}catch (error) {
+			arrayutilities.flatten(multidimensional_array);
+		} catch (error) {
 			expect(error.message).to.equal('[500] Array Utilities flatten recursion depth exceeded.');
 		}
 	});
@@ -108,15 +108,15 @@ describe('lib/array-utilities', () => {
 			expect(error.message).to.equal('[500] ArrayUtilities.every function argument is not a function.');
 		}
 
-		//returns true when array is empty
+		// returns true when array is empty
 		expect(arrayutilities.every([], () => {})).to.equal(true);
 
 		expect(arrayutilities.every([1, 2, 3, 5, 9], (value) => {
-			return value < 10
+			return value < 10;
 		})).to.equal(true);
 
 		expect(arrayutilities.every([1, 2, 3, 5, 20], (value) => {
-			return value < 10
+			return value < 10;
 		})).to.equal(false);
 
 	});
@@ -145,7 +145,7 @@ describe('lib/array-utilities', () => {
 	it('compress', () => {
 		expect(arrayutilities.compress([1, 2])).to.equal(`'1','2'`);
 		expect(arrayutilities.compress([1, 2], '|')).to.equal(`'1'|'2'`);
-		expect(arrayutilities.compress([1, 2], '|' ,'"')).to.equal(`"1"|"2"`);
+		expect(arrayutilities.compress([1, 2], '|' , '"')).to.equal(`"1"|"2"`);
 	});
 
 	it('removeElement', () => {
@@ -196,7 +196,7 @@ describe('lib/array-utilities', () => {
 			expect(error.message).to.equal('[500] ArrayUtilities.filter filter function is not a function.');
 		}
 
-		expect(arrayutilities.filter([1, 2, 3, 4, 5], value => value < 3)).to.deep.equal([1, 2]);
+		expect(arrayutilities.filter([1, 2, 3, 4, 5], (value) => value < 3)).to.deep.equal([1, 2]);
 	});
 
 	it('find', () => {
@@ -214,7 +214,7 @@ describe('lib/array-utilities', () => {
 			expect(error.message).to.equal('[500] ArrayUtilities.find find function is not a function.');
 		}
 
-		expect(arrayutilities.find([1, 2, 3, 4, 5], value => value < 3)).to.equal(1);
+		expect(arrayutilities.find([1, 2, 3, 4, 5], (value) => value < 3)).to.equal(1);
 	});
 
 	it('serial', () => {
@@ -223,7 +223,7 @@ describe('lib/array-utilities', () => {
 			() => Promise.resolve(2)
 		]).then((resolved) => {
 			return expect(resolved).not.to.be.undefined;
-		})
+		});
 	});
 
 	it('reduce', () => {
@@ -294,7 +294,7 @@ describe('lib/array-utilities', () => {
 
 	it('throws error when first argument is not an array', () => {
 
-		let params = ['any_string', '123', 'any_string123', 123, 123.123, -123, -123.123, {}, () => {}, true];
+		const params = ['any_string', '123', 'any_string123', 123, 123.123, -123, -123.123, {}, () => {}, true];
 
 		params.forEach((param) => {
 			try {
@@ -302,12 +302,12 @@ describe('lib/array-utilities', () => {
 			} catch (error) {
 				expect(error.message).to.equal('[500] ArrayUtilities.isArray thing argument is not an array.');
 			}
-		})
+		});
 	});
 
 	it('throws error when second argument is not a function', () => {
 
-		let params = ['any_string', '123', 'any_string123', 123, 123.123, -123, -123.123, {}, [], true];
+		const params = ['any_string', '123', 'any_string123', 123, 123.123, -123, -123.123, {}, [], true];
 
 		params.forEach((param) => {
 			try {
@@ -315,34 +315,34 @@ describe('lib/array-utilities', () => {
 			} catch (error) {
 				expect(error.message).to.equal('[500] ArrayUtilities.group differentiator_acquisition_function is not a function.');
 			}
-		})
+		});
 	});
 
 	it('successfully groups with random data', () => {
 
-		let params =  [];
+		const params =  [];
 
-		let count1 = randomutilities.randomInt(2, 10);
-		let count2 = randomutilities.randomInt(2, 10);
-		let count3 = randomutilities.randomInt(2, 10);
+		const count1 = randomutilities.randomInt(2, 10);
+		const count2 = randomutilities.randomInt(2, 10);
+		const count3 = randomutilities.randomInt(2, 10);
 
-		let param1 = randomutilities.createRandomString(20);
-		let param2 = randomutilities.createRandomString(20);
-		let param3 = randomutilities.createRandomString(20);
+		const param1 = randomutilities.createRandomString(20);
+		const param2 = randomutilities.createRandomString(20);
+		const param3 = randomutilities.createRandomString(20);
 
-		for(let i = 0; i < count1; i++) {
+		for (let i = 0; i < count1; i++) {
 			params.push({data: param1});
 		}
 
-		for(let i = 0; i < count2; i++) {
+		for (let i = 0; i < count2; i++) {
 			params.push({data: param2});
 		}
 
-		for(let i = 0; i < count3; i++) {
+		for (let i = 0; i < count3; i++) {
 			params.push({data: param3});
 		}
 
-		let result = arrayutilities.group(params, (param) => {return param.data});
+		const result = arrayutilities.group(params, (param) => param.data);
 
 		expect(params.length).to.equal(count1 + count2 + count3);
 		expect(result[param1].length).to.equal(count1);
@@ -352,7 +352,7 @@ describe('lib/array-utilities', () => {
 
 	it('successfully groups', () => {
 
-		let params =  [
+		const params =  [
 			{ data: 'test1' },
 			{ data: 'test2' },
 			{ data: 'test1' },
@@ -370,7 +370,7 @@ describe('lib/array-utilities', () => {
 			{ data: 'test2' },
 		];
 
-		let result = arrayutilities.group(params, (param) => {return param.data});
+		const result = arrayutilities.group(params, (param) => param.data);
 
 		expect(result).to.deep.equal({
 			test1: [

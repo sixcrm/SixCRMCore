@@ -17,21 +17,21 @@ describe('lib/hash-utilities', () => {
 		});
 
 		it('throws error when argument type is unrecognized', () => {
-			let unexpected_args = [123, 11.22, -123, null, true];
+			const unexpected_args = [123, 11.22, -123, null, true];
 
-			unexpected_args.forEach(arg => {
-				try{
-					hashutilities.toSHA1(arg)
-				}catch(error) {
+			unexpected_args.forEach((arg) => {
+				try {
+					hashutilities.toSHA1(arg);
+				} catch (error) {
 					expect(error.message).to.equal('[500] Unrecognized argument type.');
 				}
 			});
 		});
 
 		it('throws error when argument is not an expected type', () => {
-			let unexpected_params = [{}, {a: 'b'}, {a: 'b', c: 'd'}];
+			const unexpected_params = [{}, {a: 'b'}, {a: 'b', c: 'd'}];
 
-			unexpected_params.forEach(param => {
+			unexpected_params.forEach((param) => {
 				expect(() => hashutilities.toSHA1(param)).to.throw();
 			});
 		});
@@ -50,21 +50,21 @@ describe('lib/hash-utilities', () => {
 		});
 
 		it('throws error when argument type is unrecognized', () => {
-			let unexpected_args = [123, 11.22, -123, null, true];
+			const unexpected_args = [123, 11.22, -123, null, true];
 
-			unexpected_args.forEach(arg => {
-				try{
-					hashutilities.toBase64(arg)
-				}catch(error) {
+			unexpected_args.forEach((arg) => {
+				try {
+					hashutilities.toBase64(arg);
+				} catch (error) {
 					expect(error.message).to.equal('[500] Unrecognized argument type.');
 				}
 			});
 		});
 
 		it('throws error when argument is not an expected type', () => {
-			let unexpected_params = [{}, {a: 'b'}, {a: 'b', c: 'd'}];
+			const unexpected_params = [{}, {a: 'b'}, {a: 'b', c: 'd'}];
 
-			unexpected_params.forEach(param => {
+			unexpected_params.forEach((param) => {
 				expect(() => hashutilities.toBase64(param)).to.throw();
 			});
 		});

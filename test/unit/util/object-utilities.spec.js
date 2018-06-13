@@ -10,43 +10,43 @@ describe('lib/object-utilities', () => {
 
 		it('successfully merges objects', () => {
 
-			let authority_object = {
+			const authority_object = {
 				abc: '123',
-				somearray: ['this','is',{}, 123, 'a array'],
-				testobject:{
-					mykey:'my value'
+				somearray: ['this', 'is', {}, 123, 'a array'],
+				testobject: {
+					mykey: 'my value'
 				},
-				differenttypes:{
-					'objecttype':'this should be present'
+				differenttypes: {
+					objecttype: 'this should be present'
 				}
 			};
 
-			let secondary_object = {
+			const secondary_object = {
 				abc: '456',
 				test: 'this is a test',
 				testobject: {
-					mykey:'someothervalue',
+					mykey: 'someothervalue',
 					hasakey: 'someother value'
 				},
 				differenttypes: 123,
 				nulltype: null
 			};
 
-			let expected_merged_object = {
+			const expected_merged_object = {
 				abc: '123',
 				test: 'this is a test',
-				somearray: ['this','is',{}, 123, 'a array'],
-				testobject:{
-					mykey:'my value',
+				somearray: ['this', 'is', {}, 123, 'a array'],
+				testobject: {
+					mykey: 'my value',
 					hasakey: 'someother value'
 				},
-				differenttypes:{
-					'objecttype':'this should be present'
+				differenttypes: {
+					objecttype: 'this should be present'
 				},
 				nulltype: null
 			};
 
-			let merged_object = objectutilities.recursiveMerge(authority_object, secondary_object);
+			const merged_object = objectutilities.recursiveMerge(authority_object, secondary_object);
 
 			expect(merged_object).to.deep.equal(expected_merged_object);
 
@@ -65,48 +65,48 @@ describe('lib/object-utilities', () => {
 		});
 
 		it('should return true when object has properties', () => {
-			expect(objectutilities.has({test:{test2:'hello'}}, 'test')).to.equal(true);
+			expect(objectutilities.has({test: {test2: 'hello'}}, 'test')).to.equal(true);
 		});
 
 		it('should fail when object is missing specified property and fatal is set to true', () => {
-			try{
-				objectutilities.has({},'test', true);
+			try {
+				objectutilities.has({}, 'test', true);
 				expect.fail();
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] Object missing property "test".');
 			}
 		});
 
 		it('should fail due to non string properties and fatal is set to true', () => {
-			try{
-				//properties object with any value that is not a string
-				objectutilities.has({},[1], true);
+			try {
+				// properties object with any value that is not a string
+				objectutilities.has({}, [1], true);
 				expect.fail();
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] Unrecognized properties object: 1');
 			}
 		});
 
 		it('returns false when object has non string properties', () => {
-			//properties object with any value that is not a string
-			expect(objectutilities.has({},[1], false)).to.equal(false);
+			// properties object with any value that is not a string
+			expect(objectutilities.has({}, [1], false)).to.equal(false);
 		});
 
 		it('should return true when object has properties that are strings', () => {
-			expect(objectutilities.has({test:{test2:'hello'}}, ['test'])).to.equal(true);
+			expect(objectutilities.has({test: {test2: 'hello'}}, ['test'])).to.equal(true);
 		});
 
 		it('should fail due to object missing property with fatal set to true', () => {
-			try{
-				objectutilities.has({},['test'], true);
+			try {
+				objectutilities.has({}, ['test'], true);
 				expect.fail();
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] Object missing property "test".');
 			}
 		});
 
 		it('should fail due to object missing property', () => {
-			expect(objectutilities.has({},['test'], false)).to.equal(false);
+			expect(objectutilities.has({}, ['test'], false)).to.equal(false);
 		});
 
 	});
@@ -115,10 +115,10 @@ describe('lib/object-utilities', () => {
 
 		it('should fail with null key argumentation', () => {
 
-			try{
+			try {
 				objectutilities.hasRecursive({});
 				expect.fail();
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] Key must be a array or a string.');
 			}
 
@@ -126,10 +126,10 @@ describe('lib/object-utilities', () => {
 
 		it('should fail with empty key argumentation', () => {
 
-			try{
-				objectutilities.hasRecursive({},[]);
+			try {
+				objectutilities.hasRecursive({}, []);
 				expect.fail();
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] key array must be of length 1 or greater.');
 			}
 
@@ -137,10 +137,10 @@ describe('lib/object-utilities', () => {
 
 		it('should fail with fatal argumentation', () => {
 
-			try{
-				objectutilities.hasRecursive({},['test'], true);
+			try {
+				objectutilities.hasRecursive({}, ['test'], true);
 				expect.fail();
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] Expected object to have key "test"');
 			}
 
@@ -148,18 +148,18 @@ describe('lib/object-utilities', () => {
 
 		it('should return false', () => {
 
-			expect(objectutilities.hasRecursive({},['test'])).to.equal(false);
+			expect(objectutilities.hasRecursive({}, ['test'])).to.equal(false);
 
 		});
 
 		it('should fail due to invalid argumentation (object)', () => {
 
-			try{
+			try {
 
-				objectutilities.hasRecursive({test:'hello'}, {}, true);
+				objectutilities.hasRecursive({test: 'hello'}, {}, true);
 				expect.fail();
 
-			}catch(error){
+			} catch (error) {
 
 				expect(error.message).to.equal('[500] Key must be a array or a string.');
 
@@ -169,12 +169,12 @@ describe('lib/object-utilities', () => {
 
 		it('should fail due to invalid argumentation (object in array)', () => {
 
-			try{
+			try {
 
-				objectutilities.hasRecursive({test:'hello'}, [{}], true);
+				objectutilities.hasRecursive({test: 'hello'}, [{}], true);
 				expect.fail();
 
-			}catch(error){
+			} catch (error) {
 
 				expect(error.message).to.equal('[500] Non-string key observed.');
 
@@ -184,107 +184,107 @@ describe('lib/object-utilities', () => {
 
 		it('should return true for array argument (one dimensional)', () => {
 
-			expect(objectutilities.hasRecursive({test:'hello'},['test'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: 'hello'}, ['test'])).to.equal(true);
 
 		});
 
 		it('should return true for string argument (one dimensional)', () => {
 
-			expect(objectutilities.hasRecursive({test:'hello'},'test')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: 'hello'}, 'test')).to.equal(true);
 
 		});
 
 		it('should return true for string argument (one dimensional) with arbitrary property types', () => {
 
-			expect(objectutilities.hasRecursive({test:{test2:'hello'}}, 'test')).to.equal(true);
-			expect(objectutilities.hasRecursive({test:'hello'}, 'test')).to.equal(true);
-			expect(objectutilities.hasRecursive({test:null}, 'test')).to.equal(true);
-			expect(objectutilities.hasRecursive({test:false}, 'test')).to.equal(true);
-			expect(objectutilities.hasRecursive({test:true}, 'test')).to.equal(true);
-			expect(objectutilities.hasRecursive({test:{}}, 'test')).to.equal(true);
-			expect(objectutilities.hasRecursive({test:['hello']}, 'test')).to.equal(true);
-			expect(objectutilities.hasRecursive({test:() => {return 'hello'; }}, 'test')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: 'hello'}}, 'test')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: 'hello'}, 'test')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: null}, 'test')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: false}, 'test')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: true}, 'test')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {}}, 'test')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: ['hello']}, 'test')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: () => 'hello'}, 'test')).to.equal(true);
 
 		});
 
 		it('should return true for array argument (one dimensional) with arbitrary property types', () => {
 
-			expect(objectutilities.hasRecursive({test:{test2:'hello'}}, ['test'])).to.equal(true);
-			expect(objectutilities.hasRecursive({test:'hello'}, ['test'])).to.equal(true);
-			expect(objectutilities.hasRecursive({test:null}, ['test'])).to.equal(true);
-			expect(objectutilities.hasRecursive({test:false}, ['test'])).to.equal(true);
-			expect(objectutilities.hasRecursive({test:true}, ['test'])).to.equal(true);
-			expect(objectutilities.hasRecursive({test:{}}, ['test'])).to.equal(true);
-			expect(objectutilities.hasRecursive({test:['hello']}, ['test'])).to.equal(true);
-			expect(objectutilities.hasRecursive({test:() => {return 'hello'; }}, ['test'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: 'hello'}}, ['test'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: 'hello'}, ['test'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: null}, ['test'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: false}, ['test'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: true}, ['test'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {}}, ['test'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: ['hello']}, ['test'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: () => 'hello'}, ['test'])).to.equal(true);
 
 		});
 
 		it('should return true for array argument (two dimensional)', () => {
 
-			expect(objectutilities.hasRecursive({test:{test2:'hello'}},['test', 'test2'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: 'hello'}}, ['test', 'test2'])).to.equal(true);
 
 		});
 
 		it('should return true for string argument (two dimensional)', () => {
 
-			expect(objectutilities.hasRecursive({test:{test2:'hello'}},'test.test2')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: 'hello'}}, 'test.test2')).to.equal(true);
 
 		});
 
 		it('should return true for string argument (two dimensional) with arbitrary property types', () => {
 
-			expect(objectutilities.hasRecursive({test:{test2:{test3: 'hello'}}}, 'test.test2')).to.equal(true);
-			expect(objectutilities.hasRecursive({test:{test2:'hello'}}, 'test.test2')).to.equal(true);
-			expect(objectutilities.hasRecursive({test:{test2:null}}, 'test.test2')).to.equal(true);
-			expect(objectutilities.hasRecursive({test:{test2:false}}, 'test.test2')).to.equal(true);
-			expect(objectutilities.hasRecursive({test:{test2:true}}, 'test.test2')).to.equal(true);
-			expect(objectutilities.hasRecursive({test:{test2:{}}}, 'test.test2')).to.equal(true);
-			expect(objectutilities.hasRecursive({test:{test2:['hello']}}, 'test.test2')).to.equal(true);
-			expect(objectutilities.hasRecursive({test:{test2: () => {return 'hello'; }}}, 'test.test2')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: {test3: 'hello'}}}, 'test.test2')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: 'hello'}}, 'test.test2')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: null}}, 'test.test2')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: false}}, 'test.test2')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: true}}, 'test.test2')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: {}}}, 'test.test2')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: ['hello']}}, 'test.test2')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: () => 'hello'}}, 'test.test2')).to.equal(true);
 
 		});
 
 		it('should return true for array argument (two dimensional) with arbitrary property types', () => {
 
-			expect(objectutilities.hasRecursive({test:{test2:{test3: 'hello'}}}, ['test','test2'])).to.equal(true);
-			expect(objectutilities.hasRecursive({test:{test2:'hello'}}, ['test','test2'])).to.equal(true);
-			expect(objectutilities.hasRecursive({test:{test2:null}}, ['test','test2'])).to.equal(true);
-			expect(objectutilities.hasRecursive({test:{test2:false}}, ['test','test2'])).to.equal(true);
-			expect(objectutilities.hasRecursive({test:{test2:true}}, ['test','test2'])).to.equal(true);
-			expect(objectutilities.hasRecursive({test:{test2:{}}}, ['test','test2'])).to.equal(true);
-			expect(objectutilities.hasRecursive({test:{test2:['hello']}}, ['test','test2'])).to.equal(true);
-			expect(objectutilities.hasRecursive({test:{test2: () => {return 'hello'; }}}, ['test','test2'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: {test3: 'hello'}}}, ['test', 'test2'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: 'hello'}}, ['test', 'test2'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: null}}, ['test', 'test2'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: false}}, ['test', 'test2'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: true}}, ['test', 'test2'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: {}}}, ['test', 'test2'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: ['hello']}}, ['test', 'test2'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: () => 'hello'}}, ['test', 'test2'])).to.equal(true);
 
 		});
 
 		it('should return true for array argument (three dimensional)', () => {
 
-			expect(objectutilities.hasRecursive({test:{test2:{test3:'hello'}}},['test', 'test2', 'test3'])).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: {test3: 'hello'}}}, ['test', 'test2', 'test3'])).to.equal(true);
 
 		});
 
 		it('should return true for string argument (two dimensional)', () => {
 
-			expect(objectutilities.hasRecursive({test:{test2:{test3:'hello'}}},'test.test2.test3')).to.equal(true);
+			expect(objectutilities.hasRecursive({test: {test2: {test3: 'hello'}}}, 'test.test2.test3')).to.equal(true);
 
 		});
 
 		it('should return false for array argument (three dimensional)', () => {
 
-			expect(objectutilities.hasRecursive({test:{test2:{test4:'hello'}}},['test', 'test2', 'test3'])).to.equal(false);
+			expect(objectutilities.hasRecursive({test: {test2: {test4: 'hello'}}}, ['test', 'test2', 'test3'])).to.equal(false);
 
 		});
 
 		it('should return false for string argument (two dimensional)', () => {
 
-			expect(objectutilities.hasRecursive({test:{test2:{test4:'hello'}}},'test.test2.test3')).to.equal(false);
+			expect(objectutilities.hasRecursive({test: {test2: {test4: 'hello'}}}, 'test.test2.test3')).to.equal(false);
 
 		});
 
 		it('should return true for array argument (three dimensional with array index notation)', () => {
 
-			expect(objectutilities.hasRecursive({test:[{another_key:{yet_another_key:'1'}}]},'test.0.another_key.yet_another_key'), true).to.equal(true);
+			expect(objectutilities.hasRecursive({test: [{another_key: {yet_another_key: '1'}}]}, 'test.0.another_key.yet_another_key'), true).to.equal(true);
 
 		});
 
@@ -294,10 +294,10 @@ describe('lib/object-utilities', () => {
 
 		it('should fail with null key argumentation', () => {
 
-			try{
+			try {
 				objectutilities.setRecursive({});
 				expect.fail();
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] Key must be a array or a string.');
 			}
 
@@ -305,10 +305,10 @@ describe('lib/object-utilities', () => {
 
 		it('should fail with empty key argumentation', () => {
 
-			try{
-				objectutilities.setRecursive({},[]);
+			try {
+				objectutilities.setRecursive({}, []);
 				expect.fail();
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] key array must be of length 1 or greater.');
 			}
 
@@ -316,10 +316,10 @@ describe('lib/object-utilities', () => {
 
 		it('should fail with fatal argumentation', () => {
 
-			try{
-				objectutilities.setRecursive({},['test'], 'hello', true);
+			try {
+				objectutilities.setRecursive({}, ['test'], 'hello', true);
 				expect.fail();
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] Expected object to have key "test"');
 			}
 
@@ -327,18 +327,18 @@ describe('lib/object-utilities', () => {
 
 		it('should return empty object', () => {
 
-			expect(objectutilities.setRecursive({},['test'], 'hello')).to.deep.equal({});
+			expect(objectutilities.setRecursive({}, ['test'], 'hello')).to.deep.equal({});
 
 		});
 
 		it('should fail due to invalid argumentation (object)', () => {
 
-			try{
+			try {
 
-				objectutilities.setRecursive({test:'hello'}, {}, true);
+				objectutilities.setRecursive({test: 'hello'}, {}, true);
 				expect.fail();
 
-			}catch(error){
+			} catch (error) {
 
 				expect(error.message).to.equal('[500] Key must be a array or a string.');
 
@@ -348,12 +348,12 @@ describe('lib/object-utilities', () => {
 
 		it('should fail due to invalid argumentation (object in array)', () => {
 
-			try{
+			try {
 
-				objectutilities.setRecursive({test:'hello'}, [{}], true);
+				objectutilities.setRecursive({test: 'hello'}, [{}], true);
 				expect.fail();
 
-			}catch(error){
+			} catch (error) {
 
 				expect(error.message).to.equal('[500] Non-string key observed.');
 
@@ -363,27 +363,27 @@ describe('lib/object-utilities', () => {
 
 		it('should return object with key and value for array argument (one dimensional)', () => {
 
-			expect(objectutilities.setRecursive({test:'hello'},['test'], 'changed')).to.deep.equal({test:'changed'});
+			expect(objectutilities.setRecursive({test: 'hello'}, ['test'], 'changed')).to.deep.equal({test: 'changed'});
 
 		});
 
 		it('should return object with key and value for string argument (one dimensional)', () => {
 
-			expect(objectutilities.setRecursive({test:'hello'},'test', 'changed')).to.deep.equal({test:'changed'});
+			expect(objectutilities.setRecursive({test: 'hello'}, 'test', 'changed')).to.deep.equal({test: 'changed'});
 
 		});
 
 		it('should return object with key and value for string argument (one dimensional) with arbitrary property types', () => {
 
-			expect(objectutilities.setRecursive({test:{test2:'hello'}}, 'test', 'changed')).deep.equal({test:'changed'});
-			expect(objectutilities.setRecursive({test:'hello'}, 'test', 'changed')).deep.equal({test:'changed'});
-			expect(objectutilities.setRecursive({test:null}, 'test', 'hello')).deep.equal({test:'hello'});
-			expect(objectutilities.setRecursive({test:false}, 'test', 'hello')).deep.equal({test:'hello'});
-			expect(objectutilities.setRecursive({test:true}, 'test', 'hello')).deep.equal({test:'hello'});
-			expect(objectutilities.setRecursive({test:{}}, 'test', 'hello')).deep.equal({test:'hello'});
-			expect(objectutilities.setRecursive({test:['hello']}, 'test', 'changed')).deep.equal({test:'changed'});
+			expect(objectutilities.setRecursive({test: {test2: 'hello'}}, 'test', 'changed')).deep.equal({test: 'changed'});
+			expect(objectutilities.setRecursive({test: 'hello'}, 'test', 'changed')).deep.equal({test: 'changed'});
+			expect(objectutilities.setRecursive({test: null}, 'test', 'hello')).deep.equal({test: 'hello'});
+			expect(objectutilities.setRecursive({test: false}, 'test', 'hello')).deep.equal({test: 'hello'});
+			expect(objectutilities.setRecursive({test: true}, 'test', 'hello')).deep.equal({test: 'hello'});
+			expect(objectutilities.setRecursive({test: {}}, 'test', 'hello')).deep.equal({test: 'hello'});
+			expect(objectutilities.setRecursive({test: ['hello']}, 'test', 'changed')).deep.equal({test: 'changed'});
 
-			let changed = objectutilities.setRecursive({test: () => {return 'hello'; }}, 'test', () => {return 'hello'; });
+			const changed = objectutilities.setRecursive({test: () => 'hello'}, 'test', () => 'hello');
 
 			expect(changed.test()).to.equal('hello');
 
@@ -391,57 +391,57 @@ describe('lib/object-utilities', () => {
 
 		it('should return object with key and value for array argument (one dimensional) with arbitrary property types', () => {
 
-			expect(objectutilities.setRecursive({test:{test2:'hello'}}, ['test'], 'changed')).to.deep.equal({test:'changed'});
-			expect(objectutilities.setRecursive({test:'hello'}, ['test'], 'changed')).to.deep.equal({test:'changed'});
-			expect(objectutilities.setRecursive({test:null}, ['test'], 'hello')).to.deep.equal({test:'hello'});
-			expect(objectutilities.setRecursive({test:false}, ['test'], 'hello')).to.deep.equal({test:'hello'});
-			expect(objectutilities.setRecursive({test:true}, ['test'], 'hello')).to.deep.equal({test:'hello'});
-			expect(objectutilities.setRecursive({test:{}}, ['test'], 'hello')).to.deep.equal({test:'hello'});
-			expect(objectutilities.setRecursive({test:['hello']}, ['test'], 'changed')).to.deep.equal({test:'changed'});
+			expect(objectutilities.setRecursive({test: {test2: 'hello'}}, ['test'], 'changed')).to.deep.equal({test: 'changed'});
+			expect(objectutilities.setRecursive({test: 'hello'}, ['test'], 'changed')).to.deep.equal({test: 'changed'});
+			expect(objectutilities.setRecursive({test: null}, ['test'], 'hello')).to.deep.equal({test: 'hello'});
+			expect(objectutilities.setRecursive({test: false}, ['test'], 'hello')).to.deep.equal({test: 'hello'});
+			expect(objectutilities.setRecursive({test: true}, ['test'], 'hello')).to.deep.equal({test: 'hello'});
+			expect(objectutilities.setRecursive({test: {}}, ['test'], 'hello')).to.deep.equal({test: 'hello'});
+			expect(objectutilities.setRecursive({test: ['hello']}, ['test'], 'changed')).to.deep.equal({test: 'changed'});
 
-			let changed = objectutilities.setRecursive({test: () => {return 'hello'; }}, ['test'], () => {return 'hello'; });
+			const changed = objectutilities.setRecursive({test: () => 'hello'}, ['test'], () => 'hello');
 
 			expect(changed.test()).to.equal('hello');
 		});
 
 		it('should return object with keys and value for array argument (two dimensional)', () => {
 
-			expect(objectutilities.setRecursive({test:{test2:'hello'}},['test', 'test2'], 'changed')).to.deep.equal({test:{test2:'changed'}});
+			expect(objectutilities.setRecursive({test: {test2: 'hello'}}, ['test', 'test2'], 'changed')).to.deep.equal({test: {test2: 'changed'}});
 
 		});
 
 		it('should return object with keys and value for string argument (two dimensional)', () => {
 
-			expect(objectutilities.setRecursive({test:{test2:'hello'}},'test.test2', 'changed')).to.deep.equal({test:{test2:'changed'}});
+			expect(objectutilities.setRecursive({test: {test2: 'hello'}}, 'test.test2', 'changed')).to.deep.equal({test: {test2: 'changed'}});
 
 		});
 
 		it('should return object with key and value for string argument (two dimensional) with arbitrary property types', () => {
 
-			expect(objectutilities.setRecursive({test:{test2:{test3: 'hello'}}}, 'test.test2', 'changed')).to.deep.equal({test:{test2: 'changed'}});
-			expect(objectutilities.setRecursive({test:{test2:'hello'}}, 'test.test2', 'changed')).to.deep.equal({test:{test2:'changed'}});
-			expect(objectutilities.setRecursive({test:{test2:null}}, 'test.test2', 'hello')).to.deep.equal({test:{test2:'hello'}});
-			expect(objectutilities.setRecursive({test:{test2:false}}, 'test.test2', 'hello')).to.deep.equal({test:{test2:'hello'}});
-			expect(objectutilities.setRecursive({test:{test2:true}}, 'test.test2', 'hello')).to.deep.equal({test:{test2:'hello'}});
-			expect(objectutilities.setRecursive({test:{test2:{}}}, 'test.test2', 'hello')).to.deep.equal({test:{test2:'hello'}});
-			expect(objectutilities.setRecursive({test:{test2:['hello']}}, 'test.test2', ['changed'])).to.deep.equal({test:{test2:['changed']}});
+			expect(objectutilities.setRecursive({test: {test2: {test3: 'hello'}}}, 'test.test2', 'changed')).to.deep.equal({test: {test2: 'changed'}});
+			expect(objectutilities.setRecursive({test: {test2: 'hello'}}, 'test.test2', 'changed')).to.deep.equal({test: {test2: 'changed'}});
+			expect(objectutilities.setRecursive({test: {test2: null}}, 'test.test2', 'hello')).to.deep.equal({test: {test2: 'hello'}});
+			expect(objectutilities.setRecursive({test: {test2: false}}, 'test.test2', 'hello')).to.deep.equal({test: {test2: 'hello'}});
+			expect(objectutilities.setRecursive({test: {test2: true}}, 'test.test2', 'hello')).to.deep.equal({test: {test2: 'hello'}});
+			expect(objectutilities.setRecursive({test: {test2: {}}}, 'test.test2', 'hello')).to.deep.equal({test: {test2: 'hello'}});
+			expect(objectutilities.setRecursive({test: {test2: ['hello']}}, 'test.test2', ['changed'])).to.deep.equal({test: {test2: ['changed']}});
 
-			let changed = objectutilities.setRecursive({test:{test2: () => {return 'hello'; }}}, 'test.test2', () => {return 'hello'; });
+			const changed = objectutilities.setRecursive({test: {test2: () => 'hello'}}, 'test.test2', () => 'hello');
 
 			expect(changed.test.test2()).to.equal('hello');
 		});
 
 		it('should return return object with keys and value for array argument (two dimensional) with arbitrary property types', () => {
 
-			expect(objectutilities.setRecursive({test:{test2:{test3: 'hello'}}}, ['test','test2'], 'changed')).to.deep.equal({test:{test2: 'changed'}});
-			expect(objectutilities.setRecursive({test:{test2:'hello'}}, ['test','test2'], 'changed')).to.deep.equal({test:{test2:'changed'}});
-			expect(objectutilities.setRecursive({test:{test2:null}}, ['test','test2'], 'hello')).to.deep.equal({test:{test2:'hello'}});
-			expect(objectutilities.setRecursive({test:{test2:false}}, ['test','test2'], 'hello')).to.deep.equal({test:{test2:'hello'}});
-			expect(objectutilities.setRecursive({test:{test2:true}}, ['test','test2'], 'hello')).to.deep.equal({test:{test2:'hello'}});
-			expect(objectutilities.setRecursive({test:{test2:{}}}, ['test','test2'], {})).to.deep.equal({test:{test2:{}}});
-			expect(objectutilities.setRecursive({test:{test2:['hello']}}, ['test','test2'], ['changed'])).to.deep.equal({test:{test2:['changed']}});
+			expect(objectutilities.setRecursive({test: {test2: {test3: 'hello'}}}, ['test', 'test2'], 'changed')).to.deep.equal({test: {test2: 'changed'}});
+			expect(objectutilities.setRecursive({test: {test2: 'hello'}}, ['test', 'test2'], 'changed')).to.deep.equal({test: {test2: 'changed'}});
+			expect(objectutilities.setRecursive({test: {test2: null}}, ['test', 'test2'], 'hello')).to.deep.equal({test: {test2: 'hello'}});
+			expect(objectutilities.setRecursive({test: {test2: false}}, ['test', 'test2'], 'hello')).to.deep.equal({test: {test2: 'hello'}});
+			expect(objectutilities.setRecursive({test: {test2: true}}, ['test', 'test2'], 'hello')).to.deep.equal({test: {test2: 'hello'}});
+			expect(objectutilities.setRecursive({test: {test2: {}}}, ['test', 'test2'], {})).to.deep.equal({test: {test2: {}}});
+			expect(objectutilities.setRecursive({test: {test2: ['hello']}}, ['test', 'test2'], ['changed'])).to.deep.equal({test: {test2: ['changed']}});
 
-			let changed = objectutilities.setRecursive({test:{test2: () => {return 'hello'; }}}, ['test.test2'], () => {return 'hello'; });
+			const changed = objectutilities.setRecursive({test: {test2: () => 'hello'}}, ['test.test2'], () => 'hello');
 
 			expect(changed.test.test2()).to.equal('hello');
 
@@ -449,31 +449,31 @@ describe('lib/object-utilities', () => {
 
 		it('should return return object with keys and value for array argument (three dimensional)', () => {
 
-			expect(objectutilities.setRecursive({test:{test2:{test3:'hello'}}},['test', 'test2', 'test3'], 'changed')).to.deep.equal({test:{test2:{test3:'changed'}}});
+			expect(objectutilities.setRecursive({test: {test2: {test3: 'hello'}}}, ['test', 'test2', 'test3'], 'changed')).to.deep.equal({test: {test2: {test3: 'changed'}}});
 
 		});
 
 		it('should return object with keys and value for string argument (two dimensional)', () => {
 
-			expect(objectutilities.setRecursive({test:{test2:{test3:'hello'}}},'test.test2.test3', 'changed')).to.deep.equal({test:{test2:{test3:'changed'}}});
+			expect(objectutilities.setRecursive({test: {test2: {test3: 'hello'}}}, 'test.test2.test3', 'changed')).to.deep.equal({test: {test2: {test3: 'changed'}}});
 
 		});
 
 		it('should return object with keys and value for array argument (three dimensional)', () => {
 
-			expect(objectutilities.setRecursive({test:{test2:{test4:'hello'}}},['test', 'test2', 'test3'], 'changed')).to.deep.equal({test:{test2:{test4:'hello'}}});
+			expect(objectutilities.setRecursive({test: {test2: {test4: 'hello'}}}, ['test', 'test2', 'test3'], 'changed')).to.deep.equal({test: {test2: {test4: 'hello'}}});
 
 		});
 
 		it('should return object with keys and value for string argument (two dimensional)', () => {
 
-			expect(objectutilities.setRecursive({test:{test2:{test4:'hello'}}},'test.test2.test3', 'changed')).to.deep.equal({test:{test2:{test4:'hello'}}});
+			expect(objectutilities.setRecursive({test: {test2: {test4: 'hello'}}}, 'test.test2.test3', 'changed')).to.deep.equal({test: {test2: {test4: 'hello'}}});
 
 		});
 
 		it('should return object with keys and value for array argument (three dimensional with array index notation)', () => {
 
-			expect(objectutilities.setRecursive({test:[{another_key:{yet_another_key:'1'}}]},'test.0.another_key.yet_another_key', '1'), true).to.deep.equal({test:[{another_key:{yet_another_key:'1'}}]});
+			expect(objectutilities.setRecursive({test: [{another_key: {yet_another_key: '1'}}]}, 'test.0.another_key.yet_another_key', '1'), true).to.deep.equal({test: [{another_key: {yet_another_key: '1'}}]});
 
 		});
 
@@ -483,10 +483,10 @@ describe('lib/object-utilities', () => {
 
 		it('should fail with null key argumentation', () => {
 
-			try{
+			try {
 				objectutilities.getRecursive({});
 				expect.fail();
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] Key must be a array or a string.');
 			}
 
@@ -494,10 +494,10 @@ describe('lib/object-utilities', () => {
 
 		it('should fail with empty key argumentation', () => {
 
-			try{
-				objectutilities.getRecursive({},[]);
+			try {
+				objectutilities.getRecursive({}, []);
 				expect.fail();
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] key array must be of length 1 or greater.');
 			}
 
@@ -505,10 +505,10 @@ describe('lib/object-utilities', () => {
 
 		it('should fail with fatal argumentation', () => {
 
-			try{
-				objectutilities.getRecursive({},['test'], true);
+			try {
+				objectutilities.getRecursive({}, ['test'], true);
 				expect.fail();
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] Expected object to have key "test"');
 			}
 
@@ -516,18 +516,18 @@ describe('lib/object-utilities', () => {
 
 		it('should return undefined', () => {
 
-			expect(objectutilities.getRecursive({},['test'])).to.equal(undefined);
+			expect(objectutilities.getRecursive({}, ['test'])).to.equal(undefined);
 
 		});
 
 		it('should fail due to invalid argumentation (object)', () => {
 
-			try{
+			try {
 
-				objectutilities.getRecursive({test:'hello'}, {}, true);
+				objectutilities.getRecursive({test: 'hello'}, {}, true);
 				expect.fail();
 
-			}catch(error){
+			} catch (error) {
 
 				expect(error.message).to.equal('[500] Key must be a array or a string.');
 
@@ -537,12 +537,12 @@ describe('lib/object-utilities', () => {
 
 		it('should fail due to invalid argumentation (object in array)', () => {
 
-			try{
+			try {
 
-				objectutilities.getRecursive({test:'hello'}, [{}], true);
+				objectutilities.getRecursive({test: 'hello'}, [{}], true);
 				expect.fail();
 
-			}catch(error){
+			} catch (error) {
 
 				expect(error.message).to.equal('[500] Non-string key observed.');
 
@@ -552,26 +552,26 @@ describe('lib/object-utilities', () => {
 
 		it('should return value for array argument (one dimensional)', () => {
 
-			expect(objectutilities.getRecursive({test:'hello'},['test'])).to.equal('hello');
+			expect(objectutilities.getRecursive({test: 'hello'}, ['test'])).to.equal('hello');
 
 		});
 
 		it('should return value for string argument (one dimensional)', () => {
 
-			expect(objectutilities.getRecursive({test:'hello'},'test')).to.equal('hello');
+			expect(objectutilities.getRecursive({test: 'hello'}, 'test')).to.equal('hello');
 
 		});
 
 		it('should return value for string argument (one dimensional) with arbitrary property types', () => {
 
-			expect(objectutilities.getRecursive({test:{test2:'hello'}}, 'test')).to.deep.equal({test2:'hello'});
-			expect(objectutilities.getRecursive({test:'hello'}, 'test')).to.equal('hello');
-			expect(objectutilities.getRecursive({test:null}, 'test')).to.equal(null);
-			expect(objectutilities.getRecursive({test:false}, 'test')).to.equal(false);
-			expect(objectutilities.getRecursive({test:true}, 'test')).to.equal(true);
-			expect(objectutilities.getRecursive({test:{}}, 'test')).to.deep.equal({});
-			expect(objectutilities.getRecursive({test:['hello']}, 'test')).to.deep.equal(['hello']);
-			let cb = () => {return 'hello'; };
+			expect(objectutilities.getRecursive({test: {test2: 'hello'}}, 'test')).to.deep.equal({test2: 'hello'});
+			expect(objectutilities.getRecursive({test: 'hello'}, 'test')).to.equal('hello');
+			expect(objectutilities.getRecursive({test: null}, 'test')).to.equal(null);
+			expect(objectutilities.getRecursive({test: false}, 'test')).to.equal(false);
+			expect(objectutilities.getRecursive({test: true}, 'test')).to.equal(true);
+			expect(objectutilities.getRecursive({test: {}}, 'test')).to.deep.equal({});
+			expect(objectutilities.getRecursive({test: ['hello']}, 'test')).to.deep.equal(['hello']);
+			const cb = () => 'hello';
 
 			expect(objectutilities.getRecursive({test: cb}, 'test')).to.equal(cb);
 
@@ -579,14 +579,14 @@ describe('lib/object-utilities', () => {
 
 		it('should return value for array argument (one dimensional) with arbitrary property types', () => {
 
-			expect(objectutilities.getRecursive({test:{test2:'hello'}}, ['test'])).to.deep.equal({test2:'hello'});
-			expect(objectutilities.getRecursive({test:'hello'}, ['test'])).to.equal('hello');
-			expect(objectutilities.getRecursive({test:null}, ['test'])).to.equal(null);
-			expect(objectutilities.getRecursive({test:false}, ['test'])).to.equal(false);
-			expect(objectutilities.getRecursive({test:true}, ['test'])).to.equal(true);
-			expect(objectutilities.getRecursive({test:{}}, ['test'])).to.deep.equal({});
-			expect(objectutilities.getRecursive({test:['hello']}, ['test'])).to.deep.equal(['hello']);
-			let cb = () => {return 'hello'; };
+			expect(objectutilities.getRecursive({test: {test2: 'hello'}}, ['test'])).to.deep.equal({test2: 'hello'});
+			expect(objectutilities.getRecursive({test: 'hello'}, ['test'])).to.equal('hello');
+			expect(objectutilities.getRecursive({test: null}, ['test'])).to.equal(null);
+			expect(objectutilities.getRecursive({test: false}, ['test'])).to.equal(false);
+			expect(objectutilities.getRecursive({test: true}, ['test'])).to.equal(true);
+			expect(objectutilities.getRecursive({test: {}}, ['test'])).to.deep.equal({});
+			expect(objectutilities.getRecursive({test: ['hello']}, ['test'])).to.deep.equal(['hello']);
+			const cb = () => 'hello';
 
 			expect(objectutilities.getRecursive({test: cb}, ['test'])).to.equal(cb);
 
@@ -594,73 +594,73 @@ describe('lib/object-utilities', () => {
 
 		it('should return value for array argument (two dimensional)', () => {
 
-			expect(objectutilities.getRecursive({test:{test2:'hello'}},['test', 'test2'])).to.equal('hello');
+			expect(objectutilities.getRecursive({test: {test2: 'hello'}}, ['test', 'test2'])).to.equal('hello');
 
 		});
 
 		it('should return value for string argument (two dimensional)', () => {
 
-			expect(objectutilities.getRecursive({test:{test2:'hello'}},'test.test2')).to.equal('hello');
+			expect(objectutilities.getRecursive({test: {test2: 'hello'}}, 'test.test2')).to.equal('hello');
 
 		});
 
 		it('should return value for string argument (two dimensional) with arbitrary property types', () => {
 
-			expect(objectutilities.getRecursive({test:{test2:{test3: 'hello'}}}, 'test.test2')).to.deep.equal({test3: 'hello'});
-			expect(objectutilities.getRecursive({test:{test2:'hello'}}, 'test.test2')).to.equal('hello');
-			expect(objectutilities.getRecursive({test:{test2:null}}, 'test.test2')).to.equal(null);
-			expect(objectutilities.getRecursive({test:{test2:false}}, 'test.test2')).to.equal(false);
-			expect(objectutilities.getRecursive({test:{test2:true}}, 'test.test2')).to.equal(true);
-			expect(objectutilities.getRecursive({test:{test2:{}}}, 'test.test2')).to.deep.equal({});
-			expect(objectutilities.getRecursive({test:{test2:['hello']}}, 'test.test2')).to.deep.equal(['hello']);
-			let cb = () => {return 'hello'; };
+			expect(objectutilities.getRecursive({test: {test2: {test3: 'hello'}}}, 'test.test2')).to.deep.equal({test3: 'hello'});
+			expect(objectutilities.getRecursive({test: {test2: 'hello'}}, 'test.test2')).to.equal('hello');
+			expect(objectutilities.getRecursive({test: {test2: null}}, 'test.test2')).to.equal(null);
+			expect(objectutilities.getRecursive({test: {test2: false}}, 'test.test2')).to.equal(false);
+			expect(objectutilities.getRecursive({test: {test2: true}}, 'test.test2')).to.equal(true);
+			expect(objectutilities.getRecursive({test: {test2: {}}}, 'test.test2')).to.deep.equal({});
+			expect(objectutilities.getRecursive({test: {test2: ['hello']}}, 'test.test2')).to.deep.equal(['hello']);
+			const cb = () => 'hello';
 
-			expect(objectutilities.getRecursive({test:{test2: cb}}, 'test.test2')).to.equal(cb);
+			expect(objectutilities.getRecursive({test: {test2: cb}}, 'test.test2')).to.equal(cb);
 
 		});
 
 		it('should return value for array argument (two dimensional) with arbitrary property types', () => {
 
-			expect(objectutilities.getRecursive({test:{test2:{test3: 'hello'}}}, ['test','test2'])).to.deep.equal({test3: 'hello'});
-			expect(objectutilities.getRecursive({test:{test2:'hello'}}, ['test','test2'])).to.equal('hello');
-			expect(objectutilities.getRecursive({test:{test2:null}}, ['test','test2'])).to.equal(null);
-			expect(objectutilities.getRecursive({test:{test2:false}}, ['test','test2'])).to.equal(false);
-			expect(objectutilities.getRecursive({test:{test2:true}}, ['test','test2'])).to.equal(true);
-			expect(objectutilities.getRecursive({test:{test2:{}}}, ['test','test2'])).to.deep.equal({});
-			expect(objectutilities.getRecursive({test:{test2:['hello']}}, ['test','test2'])).to.deep.equal(['hello']);
-			let cb = () => {return 'hello'; };
+			expect(objectutilities.getRecursive({test: {test2: {test3: 'hello'}}}, ['test', 'test2'])).to.deep.equal({test3: 'hello'});
+			expect(objectutilities.getRecursive({test: {test2: 'hello'}}, ['test', 'test2'])).to.equal('hello');
+			expect(objectutilities.getRecursive({test: {test2: null}}, ['test', 'test2'])).to.equal(null);
+			expect(objectutilities.getRecursive({test: {test2: false}}, ['test', 'test2'])).to.equal(false);
+			expect(objectutilities.getRecursive({test: {test2: true}}, ['test', 'test2'])).to.equal(true);
+			expect(objectutilities.getRecursive({test: {test2: {}}}, ['test', 'test2'])).to.deep.equal({});
+			expect(objectutilities.getRecursive({test: {test2: ['hello']}}, ['test', 'test2'])).to.deep.equal(['hello']);
+			const cb = () => 'hello';
 
-			expect(objectutilities.getRecursive({test:{test2: cb}}, ['test','test2'])).to.equal(cb);
+			expect(objectutilities.getRecursive({test: {test2: cb}}, ['test', 'test2'])).to.equal(cb);
 
 		});
 
 		it('should return value for array argument (three dimensional)', () => {
 
-			expect(objectutilities.getRecursive({test:{test2:{test3:'hello'}}},['test', 'test2', 'test3'])).to.equal('hello');
+			expect(objectutilities.getRecursive({test: {test2: {test3: 'hello'}}}, ['test', 'test2', 'test3'])).to.equal('hello');
 
 		});
 
 		it('should return value for string argument (two dimensional)', () => {
 
-			expect(objectutilities.getRecursive({test:{test2:{test3:'hello'}}},'test.test2.test3')).to.equal('hello');
+			expect(objectutilities.getRecursive({test: {test2: {test3: 'hello'}}}, 'test.test2.test3')).to.equal('hello');
 
 		});
 
 		it('should return undefined for array argument (three dimensional)', () => {
 
-			expect(objectutilities.getRecursive({test:{test2:{test4:'hello'}}},['test', 'test2', 'test3'])).to.deep.equal(undefined);
+			expect(objectutilities.getRecursive({test: {test2: {test4: 'hello'}}}, ['test', 'test2', 'test3'])).to.deep.equal(undefined);
 
 		});
 
 		it('should return undefined for string argument (two dimensional)', () => {
 
-			expect(objectutilities.getRecursive({test:{test2:{test4:'hello'}}},'test.test2.test3')).to.deep.equal(undefined);
+			expect(objectutilities.getRecursive({test: {test2: {test4: 'hello'}}}, 'test.test2.test3')).to.deep.equal(undefined);
 
 		});
 
 		it('should return value for array argument (three dimensional with array index notation)', () => {
 
-			expect(objectutilities.getRecursive({test:[{another_key:{yet_another_key:'1'}}]},'test.0.another_key.yet_another_key'), true).to.equal('1');
+			expect(objectutilities.getRecursive({test: [{another_key: {yet_another_key: '1'}}]}, 'test.0.another_key.yet_another_key'), true).to.equal('1');
 
 		});
 
@@ -669,24 +669,24 @@ describe('lib/object-utilities', () => {
 	describe('getClassName', () => {
 
 		it('returns class name', () => {
-			expect(objectutilities.getClassName({constructor:{name:'test'}})).to.equal('test');
+			expect(objectutilities.getClassName({constructor: {name: 'test'}})).to.equal('test');
 		});
 
 		it('returns null when class name is', () => {
-			expect(objectutilities.getClassName({constructor:{}})).to.equal(null);
+			expect(objectutilities.getClassName({constructor: {}})).to.equal(null);
 		});
 	});
 
 	describe('nonEmpty', () => {
 
 		it('returns false if parameter is not an object', () => {
-			expect(objectutilities.nonEmpty('test')).to.be.false
+			expect(objectutilities.nonEmpty('test')).to.be.false;
 		});
 
 		it('throws error if fatal is true', () => {
-			try{
-				objectutilities.nonEmpty({}, true)
-			}catch(error){
+			try {
+				objectutilities.nonEmpty({}, true);
+			} catch (error) {
 				expect(error.message).to.equal('[500] Object is empty.');
 			}
 		});
@@ -695,28 +695,28 @@ describe('lib/object-utilities', () => {
 	describe('recurseByDepth', () => {
 
 		it('returns result if sent function was successful', () => {
-			//send any function
+			// send any function
 			expect(objectutilities.recurseByDepth(
-				{'a_key': 'a_value'},
-				function(){
+				{a_key: 'a_value'},
+				function() {
 					return true;
 				}
 			)).to.equal('a_value');
 		});
 
 		it('throws error when second argument is not a function', () => {
-			try{
-				objectutilities.recurseByDepth({}, 'not_a_function')
-			}catch(error){
+			try {
+				objectutilities.recurseByDepth({}, 'not_a_function');
+			} catch (error) {
 				expect(error.message).to.equal('[500] Match function must be a function.');
 			}
 		});
 
 		it('returns null when first argument is not an object', () => {
 
-			let unexpected_params = ['unexpected_element', '123', '-123', '', 123, 11.22, -123, true];
+			const unexpected_params = ['unexpected_element', '123', '-123', '', 123, 11.22, -123, true];
 
-			unexpected_params.forEach(param => {
+			unexpected_params.forEach((param) => {
 				expect(objectutilities.recurseByDepth(param)).to.equal(null);
 			});
 
@@ -724,7 +724,7 @@ describe('lib/object-utilities', () => {
 
 		it('successfully returns matched value', () => {
 
-			let params = {
+			const params = {
 				a: 'v1',
 				b: 'v2',
 				c: {
@@ -732,7 +732,7 @@ describe('lib/object-utilities', () => {
 				}
 			};
 
-			let match_func = (key, value) => {return value === 'v3'};
+			const match_func = (key, value) => value === 'v3';
 
 			expect(objectutilities.recurseByDepth(params, match_func)).to.equal('v3');
 
@@ -740,7 +740,7 @@ describe('lib/object-utilities', () => {
 
 		it('successfully returns matched value for more than one matched value (lower depth level goes first)', () => {
 
-			let params = {
+			const params = {
 				a: 'v1',
 				b: 'v2',
 				c: {
@@ -748,7 +748,7 @@ describe('lib/object-utilities', () => {
 				}
 			};
 
-			let match_func = (key, value) => {return value === 'v2'};
+			const match_func = (key, value) => value === 'v2';
 
 			expect(objectutilities.recurseByDepth(params, match_func)).to.equal('v2');
 
@@ -756,7 +756,7 @@ describe('lib/object-utilities', () => {
 
 		it('successfully returns matched value for more than one matched value (lower depth level goes second)', () => {
 
-			let params = {
+			const params = {
 				a: 'a',
 				b: {
 					a: {
@@ -769,7 +769,7 @@ describe('lib/object-utilities', () => {
 				d: 'v2'
 			};
 
-			let match_func = (key, value) => {return value === 'v2'};
+			const match_func = (key, value) => value === 'v2';
 
 			expect(objectutilities.recurseByDepth(params, match_func)).to.equal('v2');
 
@@ -777,7 +777,7 @@ describe('lib/object-utilities', () => {
 
 		it('returns value when match was a success', () => {
 
-			let params = {
+			const params = {
 				a: 'v1',
 				b: 'v2',
 				c: {
@@ -794,7 +794,7 @@ describe('lib/object-utilities', () => {
 				}
 			};
 
-			let match_func = (key) => {return key === 'd'};
+			const match_func = (key) => key === 'd';
 
 			expect(objectutilities.recurseByDepth(params, match_func, 0)).to.equal('v6');
 			expect(objectutilities.recurseByDepth(params, match_func, 3)).to.equal('v6');
@@ -802,7 +802,7 @@ describe('lib/object-utilities', () => {
 
 		it('returns null when value does not exist', () => {
 
-			let params = {
+			const params = {
 				a: 'v1',
 				b: 'v2',
 				c: {
@@ -810,7 +810,7 @@ describe('lib/object-utilities', () => {
 				}
 			};
 
-			let match_func = (key, value) => {return value === 'v4'};
+			const match_func = (key, value) => value === 'v4';
 
 			expect(objectutilities.recurseByDepth(params, match_func)).to.deep.equal(null);
 		});
@@ -819,18 +819,18 @@ describe('lib/object-utilities', () => {
 	describe('recurseAll', () => {
 
 		it('throws error when second argument is not a function', () => {
-			try{
-				objectutilities.recurseAll({}, 'not_a_function')
-			}catch(error){
+			try {
+				objectutilities.recurseAll({}, 'not_a_function');
+			} catch (error) {
 				expect(error.message).to.equal('[500] Match function must be a function.');
 			}
 		});
 
 		it('returns null when first argument is not an object', () => {
 
-			let unexpected_params = ['unexpected_element', '123', '-123', '', 123, 11.22, -123, true];
+			const unexpected_params = ['unexpected_element', '123', '-123', '', 123, 11.22, -123, true];
 
-			unexpected_params.forEach(param => {
+			unexpected_params.forEach((param) => {
 				expect(objectutilities.recurseAll(param)).to.equal(null);
 			});
 
@@ -838,7 +838,7 @@ describe('lib/object-utilities', () => {
 
 		it('successfully returns depth level and matched value', () => {
 
-			let params = {
+			const params = {
 				a: 'v1',
 				b: 'v2',
 				c: {
@@ -846,7 +846,7 @@ describe('lib/object-utilities', () => {
 				}
 			};
 
-			let match_func = (key, value) => {return value === 'v3'};
+			const match_func = (key, value) => value === 'v3';
 
 			expect(objectutilities.recurseAll(params, match_func)).to.deep.equal([ { depth: 2, match: 'v3' } ] );
 
@@ -854,7 +854,7 @@ describe('lib/object-utilities', () => {
 
 		it('successfully returns depth level and matched value for more than one matched value (lower depth level goes first)', () => {
 
-			let params = {
+			const params = {
 				a: 'v1',
 				b: 'v2',
 				c: {
@@ -862,7 +862,7 @@ describe('lib/object-utilities', () => {
 				}
 			};
 
-			let match_func = (key, value) => {return value === 'v2'};
+			const match_func = (key, value) => value === 'v2';
 
 			expect(objectutilities.recurseAll(params, match_func)).to.deep.equal(
 				[ { depth: 1, match: 'v2' }, { depth: 2, match: 'v2' } ]
@@ -872,7 +872,7 @@ describe('lib/object-utilities', () => {
 
 		it('successfully returns depth level and matched value for more than one matched value (lower depth level goes second)', () => {
 
-			let params = {
+			const params = {
 				a: 'v1',
 				b: {
 					a: {
@@ -885,7 +885,7 @@ describe('lib/object-utilities', () => {
 				d: 'v3'
 			};
 
-			let match_func = (key, value) => {return value === 'v2'};
+			const match_func = (key, value) => value === 'v2';
 
 			expect(objectutilities.recurseAll(params, match_func)).to.deep.equal(
 				[ { depth: 4, match: 'v2' }, { depth: 1, match: 'v2' } ]
@@ -895,7 +895,7 @@ describe('lib/object-utilities', () => {
 
 		it('returns depth level and matched value when match was a success', () => {
 
-			let params = {
+			const params = {
 				a: 'v1',
 				b: 'v2',
 				c: {
@@ -912,7 +912,7 @@ describe('lib/object-utilities', () => {
 				}
 			};
 
-			let match_func = (key) => {return key === 'd'};
+			const match_func = (key) => key === 'd';
 
 			expect(objectutilities.recurseAll(params, match_func, 0)).to.deep.equal([ { depth: 4, match: 'v6' } ]);
 			expect(objectutilities.recurseAll(params, match_func, 3)).to.deep.equal([ { depth: 7, match: 'v6' } ]);
@@ -920,7 +920,7 @@ describe('lib/object-utilities', () => {
 
 		it('returns an empty array when value does not exist', () => {
 
-			let params = {
+			const params = {
 				a: 'v1',
 				b: 'v2',
 				c: {
@@ -928,7 +928,7 @@ describe('lib/object-utilities', () => {
 				}
 			};
 
-			let match_func = (key, value) => {return value === 'v4'};
+			const match_func = (key, value) => value === 'v4';
 
 			expect(objectutilities.recurseAll(params, match_func)).to.deep.equal([]);
 		});
@@ -937,7 +937,7 @@ describe('lib/object-utilities', () => {
 	describe('recurse', () => {
 
 		it('throws error when second argument is not a function', () => {
-			let params = {
+			const params = {
 				a: 'v1',
 				b: 'v2',
 				c: {
@@ -945,23 +945,23 @@ describe('lib/object-utilities', () => {
 				}
 			};
 
-			try{
-				objectutilities.recurse(params, 'not_a_function')
-			}catch(error){
+			try {
+				objectutilities.recurse(params, 'not_a_function');
+			} catch (error) {
 				expect(error.message).to.equal('[500] Match function must be a function.');
 			}
 		});
 
 		it('returns null when first argument is not an object', () => {
-			let unexpected_params = ['unexpected_element', '123', '-123', '', 123, 11.22, -123, true];
+			const unexpected_params = ['unexpected_element', '123', '-123', '', 123, 11.22, -123, true];
 
-			unexpected_params.forEach(param => {
+			unexpected_params.forEach((param) => {
 				expect(objectutilities.recurse(param)).to.equal(null);
 			});
 		});
 
 		it('returns value when it exists in specified object', () => {
-			let params = {
+			const params = {
 				a: 'v1',
 				b: 'v2',
 				c: {
@@ -969,13 +969,13 @@ describe('lib/object-utilities', () => {
 				}
 			};
 
-			let match_func = (key, value) => {return value === 'v3'};
+			const match_func = (key, value) => value === 'v3';
 
 			expect(objectutilities.recurse(params, match_func)).to.equal('v3');
 		});
 
 		it('finds value by key name', () => {
-			let params = {
+			const params = {
 				a: 'v1',
 				b: 'v2',
 				c: {
@@ -983,13 +983,13 @@ describe('lib/object-utilities', () => {
 				}
 			};
 
-			let match_func = (key) => {return key === 'c'};
+			const match_func = (key) => key === 'c';
 
 			expect(objectutilities.recurse(params, match_func)).to.deep.equal({ a: 'v3' });
 		});
 
 		it('returns first matched value', () => {
-			let params = {
+			const params = {
 				a: 'v1',
 				b: 'v2',
 				c: {
@@ -997,25 +997,25 @@ describe('lib/object-utilities', () => {
 				}
 			};
 
-			let match_func = (key) => {return key === 'a'};
+			const match_func = (key) => key === 'a';
 
 			expect(objectutilities.recurse(params, match_func)).to.equal('v1');
 		});
 
 		it('finds a function', () => {
-			let params = {
+			const params = {
 				a: 'v1',
 				b: 'v2',
 				c: () => 'found'
 			};
 
-			let match_func = (key, value) => {return _.isFunction(value)};
+			const match_func = (key, value) => _.isFunction(value);
 
 			expect(objectutilities.recurse(params, match_func)()).to.equal('found');
 		});
 
 		it('returns null when value does not exist', () => {
-			let params = {
+			const params = {
 				a: 'v1',
 				b: 'v2',
 				c: {
@@ -1023,13 +1023,13 @@ describe('lib/object-utilities', () => {
 				}
 			};
 
-			let match_func = (key, value) => {return value === 'v4'};
+			const match_func = (key, value) => value === 'v4';
 
 			expect(objectutilities.recurse(params, match_func)).to.equal(null);
 		});
 
 		it('returns null when key does not exist', () => {
-			let params = {
+			const params = {
 				a: 'v1',
 				b: 'v2',
 				c: {
@@ -1037,7 +1037,7 @@ describe('lib/object-utilities', () => {
 				}
 			};
 
-			let match_func = (key) => {return key === 'd'};
+			const match_func = (key) => key === 'd';
 
 			expect(objectutilities.recurse(params, match_func)).to.equal(null);
 		});
@@ -1047,20 +1047,20 @@ describe('lib/object-utilities', () => {
 	describe('orderedRecursion', () => {
 
 		it('returns value from object', () => {
-			//send any function
+			// send any function
 			expect(objectutilities.orderedRecursion(
-				{'a_key': 'a_value'},
-				function(){
+				{a_key: 'a_value'},
+				function() {
 					return true;
 				}
 			)).to.equal('a_value');
 		});
 
 		it('returns null when there is no recursion result', () => {
-			//send any function
+			// send any function
 			expect(objectutilities.orderedRecursion(
-				{'a_key': ['a_value']},
-				function(){
+				{a_key: ['a_value']},
+				function() {
 					return false;
 				}
 			)).to.equal(null);
@@ -1086,7 +1086,7 @@ describe('lib/object-utilities', () => {
 		});
 
 		it('returns object', () => {
-			expect(objectutilities.getObjectType({'a_key': 'a_value'})).to.equal('object');
+			expect(objectutilities.getObjectType({a_key: 'a_value'})).to.equal('object');
 		});
 
 		it('returns null', () => {
@@ -1098,9 +1098,9 @@ describe('lib/object-utilities', () => {
 
 		it('should return true for valid objects',  () => {
 
-			let valid_objects = [{}, {hello:'world'}];
+			const valid_objects = [{}, {hello: 'world'}];
 
-			arrayutilities.map(valid_objects, valid_object => {
+			arrayutilities.map(valid_objects, (valid_object) => {
 				expect(objectutilities.isObject(valid_object)).to.equal(true);
 			});
 
@@ -1108,9 +1108,9 @@ describe('lib/object-utilities', () => {
 
 		it('should return false for invalid objects', () => {
 
-			let invalid_objects = [123, 'abc', null, undefined, JSON.stringify({}), JSON.stringify({hello: 'world'})];
+			const invalid_objects = [123, 'abc', null, undefined, JSON.stringify({}), JSON.stringify({hello: 'world'})];
 
-			arrayutilities.map(invalid_objects, invalid_object => {
+			arrayutilities.map(invalid_objects, (invalid_object) => {
 				expect(objectutilities.isObject(invalid_object)).to.equal(false);
 			});
 
@@ -1118,9 +1118,9 @@ describe('lib/object-utilities', () => {
 
 		it('should return true for valid objects when fatal is true',  () => {
 
-			let valid_objects = [{}, {hello:'world'}];
+			const valid_objects = [{}, {hello: 'world'}];
 
-			arrayutilities.map(valid_objects, valid_object => {
+			arrayutilities.map(valid_objects, (valid_object) => {
 				expect(objectutilities.isObject(valid_object), true).to.equal(true);
 			});
 
@@ -1128,13 +1128,13 @@ describe('lib/object-utilities', () => {
 
 		it('should throw an error for invalid objects when fatal is true',  () => {
 
-			let invalid_objects = [123, 'abc', null, undefined, JSON.stringify({}), JSON.stringify({hello: 'world'})];
+			const invalid_objects = [123, 'abc', null, undefined, JSON.stringify({}), JSON.stringify({hello: 'world'})];
 
-			arrayutilities.map(invalid_objects, invalid_object => {
+			arrayutilities.map(invalid_objects, (invalid_object) => {
 
 				try {
 					objectutilities.isObject(invalid_object, true);
-				}catch(error){
+				} catch (error) {
 					expect(error.message).to.equal('[500] Thing is not an object.');
 				}
 

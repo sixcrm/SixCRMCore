@@ -9,6 +9,7 @@
   "scripts": {
     "test": "mocha --require ts-node/register --require test/unit/dependencies.ts \"test/unit/**/*.spec.ts\"",
     "lint": "tslint \"src/**/*.ts\"; tslint \"test/**/*.ts\"",
+    "lint-fix": "tslint \"src/**/*.ts\"; tslint \"test/**/*.ts\" --fix",
     "compile": "tsc"
   },
   "repository": {

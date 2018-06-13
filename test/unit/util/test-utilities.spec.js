@@ -4,24 +4,24 @@ const mockery = require('mockery');
 
 function getValidRoleConfigForOwnerRole() {
 	return {
-		"id":"cae614de-ce8a-40b9-8137-3d3bdff78039",
-		"name": "Owner",
-		"active": true,
-		"permissions":{
-			"allow":[
+		id: "cae614de-ce8a-40b9-8137-3d3bdff78039",
+		name: "Owner",
+		active: true,
+		permissions: {
+			allow: [
 				"*"
 			]
 		}
-	}
+	};
 }
 
 function getValidRoleConfigForSomeOtherRole() {
 	return {
-		"id":"1116c054-42bb-4bf5-841e-ee0c413fa69e",
-		"name": "Customer Service",
-		"active": true,
-		"permissions":{
-			"allow":[
+		id: "1116c054-42bb-4bf5-841e-ee0c413fa69e",
+		name: "Customer Service",
+		active: true,
+		permissions: {
+			allow: [
 				"customer/*",
 				"customernote/*",
 				"productschedule/*",
@@ -40,9 +40,9 @@ function getValidRoleConfigForSomeOtherRole() {
 				"usersigningstring/*",
 				"userdevicetoken/*"
 			],
-			"deny":["*"]
+			deny: ["*"]
 		}
-	}
+	};
 }
 
 function getValidJWT() {
@@ -73,7 +73,7 @@ describe('lib/test-utilities', () => {
 
 			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
 
-			//Send valid role name
+			// Send valid role name
 			expect(testutilities.getRole('Owner')).to.deep.equal(getValidRoleConfigForOwnerRole());
 		});
 
@@ -81,9 +81,9 @@ describe('lib/test-utilities', () => {
 
 			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
 
-			//Send invalid role name
+			// Send invalid role name
 			try {
-				testutilities.getRole('Non-existing')
+				testutilities.getRole('Non-existing');
 			} catch (error) {
 				expect(error.message).to.equal('[404] Undefined Role.');
 			}
@@ -113,7 +113,7 @@ describe('lib/test-utilities', () => {
 
 			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
 
-			//send valid key name
+			// send valid key name
 			expect(testutilities.getRoleAllowRules('user', getValidRoleConfigForSomeOtherRole())).to.deep.equal(['read']);
 		});
 	});
@@ -133,7 +133,7 @@ describe('lib/test-utilities', () => {
 
 			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
 
-			//send valid user
+			// send valid user
 			expect(testutilities.createTestAuth0JWT('super.user@test.com', 'a_secret_key')).to.equal(getValidJWT());
 		});
 
@@ -150,7 +150,7 @@ describe('lib/test-utilities', () => {
 
 			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
 
-			//send valid user
+			// send valid user
 			expect(testutilities.createTestAuth0JWT('admin.user@test.com', 'a_secret_key')).to.equal(getValidJWT());
 		});
 
@@ -167,7 +167,7 @@ describe('lib/test-utilities', () => {
 
 			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
 
-			//send valid user
+			// send valid user
 			expect(testutilities.createTestAuth0JWT('customerservice.user@test.com', 'a_secret_key')).to.equal(getValidJWT());
 		});
 
@@ -184,7 +184,7 @@ describe('lib/test-utilities', () => {
 
 			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
 
-			//send valid user
+			// send valid user
 			expect(testutilities.createTestAuth0JWT('unknown.user@test.com', 'a_secret_key')).to.equal(getValidJWT());
 		});
 
@@ -201,9 +201,9 @@ describe('lib/test-utilities', () => {
 
 			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
 
-			//send invalid user
+			// send invalid user
 			try {
-				testutilities.createTestAuth0JWT('not_valid', 'a_secret_key')
+				testutilities.createTestAuth0JWT('not_valid', 'a_secret_key');
 			} catch (error) {
 				expect(error.message).to.equal('[500] Unidentified user type: not_valid');
 			}
@@ -230,7 +230,7 @@ describe('lib/test-utilities', () => {
 
 		it('retrieves search parameters from file', () => {
 
-			let a_content_of_file = '{"body": "Example\ndata"}';
+			const a_content_of_file = '{"body": "Example\ndata"}';
 
 			mockery.registerMock('fs', {
 				readFileSync: () => {
@@ -274,7 +274,7 @@ describe('lib/test-utilities', () => {
 			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
 
 			try {
-				testutilities.generateJWT('a_body', 'a_secret')
+				testutilities.generateJWT('a_body', 'a_secret');
 			} catch (error) {
 				expect(error.message).to.equal('[500] created invalid token');
 			}

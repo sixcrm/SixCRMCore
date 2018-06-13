@@ -9,8 +9,8 @@ describe('lib/model-builder-utilities', () => {
 		it('works on model with no references', () => {
 			const path_to_model_under_test = 'definitions/uuidv4.json';
 
-			let model = global.SixCRM.routes.include('model', path_to_model_under_test);
-			let hydrated_model = mbu.build(path_to_model_under_test);
+			const model = global.SixCRM.routes.include('model', path_to_model_under_test);
+			const hydrated_model = mbu.build(path_to_model_under_test);
 
 			expect(hydrated_model).to.deep.equal(model);
 		});
@@ -20,12 +20,12 @@ describe('lib/model-builder-utilities', () => {
 			const path_to_model_under_test = 'definitions/optionaluuidv4.json';
 			const path_to_reference = 'definitions/uuidv4.json';
 
-			let model = global.SixCRM.routes.include('model', path_to_model_under_test);
+			const model = global.SixCRM.routes.include('model', path_to_model_under_test);
 
 			model.anyOf[0] = global.SixCRM.routes.include('model', path_to_reference); // hydrating manually expected result
 
 			// when
-			let hydrated_model = mbu.build(path_to_model_under_test);
+			const hydrated_model = mbu.build(path_to_model_under_test);
 
 			// then
 			expect(hydrated_model).to.deep.equal(model);
@@ -41,7 +41,7 @@ describe('lib/model-builder-utilities', () => {
 			const path_to_subreference = 'model/definitions/uuidv4.json';
 
 			// when
-			let hydrated_model = mbu.build(path_to_model_under_test);
+			const hydrated_model = mbu.build(path_to_model_under_test);
 
 			// then
 			expect(hydrated_model.properties.id.$id).to.equal(path_to_reference);
@@ -50,7 +50,7 @@ describe('lib/model-builder-utilities', () => {
 
 		it('returns empty object when maximum depth reached', () => {
 
-			//any number higher than 20 (maximum depth limit)
+			// any number higher than 20 (maximum depth limit)
 			expect(mbu.build('a_model', 21)).to.deep.equal({});
 		});
 
@@ -60,10 +60,10 @@ describe('lib/model-builder-utilities', () => {
 
 		it('returns an empty array when there is no reference', () => {
 			// given
-			let model = global.SixCRM.routes.include('model', 'definitions/uuidv4.json');
+			const model = global.SixCRM.routes.include('model', 'definitions/uuidv4.json');
 
 			// when
-			let references = mbu.getSubmodels(model);
+			const references = mbu.getSubmodels(model);
 
 			// then
 			expect(references).to.deep.equal([]);
@@ -72,20 +72,20 @@ describe('lib/model-builder-utilities', () => {
 		it('finds a reference', () => {
 
 			// given
-			let model = {
-				"$schema": "http://json-schema.org/draft-07/schema",
-				"$id": "/definitions/optionaluuidv4.json",
-				"title": "SixCrmIdentifier",
+			const model = {
+				$schema: "http://json-schema.org/draft-07/schema",
+				$id: "/definitions/optionaluuidv4.json",
+				title: "SixCrmIdentifier",
 
-				"type":"string",
-				"anyOf":[
-					{"$ref": "uuidv4.json"},
-					{"type":"string","enum":[""]}
+				type: "string",
+				anyOf: [
+					{$ref: "uuidv4.json"},
+					{type: "string", enum: [""]}
 				]
 			};
 
 			// when
-			let references = mbu.getSubmodels(model);
+			const references = mbu.getSubmodels(model);
 
 			// then
 			expect(references).to.deep.equal(['uuidv4.json']);
@@ -97,11 +97,11 @@ describe('lib/model-builder-utilities', () => {
 
 		it('does not affect model when reference can\'t be found', () => {
 			// given
-			let model = global.SixCRM.routes.include('model', 'definitions/optionaluuidv4.json');
-			let submodel = global.SixCRM.routes.include('model', 'definitions/uuidv4.json');
+			const model = global.SixCRM.routes.include('model', 'definitions/optionaluuidv4.json');
+			const submodel = global.SixCRM.routes.include('model', 'definitions/uuidv4.json');
 
 			// when
-			let replacedModel = mbu.replaceInstancesOfSubmodel(model, 'fake_reference', submodel);
+			const replacedModel = mbu.replaceInstancesOfSubmodel(model, 'fake_reference', submodel);
 
 			// then
 			expect(replacedModel).to.deep.equal(model);
@@ -109,17 +109,16 @@ describe('lib/model-builder-utilities', () => {
 
 		it('replaces references with submodels', () => {
 			// given
-			let model = global.SixCRM.routes.include('model', 'definitions/optionaluuidv4.json');
-			let submodel = global.SixCRM.routes.include('model', 'definitions/uuidv4.json');
+			const model = global.SixCRM.routes.include('model', 'definitions/optionaluuidv4.json');
+			const submodel = global.SixCRM.routes.include('model', 'definitions/uuidv4.json');
 
 			// when
-			let replacedModel = mbu.replaceInstancesOfSubmodel(model, './uuidv4.json', submodel);
+			const replacedModel = mbu.replaceInstancesOfSubmodel(model, './uuidv4.json', submodel);
 
 			// then
 			expect(replacedModel.anyOf[0]).to.deep.equal(submodel);
 		});
 
 	});
-
 
 });

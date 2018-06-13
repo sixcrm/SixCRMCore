@@ -11,10 +11,10 @@ describe('lib/math-utilities', () => {
 		});
 
 		it('returns percentage of specified values with precision of 3', () => {
-			let numerator = 10;
-			let denominator = 7;
-			let precision = 3;
-			let result = 142.857142857; //10:7*100
+			const numerator = 10;
+			const denominator = 7;
+			const precision = 3;
+			const result = 142.857142857; // 10:7*100
 
 			expect(mathUtilities.safePercentage(numerator, denominator, precision)).to.equal(result.toFixed(precision));
 		});
@@ -30,17 +30,17 @@ describe('lib/math-utilities', () => {
 	describe('sum', () => {
 
 		it('throws error when argumentation is not an array', () => {
-			try{
+			try {
 				mathUtilities.sum(1, 1);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] ' + 'Unexpected argumentation to mathutilities.calculateSum');
 			}
 		});
 
 		it('throws error when array argument is not a number', () => {
-			try{
-				mathUtilities.sum(['a','b'], 1);
-			}catch(error){
+			try {
+				mathUtilities.sum(['a', 'b'], 1);
+			} catch (error) {
 				expect(error.message).to.equal('[500] ' + 'Array argument to mathutilities.calculateSum must be numeric');
 			}
 		});
@@ -53,17 +53,17 @@ describe('lib/math-utilities', () => {
 	describe('power', () => {
 
 		it('throws error when base is not a number', () => {
-			try{
+			try {
 				mathUtilities.power('a', 1);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] ' + 'MathUtilities.power assumes requires a numeric base.');
 			}
 		});
 
 		it('throws error when exponent is not a number', () => {
-			try{
+			try {
 				mathUtilities.power(1, 'a');
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] ' + 'MathUtilities.power assumes requires a numeric exponent.');
 			}
 		});
@@ -80,33 +80,33 @@ describe('lib/math-utilities', () => {
 	describe('calculateLSS', () => {
 
 		it('throws error when specified arguments are not arrays', () => {
-			try{
+			try {
 				mathUtilities.calculateLSS(1, 1);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] ' + 'Unexpected argumentation to mathutilities.calculateLSS');
 			}
 		});
 
 		it('throws error when arrays are not the same length', () => {
-			try{
+			try {
 				mathUtilities.calculateLSS([1], [1, 2]);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] ' + 'Array arguments to mathutilities.calculateLSS must be of equivalent length');
 			}
 		});
 
 		it('throws error when array is empty', () => {
-			try{
+			try {
 				mathUtilities.calculateLSS([], []);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] ' + 'Array arguments to mathutilities.calculateLSS must be of non-zero length');
 			}
 		});
 
 		it('throws error when array arguments are not numbers', () => {
-			try{
+			try {
 				mathUtilities.calculateLSS(['a'], ['b']);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] ' + 'Array arguments to mathutilities.calculateLSS must be numeric');
 			}
 		});
@@ -126,9 +126,9 @@ describe('lib/math-utilities', () => {
 		});
 
 		it('throws error when base is 0 and fatal value is set to true', () => {
-			try{
+			try {
 				mathUtilities.signIdempotentModulus(1, 0, true);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] You cannot perform modulus counting when the base is 0');
 			}
 		});

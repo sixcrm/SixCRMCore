@@ -9,7 +9,7 @@ describe('lib/parser-utilities', () => {
 
 		it('returns all tokens', () => {
 
-			let test_cases = [
+			const test_cases = [
 				{
 					test: 'no tokens',
 					result: []
@@ -20,7 +20,7 @@ describe('lib/parser-utilities', () => {
 				},
 				{
 					test: 'There are {{more}} than {{one}} tokens',
-					result: ['more','one']
+					result: ['more', 'one']
 				},
 				{
 					test: 'There are {{multiple}} tokens but there should not be {{multiple}} entires in the {{token_array}} for the same token.',
@@ -28,8 +28,8 @@ describe('lib/parser-utilities', () => {
 				}
 			];
 
-			arrayutilities.map(test_cases, test_case => {
-				let test_result = parserutilities.getTokens(test_case.test);
+			arrayutilities.map(test_cases, (test_case) => {
+				const test_result = parserutilities.getTokens(test_case.test);
 				expect(test_result).to.deep.equal(test_case.result);
 			});
 
@@ -41,14 +41,14 @@ describe('lib/parser-utilities', () => {
 
 		it('successfully parses the tokens into the content strings', () => {
 
-			let test_data = {
+			const test_data = {
 				one: 'a',
 				more: 'so many',
 				multiple: 'lots of',
 				token_array: 'token array'
 			};
 
-			let test_cases = [
+			const test_cases = [
 				{
 					test: 'no tokens',
 					result: 'no tokens'
@@ -67,8 +67,8 @@ describe('lib/parser-utilities', () => {
 				}
 			];
 
-			arrayutilities.map(test_cases, test_case => {
-				let test_result = parserutilities.parse(test_case.test, test_data);
+			arrayutilities.map(test_cases, (test_case) => {
+				const test_result = parserutilities.parse(test_case.test, test_data);
 				expect(test_result).to.deep.equal(test_case.result);
 			});
 

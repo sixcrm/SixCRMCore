@@ -8,19 +8,18 @@ describe('lib/number-utilities', () => {
 
 		it('throws error when requested', () => {
 
-			let value = 'a';
+			const value = 'a';
 
-			try{
+			try {
 				numberUtilities.isNumber(value, true);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] ' + 'Not a number: ' + value);
 			}
 		});
 
-
 		it('returns true for integer numbers', () => {
 
-			let value = 1;
+			const value = 1;
 
 			expect(numberUtilities.isNumber(value)).to.be.true;
 
@@ -28,7 +27,7 @@ describe('lib/number-utilities', () => {
 
 		it('returns true for negative numbers', () => {
 
-			let value = -1;
+			const value = -1;
 
 			expect(numberUtilities.isNumber(value)).to.be.true;
 
@@ -36,7 +35,7 @@ describe('lib/number-utilities', () => {
 
 		it('returns true for decimal numbers', () => {
 
-			let value = 3.14;
+			const value = 3.14;
 
 			expect(numberUtilities.isNumber(value)).to.be.true;
 
@@ -44,7 +43,7 @@ describe('lib/number-utilities', () => {
 
 		it('returns false for non-number strings', () => {
 
-			let value = 'potato';
+			const value = 'potato';
 
 			expect(numberUtilities.isNumber(value)).to.be.false;
 
@@ -52,7 +51,7 @@ describe('lib/number-utilities', () => {
 
 		it('returns false for arrays', () => {
 
-			let value = [];
+			const value = [];
 
 			expect(numberUtilities.isNumber(value)).to.be.false;
 
@@ -60,7 +59,7 @@ describe('lib/number-utilities', () => {
 
 		it('returns false for objects', () => {
 
-			let value = [];
+			const value = [];
 
 			expect(numberUtilities.isNumber(value)).to.be.false;
 
@@ -68,7 +67,7 @@ describe('lib/number-utilities', () => {
 
 		it('returns true for number-like strings with integers', () => {
 
-			let value = '1';
+			const value = '1';
 
 			expect(numberUtilities.isNumber(value)).to.be.false;
 
@@ -76,7 +75,7 @@ describe('lib/number-utilities', () => {
 
 		it('returns true for number-like strings with decimals', () => {
 
-			let value = '1.999';
+			const value = '1.999';
 
 			expect(numberUtilities.isNumber(value)).to.be.false;
 
@@ -84,7 +83,7 @@ describe('lib/number-utilities', () => {
 
 		it('returns true for number-like strings with negative numbers', () => {
 
-			let value = '-1.999';
+			const value = '-1.999';
 
 			expect(numberUtilities.isNumber(value)).to.be.false;
 
@@ -95,11 +94,11 @@ describe('lib/number-utilities', () => {
 
 		it('throws error when number is not natural', () => {
 
-			let value = -1;
+			const value = -1;
 
-			try{
+			try {
 				numberUtilities.isNatural(value, true);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] ' + 'Not a natural: ' + value);
 			}
 		});
@@ -120,22 +119,22 @@ describe('lib/number-utilities', () => {
 
 		it('throws error when appointed value is not an integer', () => {
 
-			let precision = 'a';
+			const precision = 'a';
 
-			try{
+			try {
 				numberUtilities.formatFloat(1.01, precision);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] ' + 'Not an integer: ' + precision);
 			}
 		});
 
 		it('returns float number with specified precision', () => {
 
-			let value = 1;
+			const value = 1;
 
-			try{
+			try {
 				numberUtilities.formatFloat(value, 2);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] ' + 'Not a float: ' + value);
 			}
 		});

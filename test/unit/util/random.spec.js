@@ -2,8 +2,8 @@ let Random = global.SixCRM.routes.include('lib', 'random.js');
 let chai = require('chai');
 let expect = chai.expect;
 
-chai.Assertion.addProperty('uppercase', function () {
-	let obj = this._obj;
+chai.Assertion.addProperty('uppercase', function() {
+	const obj = this._obj;
 
 	new chai.Assertion(obj).to.be.a('string');
 
@@ -54,7 +54,7 @@ describe('lib/random', () => {
 		it('returns error when argument is not an array', () => {
 			try {
 				Random.selectRandomFromArray('test');
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] List argument must be an array.');
 			}
 		});
@@ -62,7 +62,7 @@ describe('lib/random', () => {
 		it('returns error when array is empty', () => {
 			try {
 				Random.selectRandomFromArray([]);
-			}catch(error) {
+			} catch (error) {
 				expect(error.message).to.equal('[500] List argument must be of length one or greater.');
 			}
 		});
@@ -76,16 +76,16 @@ describe('lib/random', () => {
 
 		it('returns error when first input (minimum) is not an integer', () => {
 			try {
-				Random.randomInt('1',2);
-			}catch(error){
+				Random.randomInt('1', 2);
+			} catch (error) {
 				expect(error.message).to.equal('[500] Minimum input is not an integer.');
 			}
 		});
 
 		it('returns error when second input (maximum) is not an integer', () => {
 			try {
-				Random.randomInt(1,'2');
-			}catch(error) {
+				Random.randomInt(1, '2');
+			} catch (error) {
 				expect(error.message).to.equal('[500] Maximum input is not an integer.');
 			}
 		});
@@ -99,24 +99,24 @@ describe('lib/random', () => {
 
 		it('returns error when first input (minimum) is not an integer', () => {
 			try {
-				Random.randomDouble('1',2);
-			}catch(error){
+				Random.randomDouble('1', 2);
+			} catch (error) {
 				expect(error.message).to.equal('[500] Minimum input is not an integer.');
 			}
 		});
 
 		it('returns error when second input (maximum) is not an integer', () => {
 			try {
-				Random.randomDouble(1,'2');
-			}catch(error) {
+				Random.randomDouble(1, '2');
+			} catch (error) {
 				expect(error.message).to.equal('[500] Maximum input is not an integer.');
 			}
 		});
 
 		it('returns error when precision input is not an integer', () => {
 			try {
-				Random.randomDouble(1,2,'3');
-			}catch(error) {
+				Random.randomDouble(1, 2, '3');
+			} catch (error) {
 				expect(error.message).to.equal('[500] Precision input is not an integer.');
 			}
 		});
@@ -131,7 +131,7 @@ describe('lib/random', () => {
 		it('returns error when probability is not between 0 and 1', () => {
 			try {
 				Random.randomProbability(2);
-			}catch(error) {
+			} catch (error) {
 				expect(error.message).to.equal('[500] Probability must be greater than or equal to 0 and less than or equal to 1');
 			}
 		});
@@ -139,7 +139,7 @@ describe('lib/random', () => {
 		it('returns error when probability is not a number', () => {
 			try {
 				Random.randomProbability('potato');
-			}catch(error) {
+			} catch (error) {
 				expect(error.message).to.equal('[500] Probability is not a number.');
 			}
 		});

@@ -12,14 +12,14 @@ describe('lib/policy_response', () => {
 
 		it('should generate a policy', () => {
 			// given
-			let aPrincipalId = anyPrincipalId;
-			let anEffect = anyEffect;
-			let aResource = anyResource;
-			let aUser = anyUser;
-			let expectedResponse = anyPolicyResponse();
+			const aPrincipalId = anyPrincipalId;
+			const anEffect = anyEffect;
+			const aResource = anyResource;
+			const aUser = anyUser;
+			const expectedResponse = anyPolicyResponse();
 
 			// when
-			let generatedPolicy = PolicyResponse.generatePolicy(aPrincipalId, anEffect, aResource, aUser);
+			const generatedPolicy = PolicyResponse.generatePolicy(aPrincipalId, anEffect, aResource, aUser);
 
 			// then
 			expect(generatedPolicy).to.deep.equal(expectedResponse);
@@ -27,14 +27,14 @@ describe('lib/policy_response', () => {
 
 		it('should generate a policy without a policy document when effect and resource are undefined', () => {
 			// given
-			let aPrincipalId = anyPrincipalId;
-			let anEffect = undefined;
-			let aResource = undefined;
-			let aUser = anyUser;
-			let expectedResponse = anyPolicyResponseWithoutPolicyDocument();
+			const aPrincipalId = anyPrincipalId;
+			let anEffect;
+			let aResource;
+			const aUser = anyUser;
+			const expectedResponse = anyPolicyResponseWithoutPolicyDocument();
 
 			// when
-			let generatedPolicy = PolicyResponse.generatePolicy(aPrincipalId, anEffect, aResource, aUser);
+			const generatedPolicy = PolicyResponse.generatePolicy(aPrincipalId, anEffect, aResource, aUser);
 
 			// then
 			expect(generatedPolicy).to.deep.equal(expectedResponse);

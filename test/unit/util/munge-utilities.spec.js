@@ -38,7 +38,7 @@ describe('lib/munge-utilities', () => {
 
 		const mungeUtilities = global.SixCRM.routes.include('lib', 'munge-utilities.js');
 
-		let hash = mungeUtilities.munge('a_munge_string');
+		const hash = mungeUtilities.munge('a_munge_string');
 
 		expect(hash).to.equal('ffc92c3dab6a3b5208af3bbfc7cdaa5d17eab59f');
 

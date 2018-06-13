@@ -1,4 +1,4 @@
-let Signature = global.SixCRM.routes.include('lib', 'signature.js')
+let Signature = global.SixCRM.routes.include('lib', 'signature.js');
 let chai = require('chai');
 let expect = chai.expect;
 
@@ -7,70 +7,70 @@ describe('lib/signature', () => {
 
 		it('should create a signature', () => {
 			// given
-			let aSecret = 'secret';
-			let aRequestTime = 1487780578479;
-			let expectedSignature = 'a503c6aa8055a9d1c5ea39d39b22e20459afe30c';
+			const aSecret = 'secret';
+			const aRequestTime = 1487780578479;
+			const expectedSignature = 'a503c6aa8055a9d1c5ea39d39b22e20459afe30c';
 
 			// when
-			let aSignature = Signature.createSignature(aSecret, aRequestTime);
+			const aSignature = Signature.createSignature(aSecret, aRequestTime);
 
-			//then
+			// then
 			expect(aSignature).to.equal(expectedSignature);
 		});
 
 		it('should create a same signature for same secret and request time', () => {
 			// given
-			let aSecret = 'secret';
-			let aRequestTime = 1487780578479;
+			const aSecret = 'secret';
+			const aRequestTime = 1487780578479;
 
 			// when
-			let firstSignature = Signature.createSignature(aSecret, aRequestTime);
-			let secondSignature = Signature.createSignature(aSecret, aRequestTime);
+			const firstSignature = Signature.createSignature(aSecret, aRequestTime);
+			const secondSignature = Signature.createSignature(aSecret, aRequestTime);
 
-			//then
+			// then
 			expect(firstSignature).to.equal(secondSignature);
 		});
 
 		it('should create a different signature for same secret and different request time', () => {
 			// given
-			let aSecret = 'secret';
-			let aRequestTime = 1487780578479;
-			let anotherRequestTime = 1487781041304;
+			const aSecret = 'secret';
+			const aRequestTime = 1487780578479;
+			const anotherRequestTime = 1487781041304;
 
 			// when
-			let firstSignature = Signature.createSignature(aSecret, aRequestTime);
-			let secondSignature = Signature.createSignature(aSecret, anotherRequestTime);
+			const firstSignature = Signature.createSignature(aSecret, aRequestTime);
+			const secondSignature = Signature.createSignature(aSecret, anotherRequestTime);
 
-			//then
+			// then
 			expect(firstSignature).not.to.equal(secondSignature);
 		});
 
 		it('should create a different signature for different secret and same request time', () => {
 			// given
-			let aSecret = 'secret';
-			let anotherSecret = 'another secret';
-			let aRequestTime = 1487780578479;
+			const aSecret = 'secret';
+			const anotherSecret = 'another secret';
+			const aRequestTime = 1487780578479;
 
 			// when
-			let firstSignature = Signature.createSignature(aSecret, aRequestTime);
-			let secondSignature = Signature.createSignature(anotherSecret, aRequestTime);
+			const firstSignature = Signature.createSignature(aSecret, aRequestTime);
+			const secondSignature = Signature.createSignature(anotherSecret, aRequestTime);
 
-			//then
+			// then
 			expect(firstSignature).not.to.equal(secondSignature);
 		});
 
 		it('should create a different signature for different secret and different request time', () => {
 			// given
-			let aSecret = 'secret';
-			let anotherSecret = 'another secret';
-			let aRequestTime = 1487780578479;
-			let anotherRequestTime = 1487781041304;
+			const aSecret = 'secret';
+			const anotherSecret = 'another secret';
+			const aRequestTime = 1487780578479;
+			const anotherRequestTime = 1487781041304;
 
 			// when
-			let firstSignature = Signature.createSignature(aSecret, aRequestTime);
-			let secondSignature = Signature.createSignature(anotherSecret, anotherRequestTime);
+			const firstSignature = Signature.createSignature(aSecret, aRequestTime);
+			const secondSignature = Signature.createSignature(anotherSecret, anotherRequestTime);
 
-			//then
+			// then
 			expect(firstSignature).not.to.equal(secondSignature);
 		});
 
@@ -80,11 +80,11 @@ describe('lib/signature', () => {
 
 		it('should validate a signature', () => {
 			// given
-			let aSecret = 'secret';
-			let aRequestTime = 1487780578479;
+			const aSecret = 'secret';
+			const aRequestTime = 1487780578479;
 
-			//signature that is created with secret and requested time
-			let aCreatedSignature = 'a503c6aa8055a9d1c5ea39d39b22e20459afe30c';
+			// signature that is created with secret and requested time
+			const aCreatedSignature = 'a503c6aa8055a9d1c5ea39d39b22e20459afe30c';
 
 			expect(Signature.validateSignature(aSecret, aRequestTime, aCreatedSignature)).to.be.true;
 		});

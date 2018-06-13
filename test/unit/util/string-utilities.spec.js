@@ -16,33 +16,33 @@ describe('lib/string-utilities', () => {
 
 		it('fails when string is not a string ', () => {
 
-			try{
+			try {
 				stringutilities.isMatch({}, /^[a-z]{1}$/);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] StringUtilities.isString thing argument is not an string.');
 			}
 
-			try{
+			try {
 				stringutilities.isMatch([], /^[a-z]{1}$/);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] StringUtilities.isString thing argument is not an string.');
 			}
 
-			try{
+			try {
 				stringutilities.isMatch(null, /^[a-z]{1}$/);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] StringUtilities.isString thing argument is not an string.');
 			}
 
-			try{
+			try {
 				stringutilities.isMatch(123, /^[a-z]{1}$/);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] StringUtilities.isString thing argument is not an string.');
 			}
 
-			try{
+			try {
 				stringutilities.isMatch(/123/, /^[a-z]{1}$/);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] StringUtilities.isString thing argument is not an string.');
 			}
 
@@ -66,39 +66,39 @@ describe('lib/string-utilities', () => {
 		});
 
 		it('returns throws an error when fatal is true and it does not match', () => {
-			try{
+			try {
 				stringutilities.isRegex('hi there stanley', true);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] StringUtilities.isRegex argument is not an regular expression.');
 			}
 
-			try{
+			try {
 				stringutilities.isRegex({}, true);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] StringUtilities.isRegex argument is not an regular expression.');
 			}
 
-			try{
+			try {
 				stringutilities.isRegex(null, true);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] StringUtilities.isRegex argument is not an regular expression.');
 			}
 
-			try{
+			try {
 				stringutilities.isRegex(false, true);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] StringUtilities.isRegex argument is not an regular expression.');
 			}
 
-			try{
+			try {
 				stringutilities.isRegex(123, true);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] StringUtilities.isRegex argument is not an regular expression.');
 			}
 
-			try{
+			try {
 				stringutilities.isRegex([], true);
-			}catch(error){
+			} catch (error) {
 				expect(error.message).to.equal('[500] StringUtilities.isRegex argument is not an regular expression.');
 			}
 
@@ -108,7 +108,7 @@ describe('lib/string-utilities', () => {
 
 	describe('isUUID', () => {
 		it('returns true for valid UUIDs', () => {
-			let uuids = [
+			const uuids = [
 				'1971204d-5b76-4c57-a3ad-cf54f994759c',
 				'028fb88c-7fdf-4637-af1e-2b48683c9688'
 			];
@@ -120,7 +120,7 @@ describe('lib/string-utilities', () => {
 		});
 
 		it('returns false for invalid UUIDs', () => {
-			let uuids = [
+			const uuids = [
 				[],
 				null,
 				{},
@@ -139,7 +139,7 @@ describe('lib/string-utilities', () => {
 
 	describe('isEmail', () => {
 		it('returns true for valid emails', () => {
-			let emails = [
+			const emails = [
 				'email@example.com',
 				'test.name@sixcrm.com'
 			];
@@ -151,7 +151,7 @@ describe('lib/string-utilities', () => {
 		});
 
 		it('returns false for invalid emails', () => {
-			let emails = [
+			const emails = [
 				[],
 				null,
 				{},
@@ -209,7 +209,7 @@ describe('lib/string-utilities', () => {
 		it('throws error when value is not numeric', () => {
 			try {
 				stringutilities.isNumeric('notNumeric', true);
-			}catch(error) {
+			} catch (error) {
 				expect(error.message).to.equal('[500] "notNumeric" is not numeric');
 			}
 		});
@@ -252,16 +252,16 @@ describe('lib/string-utilities', () => {
 
 		it('returns string that matches appointed regex', () => {
 
-			let anyValue = ['t', 's', 't']; //regex result of string 'test' without letter 'e'
+			const anyValue = ['t', 's', 't']; // regex result of string 'test' without letter 'e'
 
-			let anyRegex = /[^e]/g;
+			const anyRegex = /[^e]/g;
 
 			expect(stringutilities.matchAll('test', anyRegex)).to.deep.equal(anyValue);
 		});
 
 		it('returns empty array if nothing matches appointed regex', () => {
 
-			let anyRegex = /[abc]/g;
+			const anyRegex = /[abc]/g;
 
 			expect(stringutilities.matchAll('test', anyRegex)).to.deep.equal([]);
 		});
@@ -272,7 +272,7 @@ describe('lib/string-utilities', () => {
 
 		it('removes HTML tags', () => {
 
-			//example of valid html tags
+			// example of valid html tags
 			expect(stringutilities.stripHTML(
 				'<li>Coffee, </li>' +
                 '<li>Tea, </li>' +
@@ -287,7 +287,7 @@ describe('lib/string-utilities', () => {
 
 			expect(stringutilities.stripHTML('<p><b>any_value</b></p>')).to.equal('any_value');
 
-			//example of invalid html tags
+			// example of invalid html tags
 			expect(stringutilities.stripHTML('<p>any_value/b></p>')).to.equal('any_value/b>');
 			expect(stringutilities.stripHTML('li>any_value</li>')).to.equal('li>any_value');
 		});
@@ -296,13 +296,13 @@ describe('lib/string-utilities', () => {
 	describe('escapeCharacter', () => {
 
 		it('escapes character', () => {
-			//escapes every letter 'u' occurrence
+			// escapes every letter 'u' occurrence
 			expect(stringutilities.escapeCharacter('any_value', 'u')).to.equal('any_val\\ue');
 
-			//escapes every occurrence of number 4
+			// escapes every occurrence of number 4
 			expect(stringutilities.escapeCharacter('4ny_v4lue', '4')).to.equal('\\4ny_v\\4lue');
 
-			//takes first character and escapes every letter 'o' occurrence
+			// takes first character and escapes every letter 'o' occurrence
 			expect(stringutilities.escapeCharacter('some_random_value_for_testing_purposes', 'om'))
 				.to.equal('s\\ome_rand\\om_value_for_testing_purposes');
 		});
@@ -313,16 +313,16 @@ describe('lib/string-utilities', () => {
 
 		it('replaces every occurrence of specified characters', () => {
 
-			expect(stringutilities.replaceAll('szme_randzm_value_fzr_testing_purpzses','z','o'))
+			expect(stringutilities.replaceAll('szme_randzm_value_fzr_testing_purpzses', 'z', 'o'))
 				.to.equal('some_random_value_for_testing_purposes');
 
-			expect(stringutilities.replaceAll('any_value','z','s'))
+			expect(stringutilities.replaceAll('any_value', 'z', 's'))
 				.to.equal('any_value');
 
-			expect(stringutilities.replaceAll('4ny_v4lue','4','a'))
+			expect(stringutilities.replaceAll('4ny_v4lue', '4', 'a'))
 				.to.equal('any_value');
 
-			expect(stringutilities.replaceAll('sqe_randq_value','q','om'))
+			expect(stringutilities.replaceAll('sqe_randq_value', 'q', 'om'))
 				.to.equal('some_random_value');
 		});
 

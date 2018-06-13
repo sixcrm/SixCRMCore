@@ -9,14 +9,14 @@ describe('lib/error-utilities', () => {
 
 		it('returns new not found error', () => {
 
-			let error = {
-				"name":"Not Found Error",
-				"message":"[404] Not found.",
-				"code":404};
+			const error = {
+				name: "Not Found Error",
+				message: "[404] Not found.",
+				code: 404};
 
 			const errorutilities = global.SixCRM.routes.include('lib', 'error-utilities.js');
 
-			//valid error type
+			// valid error type
 			expect(errorutilities.getErrorByName('not_found_error')).to.deep.equal(error);
 		});
 
@@ -24,7 +24,7 @@ describe('lib/error-utilities', () => {
 
 			const errorutilities = global.SixCRM.routes.include('lib', 'error-utilities.js');
 
-			//invalid error type
+			// invalid error type
 			expect(errorutilities.getErrorByName('an_error')).to.equal(null);
 		});
 	});

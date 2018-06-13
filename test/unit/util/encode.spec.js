@@ -2,9 +2,9 @@ const chai = require('chai');
 const expect = chai.expect;
 
 const any_string = 'a_random_string';
-const base64_string = 'YV9yYW5kb21fc3RyaW5n'; //from any_string
+const base64_string = 'YV9yYW5kb21fc3RyaW5n'; // from any_string
 const random_object = {random_key: 'a_random_string'};
-const base64_object = 'eyJyYW5kb21fa2V5IjoiYV9yYW5kb21fc3RyaW5nIn0='; //from random_object
+const base64_object = 'eyJyYW5kb21fa2V5IjoiYV9yYW5kb21fc3RyaW5nIn0='; // from random_object
 
 describe('lib/encode', () => {
 
