@@ -2,13 +2,13 @@ import * as _ from 'lodash';
 import * as chai from 'chai';
 const assert = chai.assert;
 import * as fs from 'fs';
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 
 import timestamp from './timestamp';
 import du from './debug-utilities';
 import eu from './error-utilities';
 
-import chaijson from 'chai-json-schema';
+import * as chaijson from 'chai-json-schema';
 chai.use(chaijson);
 
 export class TestUtilities {

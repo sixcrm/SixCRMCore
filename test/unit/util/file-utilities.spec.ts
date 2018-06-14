@@ -30,7 +30,7 @@ describe('lib/file-utilities', () => {
 				}
 			});
 
-			const fileutilities = global.SixCRM.routes.include('lib', 'file-utilities.js');
+			const fileutilities = require('../../../src/util/file-utilities').default;
 
 			expect(fileutilities.getFileContentsSync('a_path')).to.equal('success');
 		});
@@ -46,7 +46,7 @@ describe('lib/file-utilities', () => {
 				}
 			});
 
-			const fileutilities = global.SixCRM.routes.include('lib', 'file-utilities.js');
+			const fileutilities = require('../../../src/util/file-utilities').default;
 
 			expect(fileutilities.getDirectoryFilesSync('a_path')).to.equal('success');
 		});
@@ -56,7 +56,7 @@ describe('lib/file-utilities', () => {
 
 		it('retrieve filename from path', () => {
 
-			const fileutilities = global.SixCRM.routes.include('lib', 'file-utilities.js');
+			const fileutilities = require('../../../src/util/file-utilities').default;
 
 			expect(fileutilities.getFilenameFromPath('a_path')).to.equal('a_path');
 		});
@@ -72,7 +72,7 @@ describe('lib/file-utilities', () => {
 				}
 			});
 
-			const fileutilities = global.SixCRM.routes.include('lib', 'file-utilities.js');
+			const fileutilities = require('../../../src/util/file-utilities').default;
 
 			return fileutilities.getDirectoryFiles('a_path').then((result) => {
 				expect(result).to.equal(['success']);
@@ -87,7 +87,7 @@ describe('lib/file-utilities', () => {
 				}
 			});
 
-			const fileutilities = global.SixCRM.routes.include('lib', 'file-utilities.js');
+			const fileutilities = require('../../../src/util/file-utilities').default;
 
 			return fileutilities.getDirectoryFiles('a_path').catch((error) => {
 				expect(error.message).to.equal('[500] fail');
@@ -105,7 +105,7 @@ describe('lib/file-utilities', () => {
 				}
 			});
 
-			const fileutilities = global.SixCRM.routes.include('lib', 'file-utilities.js');
+			const fileutilities = require('../../../src/util/file-utilities').default;
 
 			return fileutilities.getFileContents('a_path').then((result) => {
 				expect(result).to.equal('success');
@@ -120,7 +120,7 @@ describe('lib/file-utilities', () => {
 				}
 			});
 
-			const fileutilities = global.SixCRM.routes.include('lib', 'file-utilities.js');
+			const fileutilities = require('../../../src/util/file-utilities').default;
 
 			return fileutilities.getFileContents('a_path').catch((error) => {
 				expect(error.message).to.equal('[500] fail');

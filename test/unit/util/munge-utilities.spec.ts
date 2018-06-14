@@ -22,7 +22,7 @@ describe('lib/munge-utilities', () => {
 
 	it('checks whether transformed data is a string', () => {
 
-		const mungeUtilities = require('../../../lib/util/munge-utilities');
+		const mungeUtilities = require('../../../src/util/munge-utilities').default;
 
 		expect(mungeUtilities.munge('a_munge_string')).to.be.a('string');
 
@@ -30,13 +30,15 @@ describe('lib/munge-utilities', () => {
 
 	it('checks whether data transformation was successful', () => {
 
-		mockery.registerMock('../../../lib/util/random', {
-			createRandomString: () => {
-				return 'a_random_string';
+		mockery.registerMock('./random', {
+			default: {
+				createRandomString: () => {
+					return 'a_random_string';
+				}
 			}
 		});
 
-		const mungeUtilities = require('../../../lib/util/munge-utilities');
+		const mungeUtilities = require('../../../src/util/munge-utilities').default;
 
 		const hash = mungeUtilities.munge('a_munge_string');
 

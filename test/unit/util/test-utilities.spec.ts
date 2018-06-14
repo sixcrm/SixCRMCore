@@ -71,7 +71,7 @@ describe('lib/test-utilities', () => {
 
 		it('returns role config data for specified role', () => {
 
-			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
+			const testutilities = require('../../../src/util/test-utilities').default;
 
 			// Send valid role name
 			expect(testutilities.getRole('Owner')).to.deep.equal(getValidRoleConfigForOwnerRole());
@@ -79,7 +79,7 @@ describe('lib/test-utilities', () => {
 
 		it('returns role config data for specified role', () => {
 
-			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
+			const testutilities = require('../../../src/util/test-utilities').default;
 
 			// Send invalid role name
 			try {
@@ -94,7 +94,7 @@ describe('lib/test-utilities', () => {
 
 		it('removes underscore characters', () => {
 
-			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
+			const testutilities = require('../../../src/util/test-utilities').default;
 
 			expect(testutilities.makeGeneralizedResultName('any_name')).to.equal('anyname');
 		});
@@ -104,14 +104,14 @@ describe('lib/test-utilities', () => {
 
 		it('returns permissions for specified role for all actions', () => {
 
-			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
+			const testutilities = require('../../../src/util/test-utilities').default;
 
 			expect(testutilities.getRoleAllowRules('roles', getValidRoleConfigForOwnerRole())).to.deep.equal([ '*', 'read' ]);
 		});
 
 		it('returns individual permissions for specified role', () => {
 
-			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
+			const testutilities = require('../../../src/util/test-utilities').default;
 
 			// send valid key name
 			expect(testutilities.getRoleAllowRules('user', getValidRoleConfigForSomeOtherRole())).to.deep.equal(['read']);
@@ -131,7 +131,7 @@ describe('lib/test-utilities', () => {
 				}
 			});
 
-			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
+			const testutilities = require('../../../src/util/test-utilities').default;
 
 			// send valid user
 			expect(testutilities.createTestAuth0JWT('super.user@test.com', 'a_secret_key')).to.equal(getValidJWT());
@@ -148,7 +148,7 @@ describe('lib/test-utilities', () => {
 				}
 			});
 
-			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
+			const testutilities = require('../../../src/util/test-utilities').default;
 
 			// send valid user
 			expect(testutilities.createTestAuth0JWT('admin.user@test.com', 'a_secret_key')).to.equal(getValidJWT());
@@ -165,7 +165,7 @@ describe('lib/test-utilities', () => {
 				}
 			});
 
-			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
+			const testutilities = require('../../../src/util/test-utilities').default;
 
 			// send valid user
 			expect(testutilities.createTestAuth0JWT('customerservice.user@test.com', 'a_secret_key')).to.equal(getValidJWT());
@@ -182,7 +182,7 @@ describe('lib/test-utilities', () => {
 				}
 			});
 
-			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
+			const testutilities = require('../../../src/util/test-utilities').default;
 
 			// send valid user
 			expect(testutilities.createTestAuth0JWT('unknown.user@test.com', 'a_secret_key')).to.equal(getValidJWT());
@@ -199,7 +199,7 @@ describe('lib/test-utilities', () => {
 				}
 			});
 
-			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
+			const testutilities = require('../../../src/util/test-utilities').default;
 
 			// send invalid user
 			try {
@@ -220,7 +220,7 @@ describe('lib/test-utilities', () => {
 				}
 			});
 
-			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
+			const testutilities = require('../../../src/util/test-utilities').default;
 
 			expect(testutilities.createTestTransactionJWT()).to.equal(getValidJWT());
 		});
@@ -238,7 +238,7 @@ describe('lib/test-utilities', () => {
 				}
 			});
 
-			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
+			const testutilities = require('../../../src/util/test-utilities').default;
 
 			expect(testutilities.getSearchParameters('a_path')).to.equal('Example data');
 		});
@@ -252,7 +252,7 @@ describe('lib/test-utilities', () => {
 			const file = require(path);
 			const query = file.body;
 
-			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
+			const testutilities = require('../../../src/util/test-utilities').default;
 
 			expect(testutilities.getQuery(path)).to.deep.equal(query);
 		});
@@ -261,7 +261,6 @@ describe('lib/test-utilities', () => {
 	describe('generateJWT', () => {
 
 		it('throws error when token is invalid', () => {
-
 			mockery.registerMock('jsonwebtoken', {
 				sign: () => {
 					return 'an_invalid_token';
@@ -271,7 +270,7 @@ describe('lib/test-utilities', () => {
 				}
 			});
 
-			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
+			const testutilities = require('../../../src/util/test-utilities').default;
 
 			try {
 				testutilities.generateJWT('a_body', 'a_secret');
@@ -287,7 +286,7 @@ describe('lib/test-utilities', () => {
 			const validate = global.SixCRM.validate;
 			global.SixCRM.validate = () => true;
 
-			const testutilities = global.SixCRM.routes.include('lib', 'test-utilities.js');
+			const testutilities = require('../../../src/util/test-utilities').default;
 
 			expect(testutilities.validateGraphResponse('a_response', 'a_graph_model_name')).to.be.true;
 			global.SixCRM.validate = validate;
