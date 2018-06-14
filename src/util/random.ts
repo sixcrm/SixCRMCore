@@ -4,7 +4,7 @@ import eu from './error-utilities';
 
 export default class Random {
 
-	static createRandomString(length: number, charset: string = 'alphanumeric', capitalization: string = 'uppercase') {
+	static createRandomString(length: number = 32, charset: string = 'alphanumeric', capitalization: string = 'uppercase') {
 
 		return rs.generate({
 			readable: true,
@@ -40,16 +40,12 @@ export default class Random {
 
 	}
 
-	static randomDouble(min, max, precision) {
-
-		if (_.isUndefined(precision)) {
-			precision = 2;
-		}
+	static randomDouble(min, max, precision = 2) {
 
 		if (min !== parseInt(min, 10)) { throw eu.getError('validation', 'Minimum input is not an integer.'); }
 		if (max !== parseInt(max, 10)) { throw eu.getError('validation', 'Maximum input is not an integer.'); }
 
-		if (precision !== parseInt(precision, 10)) { throw eu.getError('validation', 'Precision input is not an integer.'); }
+		if (precision !== parseInt(precision.toString(), 10)) { throw eu.getError('validation', 'Precision input is not an integer.'); }
 
 		return parseFloat(Math.min(min + (Math.random() * (max - min)), max).toFixed(precision));
 

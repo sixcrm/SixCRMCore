@@ -1,24 +1,13 @@
-let Random = global.SixCRM.routes.include('lib', 'random.js');
-let chai = require('chai');
-let expect = chai.expect;
+import Random from '../../../src/util/random';
+import * as chai from 'chai';
+const expect = chai.expect;
 
-chai.Assertion.addProperty('uppercase', function() {
-	const obj = this._obj;
-
-	new chai.Assertion(obj).to.be.a('string');
-
-	this.assert(
-		obj === obj.toUpperCase(),
-		'expected #{this} to be all uppercase',
-		'expected #{this} to not be all uppercase'
-	);
-});
+function expectUppercase(s: string) {
+	expect(s).to.be.a('string');
+	expect(s.toUpperCase()).to.equal(s, 'expected ' + s + ' to be all uppercase');
+}
 
 describe('lib/random', () => {
-
-	describe('', () => {
-
-	});
 
 	it('should create random string of given length', () => {
 		expect(Random.createRandomString(5)).to.have.lengthOf(5);
@@ -38,14 +27,13 @@ describe('lib/random', () => {
 
 	it('should create strings without lowercase letters', () => {
 		for (let i = 0; i < 100; i++) {
-			expect(Random.createRandomString()).to.be.uppercase;
+			expectUppercase(Random.createRandomString());
 		}
 	});
 
 	it('should create only alphanumeric strings', () => {
 		for (let i = 0; i < 100; i++) {
-			expect(Random.createRandomString()).not.to.include
-				.members['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '.', '-', '/'];
+			expect(Random.createRandomString()).to.match(/^[A-Za-z0-9]*$/);
 		}
 	});
 
@@ -115,7 +103,7 @@ describe('lib/random', () => {
 
 		it('returns error when precision input is not an integer', () => {
 			try {
-				Random.randomDouble(1, 2, '3');
+				Random.randomDouble(1, 2, '3' as any);
 			} catch (error) {
 				expect(error.message).to.equal('[500] Precision input is not an integer.');
 			}

@@ -7,21 +7,23 @@ describe('lib/xml-utilities', () => {
 
 	const valid_xml_string_1 = "<root>Test</root>";
 
-	const valid_xml_string_2 = "<note>\n" +
-            "<to>John</to>\n" +
-            "<from>Jane</from>\n" +
-            "<heading>Reminder</heading>\n" +
-            "<body>Example</body>\n" +
-        "</note>";
+	const valid_xml_string_2 =
+		"<note>\n" +
+			"<to>John</to>\n" +
+			"<from>Jane</from>\n" +
+			"<heading>Reminder</heading>\n" +
+			"<body>Example</body>\n" +
+		"</note>";
 
-	const valid_xml_string_3 = "<characters>\n" +
-            "<character>\n" +
-                "<name>John</name>\n" +
-            "</character>\n" +
-            "<character>\n" +
-                "<name>Jane</name>\n" +
-            "</character>\n" +
-        "</characters>";
+	const valid_xml_string_3 =
+		"<characters>\n" +
+			"<character>\n" +
+				"<name>John</name>\n" +
+			"</character>\n" +
+			"<character>\n" +
+				"<name>Jane</name>\n" +
+			"</character>\n" +
+		"</characters>";
 
 	describe('parse', () => {
 

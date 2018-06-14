@@ -5,7 +5,7 @@ import arrayutilities from './array-utilities';
 
 export default class ParserUtilities {
 
-	static parse(content, data, parse_explicit) {
+	static parse(content, data, parse_explicit = false) {
 
 		du.debug('Parse');
 
@@ -83,11 +83,9 @@ export default class ParserUtilities {
 
 	}
 
-	static getTokenValue(token, data, parse_explicit) {
+	static getTokenValue(token, data, parse_explicit = false) {
 
 		du.debug('Get Token Value');
-
-		parse_explicit = (_.isUndefined(parse_explicit) || _.isNull(parse_explicit)) ? false : parse_explicit;
 
 		let data_subset = data;
 

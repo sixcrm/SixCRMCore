@@ -22,7 +22,7 @@ describe('lib/munge-utilities', () => {
 
 	it('checks whether transformed data is a string', () => {
 
-		const mungeUtilities = global.SixCRM.routes.include('lib', 'munge-utilities.js');
+		const mungeUtilities = require('../../../lib/util/munge-utilities');
 
 		expect(mungeUtilities.munge('a_munge_string')).to.be.a('string');
 
@@ -30,13 +30,13 @@ describe('lib/munge-utilities', () => {
 
 	it('checks whether data transformation was successful', () => {
 
-		mockery.registerMock(global.SixCRM.routes.path('lib', 'random.js'), {
+		mockery.registerMock('../../../lib/util/random', {
 			createRandomString: () => {
 				return 'a_random_string';
 			}
 		});
 
-		const mungeUtilities = global.SixCRM.routes.include('lib', 'munge-utilities.js');
+		const mungeUtilities = require('../../../lib/util/munge-utilities');
 
 		const hash = mungeUtilities.munge('a_munge_string');
 

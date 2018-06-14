@@ -1,10 +1,10 @@
 import * as chai from 'chai';
 const expect = chai.expect;
+import serverlessutilities from '../../../src/util/serverless-utilities';
 
 describe('lib/serverless-utilities', () => {
 
 	it('throws error when specified function is invalid', () => {
-		import serverlessutilities from '../../../src/util/serverless-utilities';
 
 		try {
 			serverlessutilities.loadConfig('a_stage', 'non_existing_function');

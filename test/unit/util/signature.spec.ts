@@ -1,6 +1,6 @@
-let Signature = global.SixCRM.routes.include('lib', 'signature.js');
-let chai = require('chai');
-let expect = chai.expect;
+import Signature from '../../../src/util/signature';
+import * as chai from 'chai';
+const expect = chai.expect;
 
 describe('lib/signature', () => {
 	describe('createSignature', () => {

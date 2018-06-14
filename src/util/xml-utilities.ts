@@ -1,16 +1,14 @@
 import * as _ from 'lodash';
-import xml2js from 'xml2js';
+import * as xml2js from 'xml2js';
 import du from './debug-utilities';
 import eu from './error-utilities';
 
 export default class XMLUtilities {
 
-	static parse(xml_string, fatal) {
+	static parse(xml_string, fatal = false) {
 
 		let error: any = null;
 		let json = null;
-
-		fatal = (_.isUndefined(fatal)) ? false : fatal;
 
 		try {
 

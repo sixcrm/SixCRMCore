@@ -1,6 +1,6 @@
-let PolicyResponse = global.SixCRM.routes.include('lib', 'policy_response.js');
-let chai = require('chai');
-let expect = chai.expect;
+import PolicyResponse from '../../../src/util/policy_response';
+import * as chai from 'chai';
+const expect = chai.expect;
 
 const anyPrincipalId = 'user';
 const anyEffect = 'effect';
@@ -28,13 +28,11 @@ describe('lib/policy_response', () => {
 		it('should generate a policy without a policy document when effect and resource are undefined', () => {
 			// given
 			const aPrincipalId = anyPrincipalId;
-			let anEffect;
-			let aResource;
 			const aUser = anyUser;
 			const expectedResponse = anyPolicyResponseWithoutPolicyDocument();
 
 			// when
-			const generatedPolicy = PolicyResponse.generatePolicy(aPrincipalId, anEffect, aResource, aUser);
+			const generatedPolicy = PolicyResponse.generatePolicy(aPrincipalId, undefined, undefined, aUser);
 
 			// then
 			expect(generatedPolicy).to.deep.equal(expectedResponse);

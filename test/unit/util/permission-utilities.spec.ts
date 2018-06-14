@@ -1,7 +1,7 @@
 import PermissionUtilities from '../../../src/util/permission-utilities';
 import PermissionTestGenerators from './permission-test-generators';
 import * as chai from 'chai';
-let expect = chai.expect;
+const expect = chai.expect;
 
 describe('lib/permission-utilities', () => {
 

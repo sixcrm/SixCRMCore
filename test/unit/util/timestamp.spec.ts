@@ -1,9 +1,8 @@
-
 import * as chai from 'chai';
 const expect = chai.expect;
-const moment = require('moment');
+import * as moment from 'moment';
 
-const timestamp = global.SixCRM.routes.include('lib', 'timestamp.js');
+import timestamp from '../../../src/util/timestamp';
 
 const frozenNow = 1487768599196;  // '2017-02-22T13:03:19.196Z';
 const frozenNowAsISO8601 = '2017-02-22T13:03:19.196Z';
@@ -59,7 +58,7 @@ describe('lib/timestamp', () => {
 
 			const yesterday  = timestamp.yesterday();
 
-			expect(timestamp.isToday(yesterday, 10)).to.equal(false);
+			expect(timestamp.isToday(yesterday)).to.equal(false);
 
 		});
 
