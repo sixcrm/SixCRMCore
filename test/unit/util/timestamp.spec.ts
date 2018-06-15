@@ -3,6 +3,7 @@ const expect = chai.expect;
 import * as moment from 'moment';
 
 import timestamp from '../../../src/util/timestamp';
+import stringutilities from '../../../src/util/string-utilities';
 
 const frozenNow = 1487768599196;  // '2017-02-22T13:03:19.196Z';
 const frozenNowAsISO8601 = '2017-02-22T13:03:19.196Z';
@@ -262,5 +263,39 @@ describe('lib/timestamp', () => {
 		function nowInMilliseconds() {
 			return timestamp.createTimestampMilliseconds();
 		}
+	});
+
+	describe('upcoming', () => {
+
+		it('gets upcoming Friday', () => {
+
+			const upcoming_friday = timestamp.upcoming('Friday');
+
+			expect(upcoming_friday).to.be.a('string');
+
+			expect(stringutilities.isISO8601(upcoming_friday)).to.equal(true);
+
+		});
+
+		it('gets next Friday', () => {
+
+			const next_friday = timestamp.upcoming('Friday', 1);
+
+			expect(next_friday).to.be.a('string');
+
+			expect(stringutilities.isISO8601(next_friday)).to.equal(true);
+
+		});
+
+		it('gets next Friday at 3PM', () => {
+
+			const next_friday = timestamp.upcoming('Friday', 1, '3:21 PM');
+
+			expect(next_friday).to.be.a('string');
+
+			expect(stringutilities.isISO8601(next_friday)).to.equal(true);
+
+		});
+
 	});
 });

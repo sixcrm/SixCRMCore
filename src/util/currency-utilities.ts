@@ -1,9 +1,32 @@
 import * as _ from 'lodash';
 import du from './debug-utilities';
+import eu from './error-utilities';
 import numberutilities from './number-utilities';
 import stringutilities from './string-utilities';
 
 export default class CurrencyUtilities {
+
+	static isCurrency(currency: string, fatal = false) {
+
+		du.debug('Is Currency');
+
+		const re = /\b\d{1,3}(?:,?\d{3})*(?:\.\d{2})?\b/;
+
+		if (re.test(currency)) {
+
+			return true;
+
+		}
+
+		if (fatal) {
+
+			throw eu.getError('server', 'Not currency: ' + currency);
+
+		}
+
+		return false;
+
+	}
 
 	static toCurrency(value: string | number, fatal: boolean = false) {
 

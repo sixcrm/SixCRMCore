@@ -336,4 +336,32 @@ export default class Timestamp {
 
 	}
 
+	static upcoming(dayname: string, week_offset = 0, at?: string) {
+
+		const day_translation = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+
+		if (!_.includes(day_translation, _.toLower(dayname))) {
+
+			throw eu.getError('server', 'Bad day name: ' + dayname);
+
+		}
+
+		week_offset = (week_offset * 7);
+
+		const beginning_of_day = moment().utc().day(_.indexOf(day_translation, _.toLower(dayname)) + week_offset).startOf('day');
+
+		if (at !== undefined) {
+
+			const time = moment(at, 'HH:mm a').utc();
+
+			beginning_of_day.add(time.hour(), 'hours');
+
+			beginning_of_day.add(time.minute(), 'minutes');
+
+		}
+
+		return this.castToISO8601(beginning_of_day.toDate());
+
+	}
+
 }
