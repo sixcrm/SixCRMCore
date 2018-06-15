@@ -209,7 +209,7 @@ export default class Configuration {
 
 			du.debug(`getEnvironmentConfig: ${field} = ${process.env[field]}`);
 
-			return process.env[field];
+			return Promise.resolve(process.env[field]);
 
 		}
 
