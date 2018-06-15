@@ -2,15 +2,15 @@
   "name": "@sixcrm/sixcrmcore",
   "version": "0.0.1",
   "description": "Core components for SixCRM backend.",
-  "main": "lib/SixCRM.js",
+  "main": "SixCRM.js",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "test": "mocha --require ts-node/register --require test/unit/dependencies.ts \"test/unit/**/*.spec.ts\"",
     "lint": "tslint \"src/**/*.ts\"; tslint \"test/**/*.ts\"",
     "lint-fix": "tslint \"src/**/*.ts\"; tslint \"test/**/*.ts\" --fix",
-    "compile": "tsc"
+    "compile": "tsc",
+    "test": "mocha --require ts-node/register --require test/unit/dependencies.ts \"test/unit/**/*.spec.ts\""
   },
   "repository": {
     "type": "git",
