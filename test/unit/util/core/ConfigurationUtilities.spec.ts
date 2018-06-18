@@ -50,17 +50,19 @@ describe('core/ConfigurationUtilities.js', () => {
 
 	describe('resolveStage', () => {
 
-		let stage;
+		let env;
 
 		before(() => {
-			stage = process.env.stage;
+			env = process.env;
 		});
 
 		after(() => {
-			process.env.stage = stage;
+			process.env = env;
 		});
 
 		it('returns "local" when stage value is null', () => {
+
+			delete process.env.CIRCLECI;
 
 			const configurationUtilities = new ConfigurationUtilities(global.SixCRM.routes);
 

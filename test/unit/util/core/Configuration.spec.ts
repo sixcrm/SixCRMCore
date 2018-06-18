@@ -149,6 +149,10 @@ describe('core/Configuration.js', () => {
 				delete process.env.CIRCLE_BRANCH;
 			}
 
+			if (!_.isUndefined(process.env.CIRCLECI) && !_.isNull(process.env.CIRCLECI)) {
+				delete process.env.CIRCLECI;
+			}
+
 			const configuration = new Configuration(global.SixCRM.routes);
 
 			expect(configuration.stage).to.equal('local');

@@ -51,11 +51,11 @@ export default class Configuration {
 
 			} else {
 
-				stage = this.determineStageFromBranchName();
+				stage = this.determineStageFromBranchName(false);
 
 				if (_.isNull(stage)) {
 
-					stage = this.determineStageFromAccountIdentifier();
+					stage = this.determineStageFromAccountIdentifier(false);
 
 				}
 
@@ -64,7 +64,12 @@ export default class Configuration {
 		}
 
 		if (_.isNull(stage) || _.isUndefined(stage)) {
-			stage = 'local';
+			if (process.env.CIRCLECI) {
+				stage = 'circle';
+			}
+			else {
+				stage = 'local';
+			}
 		}
 
 		du.warning('Stage: ' + stage);
