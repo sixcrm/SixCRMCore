@@ -20,6 +20,9 @@ jobs:
           name: lint
           command: npm run lint
       - run:
+          name: types-check
+          command: npm run types-check
+      - run:
           name: compile
           command: npm run compile
       - run:
