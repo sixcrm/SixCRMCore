@@ -9,6 +9,8 @@
   "scripts": {
     "lint": "tslint \"src/**/*.ts\"; tslint \"test/**/*.ts\"",
     "lint-fix": "tslint \"src/**/*.ts\"; tslint \"test/**/*.ts\" --fix",
+    "types-check": "tscheck -N -D -e",
+    "types-check-fix": "tscheck -N -D -a",
     "compile": "tsc",
     "test": "mocha --require ts-node/register --require test/unit/dependencies.ts \"test/unit/**/*.spec.ts\""
   },
@@ -57,6 +59,7 @@
     "testdouble": "^3.8.1",
     "ts-node": "^6.1.0",
     "tslint": "^5.10.0",
+    "types-checker": "0.0.9",
     "typescript": "^2.9.1"
   }
 }
