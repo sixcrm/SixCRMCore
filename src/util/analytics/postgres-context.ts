@@ -2,7 +2,7 @@ import * as pg from 'pg';
 import du from '../debug-utilities';
 import eu from '../error-utilities';
 import { RedshiftConnection } from '@adexchange/aeg-redshift';
-import moment from 'moment-timezone';
+import * as moment from 'moment-timezone';
 import { IRedshiftConnectionOptions } from '@adexchange/aeg-redshift/lib/redshift-connection';
 
 // timestamp
