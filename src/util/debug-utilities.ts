@@ -119,7 +119,7 @@ export default class DebugUtilities {
 			timestamp: moment().toISOString(),
 			message,
 			context,
-			level,
+			level: LogLevel[level],
 			error_code,
 			stack,
 			// class,
