@@ -62,7 +62,10 @@ class SixCRM {
 			throw eu.getError(
 				'server',
 				`One or more validation errors occurred: ${error_message}`,
-				{issues: errors.map((e) => e.message)}
+				{
+					issues: errors.map((e) => e.message),
+					data
+				}
 			);
 		}
 
