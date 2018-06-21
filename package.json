@@ -7,8 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "lint": "tslint \"src/**/*.ts\"; tslint \"test/**/*.ts\"",
-    "lint-fix": "tslint \"src/**/*.ts\"; tslint \"test/**/*.ts\" --fix",
+    "lint": "tslint \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint-fix": "tslint --fix \"src/**/*.ts\" \"test/**/*.ts\"",
     "types-check": "tscheck -N -D -e",
     "types-check-fix": "tscheck -N -D -a",
     "compile": "tsc",

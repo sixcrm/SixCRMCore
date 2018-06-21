@@ -5,7 +5,7 @@ import eu from './error-utilities';
 
 export default class StringUtilities {
 
-	static getBytes(thing: string, fatal: boolean = true){
+	static getBytes(thing: string, fatal: boolean = true) {
 
 		this.isString(thing, fatal);
 
