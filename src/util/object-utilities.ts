@@ -153,17 +153,13 @@ export default class ObjectUtilities {
 	}
 
 	// Technical Debt:  Test Me!
-	static transcribe(mapping_object, source_object, return_object, fatal = false) {
+	static transcribe(mapping_object: object, source_object: object, return_object: object = {}, fatal = false) {
 
 		du.debug('Transcribe');
 
 		this.isObject(mapping_object, true);
 
 		this.isObject(source_object, true);
-
-		if (_.isUndefined(return_object) || _.isNull(return_object)) {
-			return_object = {};
-		}
 
 		this.map(mapping_object, (key) => {
 

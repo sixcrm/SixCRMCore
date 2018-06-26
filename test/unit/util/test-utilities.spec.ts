@@ -1,6 +1,6 @@
 import * as chai from 'chai';
 const expect = chai.expect;
-const mockery = require('mockery');
+import * as mockery from 'mockery';
 
 function getValidRoleConfigForOwnerRole() {
 	return {
