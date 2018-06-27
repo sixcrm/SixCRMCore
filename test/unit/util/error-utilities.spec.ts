@@ -2,8 +2,6 @@ import * as chai from 'chai';
 const expect = chai.expect;
 import eu from '../../../src/util/error-utilities';
 
-const webhookUrl = 'https://hooks.slack.com/services/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';
-
 describe('lib/error-utilities', () => {
 
 	describe('getErrorByName', () => {

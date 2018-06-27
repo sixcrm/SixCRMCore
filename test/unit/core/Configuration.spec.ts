@@ -1,8 +1,5 @@
 import * as chai from 'chai';
 const expect = chai.expect;
-import arrayutilities from '../../../src/util/array-utilities';
-import objectutilities from '../../../src/util/object-utilities';
-import randomutilities from '../../../src/util/random';
 import Configuration from '../../../src/Configuration';
 import Routes from '../../../src/routes';
 
