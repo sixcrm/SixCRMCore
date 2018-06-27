@@ -32,6 +32,7 @@ jobs:
       - deploy:
           name: deploy
           command: |
+            set -ex
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               git config --global user.email $GIT_EMAIL
               git config --global user.name $GIT_USER
@@ -39,5 +40,5 @@ jobs:
               cd lib
               npm version 0.0.$CIRCLE_BUILD_NUM
               # git push --tags
-              npm publish
+              npm publish --verbose
             fi
