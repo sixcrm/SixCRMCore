@@ -3,7 +3,6 @@ import 'source-map-support/register';
 import du from './util/debug-utilities';
 import Routes from './routes';
 import Configuration from './Configuration';
-import LocalCache from './LocalCache';
 import ajv from './ajv-provider';
 import arrayutilities from './util/array-utilities';
 import eu from './util/error-utilities';
@@ -13,7 +12,6 @@ class SixCRM {
 	routes: Routes;
 	_resources: Map<string, any>;
 	configuration: Configuration;
-	localcache: LocalCache;
 	validator: typeof ajv;
 
 	constructor() {
@@ -22,7 +20,6 @@ class SixCRM {
 		this._resources = new Map();
 
 		this.configuration = new Configuration(this.routes);
-		this.localcache = new LocalCache();
 		this.validator = ajv;
 	}
 
