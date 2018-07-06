@@ -62,12 +62,6 @@ export default class Timestamp {
 
 	}
 
-	static today() {
-
-		return moment.utc().toISOString();
-
-	}
-
 	static subtractDays(days, now = moment.utc()) {
 
 		return now.subtract(days, 'd').toISOString();
@@ -139,7 +133,7 @@ export default class Timestamp {
 
 	static getPreviousMonthEnd() {
 
-		return moment.utc().subtract(1, 'month').toISOString();
+		return moment.utc().subtract(1, 'month').endOf('month').toISOString();
 
 	}
 
