@@ -109,6 +109,8 @@ export class TestUtilities {
 			active: true,
 			permissions: {
 				allow: [
+					"accesskey/read",
+					"campaign/read",
 					"customer/*",
 					"customernote/*",
 					"creditcard/read",
