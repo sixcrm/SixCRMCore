@@ -107,8 +107,6 @@ export default class ObjectUtilities {
 	// Technical Debt:  Test Me!
 	static has(object, properties, fatal = false) {
 
-		du.debug('Has');
-
 		if (!this.isObject(object, fatal)) {
 			return false;
 		}
@@ -186,8 +184,6 @@ export default class ObjectUtilities {
 	// Technical Debt:  Test Me!
 	static map(object: object, map_function: (key: string) => any) {
 
-		du.debug('Map');
-
 		this.isObject(object, true);
 
 		if (!_.isFunction(map_function)) {
@@ -208,8 +204,6 @@ export default class ObjectUtilities {
 
 	static getKey(object, key, fatal = false) {
 
-		du.debug('Get Key');
-
 		if (this.hasRecursive(object, key, fatal)) {
 
 			if (!_.isArray(key)) {
@@ -227,8 +221,6 @@ export default class ObjectUtilities {
 	}
 
 	static hasRecursive(object: object, key: string | string[], fatal: boolean = false) {
-
-		du.debug('Has Recursive');
 
 		if (!(key instanceof Array)) {
 			if (typeof key === 'string') {
@@ -274,8 +266,6 @@ export default class ObjectUtilities {
 
 	static getRecursive(object, key: string | string[], fatal = false) {
 
-		du.debug('Get Recursive');
-
 		if (!(key instanceof Array)) {
 			if (typeof(key) === 'string') {
 				key = key.split('.');
@@ -320,8 +310,6 @@ export default class ObjectUtilities {
 
 	static setRecursive(object, key: string | string[], value: any, fatal = false) {
 
-		du.debug('Set Recursive');
-
 		if (!(key instanceof Array)) {
 			if (typeof(key) === 'string') {
 				key = key.split('.');
@@ -365,8 +353,6 @@ export default class ObjectUtilities {
 
 	static getParentClassName(object) {
 
-		du.debug('Get Parent Class Name');
-
 		this.isObject(object, true);
 
 		if (!_.has(object, 'constructor') && _.has(object.constructor, 'name')) {
@@ -386,8 +372,6 @@ export default class ObjectUtilities {
 	}
 
 	static getClassName(object) {
-
-		du.debug('Get Class Name');
 
 		this.isObject(object, true);
 
@@ -480,8 +464,6 @@ export default class ObjectUtilities {
 
 	static isObject(thing, fatal = false) {
 
-		du.debug('Is Object');
-
 		if (_.isObject(thing)) {
 
 			return true;
@@ -500,8 +482,6 @@ export default class ObjectUtilities {
 
 	static getKeys(object) {
 
-		du.debug('Get Keys');
-
 		this.isObject(object, true);
 
 		return Object.keys(object);
@@ -510,8 +490,6 @@ export default class ObjectUtilities {
 
 	static getValues(object) {
 
-		du.debug('Get Values');
-
 		this.isObject(object, true);
 
 		return Object.keys(object).map((key) => object[key]);
@@ -519,8 +497,6 @@ export default class ObjectUtilities {
 	}
 
 	static getObjectType(object) {
-
-		du.debug('Get Object Type');
 
 		if (_.isArray(object)) {
 			return 'array';
