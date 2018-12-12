@@ -19,9 +19,9 @@ jobs:
       - run:
           name: lint
           command: npm run lint
-      - run:
-          name: types-check
-          command: npm run types-check
+      # - run:
+      #     name: types-check
+      #     command: npm run types-check
       - run:
           name: compile
           command: npm run compile
@@ -36,8 +36,6 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               git config --global user.email $GIT_EMAIL
               git config --global user.name $GIT_USER
-              cp package.json lib
-              cd lib
               npm version 0.0.$CIRCLE_BUILD_NUM
               # git push --tags
               npm publish --verbose
