@@ -9,8 +9,8 @@
   "scripts": {
     "lint": "tslint \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint-fix": "tslint --fix \"src/**/*.ts\" \"test/**/*.ts\"",
-    "types-check": "tscheck -N -D -e",
-    "types-check-fix": "tscheck -N -D -a",
+    "types-check": "tscheck -D -e",
+    "types-check-fix": "tscheck -D -a",
     "compile": "tsc",
     "test": "mocha --require ts-node/register --require test/unit/dependencies.ts \"test/unit/**/*.spec.ts\""
   },
@@ -59,6 +59,7 @@
     "@types/pg": "^7.4.9",
     "@types/randomstring": "^1.1.6",
     "@types/request": "^2.47.1",
+    "@types/serverless": "^1.18.0",
     "@types/source-map-support": "^0.4.1",
     "@types/striptags": "^3.1.1",
     "@types/uuid": "^3.4.3",
@@ -68,7 +69,6 @@
     "chai-json-schema": "^1.5.0",
     "mocha": "^5.2.0",
     "mockery": "^2.1.0",
-    "node-typescript": "^0.1.3",
     "nyc": "^12.0.2",
     "ts-node": "^6.1.0",
     "tslint": "^5.10.0",

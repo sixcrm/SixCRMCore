@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import serverless from 'serverless';
+import * as serverless from 'serverless';
 import du from './debug-utilities';
 import eu from './error-utilities';
 

@@ -17,3 +17,5 @@ tsconfig.json
 tslint.json
 .nyc_output
 serverless.yml
+yarn.lock
+yarn-error.log
