@@ -3,31 +3,31 @@ jobs:
   build:
     working_directory: ~/sixcrmcore
     docker:
-      - image: circleci/node:8.12
+      - image: circleci/node:8.10
     steps:
       - checkout
       - restore_cache:
-          key: node_modules-{{ checksum "package-lock.json" }}
+          key: node_modules-{{ checksum "yarn.lock" }}
       - run:
-          name: npm ci
-          command: echo //registry.npmjs.org/:_authToken=$NPM_TOKEN >> ~/.npmrc && npm install
+          name: install
+          command: echo //registry.npmjs.org/:_authToken=$NPM_TOKEN >> ~/.npmrc && yarn install
       - save_cache:
-          key: node_modules-{{ checksum "package-lock.json" }}
+          key: node_modules-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
 
       - run:
           name: lint
-          command: npm run lint
-      # - run:
-      #     name: types-check
-      #     command: npm run types-check
+          command: yarn run lint
+      - run:
+          name: types-check
+          command: yarn run types-check
       - run:
           name: compile
-          command: npm run compile
+          command: yarn run compile
       - run:
           name: test
-          command: npm run test
+          command: yarn run test
 
       - deploy:
           name: deploy
@@ -36,7 +36,7 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               git config --global user.email $GIT_EMAIL
               git config --global user.name $GIT_USER
-              npm version 0.0.$CIRCLE_BUILD_NUM
+              # yarn version --new-version 0.0.$CIRCLE_BUILD_NUM
               # git push --tags
-              npm publish --verbose
+              yarn publish --new-version 0.0.$CIRCLE_BUILD_NUM
             fi
