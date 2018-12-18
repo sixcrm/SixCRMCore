@@ -2,7 +2,7 @@
   "name": "@6crm/sixcrmcore",
   "version": "0.0.1",
   "description": "Core components for SixCRM backend.",
-  "main": "SixCRM.js",
+  "main": "lib/SixCRM.js",
   "directories": {
     "lib": "lib"
   },
