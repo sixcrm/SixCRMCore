@@ -1,5 +1,4 @@
 import * as _ from 'lodash';
-import * as config from 'config';
 import du from './util/debug-utilities';
 import eu from './util/error-utilities';
 import objectutilities from './util/object-utilities';
@@ -313,6 +312,8 @@ export default class Configuration {
 
 	getSiteConfig() {
 		du.debug('Get Site Config');
+		process.env.NODE_ENV = this.stage;
+		const config = require('config');
 		return config;
 	}
 
