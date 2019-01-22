@@ -1,4 +1,4 @@
-local:
+offline:
   local: true
 circle:
   local: true
