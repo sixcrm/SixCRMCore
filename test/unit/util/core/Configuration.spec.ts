@@ -133,7 +133,7 @@ describe('core/Configuration.js', () => {
 
 		});
 
-		it('successfully identifies the stage (local) in absence of branch name or ', () => {
+		it('successfully identifies the stage (offline) in absence of branch name or ', () => {
 
 			// let stages = global.SixCRM.routes.include('config', 'stages.yml');
 
@@ -155,7 +155,7 @@ describe('core/Configuration.js', () => {
 
 			const configuration = new Configuration(global.SixCRM.routes);
 
-			expect(configuration.stage).to.equal('local');
+			expect(configuration.stage).to.equal('offline');
 
 		});
 

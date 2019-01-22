@@ -60,13 +60,13 @@ describe('core/ConfigurationUtilities.js', () => {
 			process.env = env;
 		});
 
-		it('returns "local" when stage value is null', () => {
+		it('returns "offline" when stage value is null', () => {
 
 			delete process.env.CIRCLECI;
 
 			const configurationUtilities = new ConfigurationUtilities(global.SixCRM.routes);
 
-			expect(configurationUtilities.resolveStage(null)).to.equal('local');
+			expect(configurationUtilities.resolveStage(null)).to.equal('offline');
 		});
 	});
 

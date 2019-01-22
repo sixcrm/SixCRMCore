@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import * as config from 'config';
 import du from './util/debug-utilities';
 import eu from './util/error-utilities';
 import objectutilities from './util/object-utilities';
@@ -68,7 +69,7 @@ export default class Configuration {
 				stage = 'circle';
 			}
 			else {
-				stage = 'local';
+				stage = 'offline';
 			}
 		}
 
@@ -311,19 +312,8 @@ export default class Configuration {
 	}
 
 	getSiteConfig() {
-
 		du.debug('Get Site Config');
-
-		let config;
-
-		try {
-			config = this.routes.include('config', this.stage + '/site.yml');
-		} catch (error) {
-			throw eu.getError('server', 'Configuration.getSiteConfig was unable to identify file ' + this.routes.path('config', this.stage + '/site.yml'));
-		}
-
 		return config;
-
 	}
 
 }
