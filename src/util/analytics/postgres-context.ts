@@ -118,31 +118,23 @@ export default class PostgresContext {
 
 			const config = global.SixCRM.configuration.site_config[this._configRoot];
 
-			if (!config.host) {
+			du.debug('PostgresContext._createConnection(): fetching host');
 
-				du.debug('PostgresContext._createConnection(): fetching host');
+			global.SixCRM.configuration.getEnvironmentConfig(`${this._configRoot}_host`)
+				.then((host) => {
 
-				global.SixCRM.configuration.getEnvironmentConfig(`${this._configRoot}_host`)
-					.then((host) => {
+					du.debug('PostgresContext._createConnection(): host fetched', host);
 
-						du.debug('PostgresContext._createConnection(): host fetched', host);
+					config.host = host || config.host;
 
-						config.host = host;
+					return resolve(config);
 
-						return resolve(config);
+				})
+				.catch((ex) => {
 
-					})
-					.catch((ex) => {
+					reject(ex);
 
-						reject(ex);
-
-					});
-
-			} else {
-
-				resolve(config);
-
-			}
+				});
 
 		});
 
