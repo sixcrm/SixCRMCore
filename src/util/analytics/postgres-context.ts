@@ -114,29 +114,15 @@ export default class PostgresContext {
 
 	_resolveConfiguration(): Promise<IRedshiftConnectionOptions> {
 
-		return new Promise((resolve, reject) => {
+		const config = global.SixCRM.configuration.site_config[this._configRoot];
 
-			const config = global.SixCRM.configuration.site_config[this._configRoot];
+		if (process.env.AURORA_PROXY === 'true') {
 
-			du.debug('PostgresContext._createConnection(): fetching host');
+			config.host = '127.0.0.1';
 
-			global.SixCRM.configuration.getEnvironmentConfig(`${this._configRoot}_host`)
-				.then((host) => {
+		}
 
-					du.debug('PostgresContext._createConnection(): host fetched', host);
-
-					config.host = host || config.host;
-
-					return resolve(config);
-
-				})
-				.catch((ex) => {
-
-					reject(ex);
-
-				});
-
-		});
+		return Promise.resolve(config);
 
 	}
 
