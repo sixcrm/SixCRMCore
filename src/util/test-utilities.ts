@@ -8,9 +8,6 @@ import timestamp from './timestamp';
 import du from './debug-utilities';
 import eu from './error-utilities';
 
-import * as chaijson from 'chai-json-schema';
-chai.use(chaijson);
-
 export class TestUtilities {
 
 	skip: string[];

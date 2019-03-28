@@ -22,7 +22,7 @@ export default class HashUtilities {
 		if (stringutilities.isString(string, false)) {
 			return crypto.createHash('sha1').update(string).digest('hex');
 		} else if (_.isObject(string)) {
-			string = new Buffer(string, 'binary').toString();
+			string = new Buffer(string as any, 'binary').toString();
 			return crypto.createHash('sha1').update(string).digest('hex');
 		}
 
@@ -37,7 +37,7 @@ export default class HashUtilities {
 		if (stringutilities.isString(string)) {
 			return new Buffer(string).toString('base64');
 		} else if (_.isObject(string)) {
-			return new Buffer(string, 'binary').toString('base64');
+			return new Buffer(string as any, 'binary').toString('base64');
 		}
 
 		throw eu.getError('server', 'Unrecognized argument type.');
